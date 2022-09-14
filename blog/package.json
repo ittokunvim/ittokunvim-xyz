@@ -1,0 +1,23 @@
+{
+  "name": "blog-ittoku-tech",
+  "version": "0.0.1",
+  "description": "Blog web application",
+  "keywords": [
+    "Blog",
+    "nodejs"
+  ],
+  "homepage": "https://blog.ittoku-tech.com",
+  "url": "https://github.com/ittoku-ky73/ittoku-tech/issues",
+  "license": "MIT",
+  "author": "ittoku-ky73",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ittoku-ky73/ittoku-tech.git",
+    "directory": "blog"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {}
+}
