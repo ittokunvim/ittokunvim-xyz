@@ -39,4 +39,4 @@
 
 **2022/09/18**
 
-nodemon実装OK❗️簡単だった😀mocha（テストフレームワーク）も導入完了✌️入れるのは簡単だったけどテスト自体を書くのは難しそう。けどプログラマならテストぐらい書けるようにならなくては、ね🤌
+nodemon実装OK❗️簡単だった😀mocha（テストフレームワーク）も導入完了✌️入れるのは簡単だったけどテスト自体を書くのは難しそう。けどプログラマならテストぐらい書けるようにならなくては、ね🤌template engineは`pug`にします！`ejs`もいいかなと思ったけど`extends layout`ができないっぽいので断念🥲
