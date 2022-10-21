@@ -18,7 +18,8 @@
   },
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "nodemon ./bin/www",
+    "dev": "DEBUG=dev:* nodemon ./bin/www",
+    "debug": "DEBUG=* nodemon ./bin/www",
     "test": "mocha -R nyan"
   },
   "dependencies": {
