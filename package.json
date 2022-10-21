@@ -7,14 +7,13 @@
     "nodejs"
   ],
   "homepage": "https://blog.ittoku-tech.com",
-  "url": "https://github.com/ittoku-ky73/ittoku-tech/issues",
+  "url": "https://github.com/ittoku-ky73/blog-ittoku-tech/issues",
   "license": "MIT",
   "author": "ittoku-ky73",
   "main": "bin/www",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ittoku-ky73/ittoku-tech.git",
-    "directory": "blog"
+    "url": "https://github.com/ittoku-ky73/blog-ittoku-tech.git"
   },
   "scripts": {
     "start": "node ./bin/www",
