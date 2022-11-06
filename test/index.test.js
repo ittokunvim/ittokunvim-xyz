@@ -2,25 +2,24 @@ const request = require('supertest');
 const app = require('../app');
 
 describe('/', function () {
-  it('it should response the GET method', (done) => {
+  it('it should response the GET method', () => {
     request(app)
       .get('/')
-      .then(res => {
-        expect(res.statusCode).toBe(200);
-        expect(res.headers['content-type']).toMatch(/text\/html/);
-        done();
-      });
+      .expect(200)
+      .expect('Content-Type', /text\/html/)
+      .end(callbackError)
   });
 });
 
 describe('/hogebar', function () {
-  it('it should response 404 Not Found', (done) => {
-    request(app)
+  it('it should response 404 Not Found', () => {
+    return request(app)
       .get('/hogebar')
-      .then(res => {
-        expect(res.statusCode).toBe(404);
-        expect(res.headers['content-type']).toMatch(/text\/html/);
-        done();
-      })
+      .expect(404)
+      .expect('Content-Type', /text\/html/)
   });
 });
+
+function callbackError(err, res) {
+  if (err) throw err;
+}
