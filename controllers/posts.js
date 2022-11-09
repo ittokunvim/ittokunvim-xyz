@@ -6,14 +6,16 @@ exports.index = (req, res, next) => {
     .then((res) => res.data)
     .then((posts) => res.render('posts/index', {
       title: 'Post list',
-      posts: posts
+      posts: posts,
     }))
     .catch((err) => next(err))
 };
 
 // display post create
 exports.create_get = (req, res, next) => {
-  res.send('NOT IMPLEMENT: post create');
+  res.render('posts/create', {
+    title: 'Post create',
+  });
 };
 
 // handle post create

@@ -1,0 +1,16 @@
+<h1>Post create</h1>
+<form action="/posts/create" method="post">
+  <ul>
+    <li>
+      <label for="title">Title:</label>
+      <input type="text" name="posts[title]" id="title">
+    </li>
+    <li>
+      <label for="content">Content:</label>
+      <textarea name="posts[content]" id="content" cols="30" rows="10"></textarea>
+    </li>
+    <li>
+      <input type="submit" value="Create">
+    </li>
+  </ul>
+</form>
