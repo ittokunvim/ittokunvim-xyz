@@ -2,21 +2,21 @@ const request = require('supertest');
 const app = require('../app.js');
 
 describe('GET /posts', function () {
-  test('it should be success', function () {
-    request(app)
+  test('it should be success', async function () {
+    await request(app)
       .get('/posts')
       .expect(200)
       .expect('Content-Type', /html/)
-      .end(requestEndCallback);
-      // .then(res => {
-    //   expect(res.text).toMatch(/asdf/);
-    // });
+      .then(res => {
+        expect(res.text).toMatch(/Post list/);
+        expect(res.text).toMatch(/First post/);
+      });
   });
 });
 
 describe('GET /posts/:id', function () {
   test('it should be success', function () {
-    // let post = fetchPost('http://localhost:8000/api/v1/posts/uuid-1');
+    // let post = fetchPost('http://localhost:8000/api/v1/posts/1');
     let post = { uuid: 'uuid' };
 
     request(app)

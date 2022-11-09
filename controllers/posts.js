@@ -1,6 +1,14 @@
+const axios = require('axios');
+
 // display post list
 exports.index = (req, res, next) => {
-  res.send('NOT IMPLEMENT: post list');
+  axios.get('http://api:8000/api/v1/posts')
+    .then((res) => res.data)
+    .then((posts) => res.render('posts/index', {
+      title: 'Post list',
+      posts: posts
+    }))
+    .catch((err) => next(err))
 };
 
 // display post create
