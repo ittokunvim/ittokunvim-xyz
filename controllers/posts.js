@@ -1,10 +1,10 @@
 const axios = require('axios');
 
 // display post list
-exports.index = (req, res, next) => {
+exports.list = (req, res, next) => {
   axios.get('http://api:8000/api/v1/posts')
     .then((res) => res.data)
-    .then((posts) => res.render('posts/index', {
+    .then((posts) => res.render('posts/list', {
       title: 'Post list',
       posts: posts,
     }))

@@ -4,7 +4,7 @@ const router = express.Router();
 const postsController = require('../controllers/posts.js');
 
 /* GET /posts */
-router.get('/', postsController.index);
+router.get('/', postsController.list);
 
 router.get('/create', postsController.create_get);
 router.post('/create', postsController.create_post);
