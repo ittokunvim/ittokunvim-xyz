@@ -1,123 +1,247 @@
 const request = require('supertest');
-const app = require('../app.js');
+const axios = require('axios');
+const config = require('config');
 
-describe('GET /posts', function () {
+const app = require('../app.js');
+const apiURL = config.get('apiURL');
+
+describe('GET /posts/list', function () {
   test('it should be success', async function () {
     await request(app)
-      .get('/posts')
+      .get('/posts/list')
       .expect(200)
       .expect('Content-Type', /html/)
       .then(res => {
         expect(res.text).toMatch(/Post list/);
-        expect(res.text).toMatch(/First post/);
       });
   });
 });
 
 describe('GET /posts/:id', function () {
-  test('it should be success', function () {
-    // let post = fetchPost('http://localhost:8000/api/v1/posts/1');
-    let post = { uuid: 'uuid' };
+  let post = {}
 
-    request(app)
-      .get('/posts/' + post.uuid)
-      .expect(200)
-      .expect('Content-Type', /html/)
-      .end(requestEndCallback);
-    // .then((res) => {
-    //   expect(res.text).toMatch(post.title);
-    // });
+  beforeEach(async () => {
+    post = await createPost();
   });
 
-  // test('it should be failed', function () {
-  //   request(app)
-  //     .get('/posts/invaliduuid')
-  //     .expect(404)
-  //     .expect('Content-Type', /html/)
-  // });
+  afterEach(async () => {
+    await deletePost(post);
+  });
+
+  test('it should be success', async function () {
+    await request(app)
+      .get('/posts/' + post.id)
+      .expect(200)
+      .expect('Content-Type', /html/)
+      .then((res) => {
+        expect(res.text).toMatch(/Post detail/);
+      });
+  });
+
+  test('it should be failed', async function () {
+    await request(app)
+      .get('/posts/111111')
+      .expect(404)
+      .expect('Content-Type', /html/)
+      .then(res => {
+        expect(res.text).toMatch(/Post not found/);
+      });
+  });
 });
 
 describe('GET /posts/create', function () {
-  test('it should be success', function () {
-    request(app)
+  test('it should be success', async function () {
+    await request(app)
       .get('/posts/create')
       .expect(200)
       .expect('Content-Type', /html/)
-      .end(requestEndCallback);
+      .then(res => {
+        expect(res.text).toMatch(/Post create/);
+      });
   });
 });
 
 describe('POST /posts/create', function () {
-  test('it should be success', function () {
-    let post = {};
+  test('it should be success', async function () {
+    let post = {
+      post: {
+        title: 'test',
+        content: 'hello world',
+      }
+    };
 
-    request(app)
+    await request(app)
       .post('/posts/create')
+      .send(post)
+      .redirects()
       .expect(200)
       .expect('Content-Type', /html/)
-      .end(requestEndCallback);
+      .then(res => {
+        post['id'] = res.request.url.match(/posts\/([\d]+)/)[1]
+        expect(res.text).toMatch(/Post detail/);
+      });
+    await deletePost(post);
   });
+
+  test('it should be failed', async function () {
+    let post = {}
+
+    await request(app)
+      .post('/posts/create')
+      .send(post)
+      .expect(422)
+      .expect('Content-Type', /html/)
+      .then(res => {
+        expect(res.text).toMatch(/Post create/);
+      });
+  })
 });
 
 describe('GET /posts/:id/update', function () {
-  test('it should be success', function () {
-    let post = { uuid: 'uuid' };
-
-    request(app)
-      .get('/posts/' + post.uuid + '/update')
+  test('it should be success', async function () {
+    await request(app)
+      .get('/posts/1/update')
       .expect(200)
       .expect('Content-Type', /html/)
-      .end(requestEndCallback);
+      .then(res => {
+        expect(res.text).toMatch(/Post update/);
+      });
+  });
+
+  test('it should be failed', async function () {
+    await request(app)
+      .get('/posts/0192837465/update')
+      .expect(404)
+      .expect('Content-Type', /html/)
+      .then(res => {
+        expect(res.text).toMatch(/Post not found/);
+      });
   });
 });
 
 describe('PATCH /posts/:id/update', function () {
-  test('it should be success', function () {
-    let post = { uuid: 'uuid' };
+  test('it should be success', async function () {
+    let post = {
+      post: {
+        id: 1,
+        title: 'test',
+        content: 'update test',
+      }
+    };
 
-    request(app)
-      .patch('/posts/' + post.uuid + '/update')
+    await request(app)
+      .patch('/posts/1/update')
+      .send(post)
       .expect(200)
       .expect('Content-Type', /html/)
-      .end(requestEndCallback);
+      .then(res => {
+        expect(res.text).toMatch(/Post detail/);
+      });
+  });
+
+  test('unknown post id', async function () {
+    let post = {};
+
+    await request(app)
+      .patch('/posts/0192837465/update')
+      .send(post)
+      .expect(404)
+      .expect('Content-Type', /html/)
+      .then(res => {
+        expect(res.text).toMatch(/Post not found/);
+      });
+  });
+
+  test('wrong post data', async function () {
+    let post = {};
+
+    await request(app)
+      .patch('/posts/1/update')
+      .send(post)
+      .expect(422)
+      .expect('Content-Type', /html/)
+      .then(res => {
+        expect(res.text).toMatch(/Post update/);
+      });
   });
 });
 
 describe('GET /posts/:id/delete', function () {
-  test('it should be success', function () {
-    let post = { uuid: 'uuid' };
-
-    request(app)
-      .get('/posts/' + post.uuid + '/delete')
+  test('it should be success', async function () {
+    await request(app)
+      .get('posts/1/delete')
       .expect(200)
       .expect('Content-Type', /html/)
-      .end(requestEndCallback);
+      .then(res => {
+        expect(res.text).toMatch(/Post delete/)
+      });
+  });
+
+  test('it should be failed', async function () {
+    await request(app)
+      .get('posts/0192837465/delete')
+      .expect(404)
+      .expect('Content-Type', /html/)
+      .then(res => {
+        expect(res.text).toMatch(/Post not found/);
+      });
   });
 });
 
 describe('DELETE /posts/:id/delete', function () {
-  test('it should be success', function () {
-    let post = { uuid: 'uuid' };
+  test('it should be success', async function () {
+    let post = { id: 1 };
 
-    request(app)
-      .delete('/posts/' + post.uuid + '/delete')
+    await request(app)
+      .delete('posts/1/delete')
+      .send(post)
       .expect(200)
       .expect('Content-Type', /html/)
-      .end(requestEndCallback);
+      .then(res => {
+        expect(res.text).toMatch(/Post list/);
+      });
+  });
+
+  test('post not found', async function () {
+    let post = { id: 1 };
+
+    await request(app)
+      .delete('posts/0192837465/delete')
+      .send(post)
+      .expect(404)
+      .expect('Content-Type', /html/)
+      .then(res => {
+        expect(res.text).toMatch(/Post not found/);
+      });
+  });
+
+  test('wrong post id', async function () {
+    let post = { id: 192837465 };
+
+    await request(app)
+      .delete('posts/1/delete')
+      .send(post)
+      .expect(422)
+      .expect('Content-Type', /html/)
+      .then(res => {
+        expect(res.text).toMatch(/Post delete/);
+      });
   });
 });
 
-// async function fetchPost(url) {
-//   try {
-//     const res = await fetch(url);
-//     const json = await res.json();
-//     json;
-//   }
-//   catch (err) {
-//     console.error('fetchPost error: ', err);
-//   }
-// }
+async function createPost() {
+  let post = {
+    title: 'test',
+    content: 'hello',
+  };
 
-function requestEndCallback(err, res) {
-  if (err) throw err;
+  return await axios.post(apiURL + '/api/v1/posts', post)
+    .then(res => res.data)
+    .catch(err => console.error(err));
+}
+
+async function deletePost(post) {
+  await axios.delete(apiURL + '/api/v1/posts/' + post.id)
+    .then(res => res.data)
+    .catch(err => console.error(err));
 }
