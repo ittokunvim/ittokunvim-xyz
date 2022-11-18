@@ -18,7 +18,7 @@ exports.list = async (req, res, next) => {
 
 // display post detail
 exports.detail = (req, res, next) => {
-  axios.get(apiURL + '/api/v1/posts/' + req.params.id)
+  axios.get(getApiPostURL(req.params.id))
     .then(res => res.data)
     .then(post => {
       res.render('posts/detail', {
@@ -79,26 +79,124 @@ exports.create_post = [
 
 // display post update
 exports.update_get = (req, res, next) => {
-  res.send('NOT IMPLEMENT: post update');
+  axios.get(getApiPostURL(req.params.id))
+    .then(res => res.data)
+    .then(post => {
+      res.render('posts/update', {
+        title: 'Post update',
+        post: post,
+      });
+    })
+    .catch(err => {
+      // post not found
+      if (err.response.status === 404) {
+        res.status(404);
+        res.render('posts/404', {
+          title: 'Post not found',
+        });
+        return;
+      }
+      next(err);
+    });
 };
 
 // handle post update
-exports.update_patch = (req, res, next) => {
-  res.send('NOT IMPLEMENT: post update');
-};
+exports.update_post = [
+  validationPost('post.id'),
+  validationPost('post.title'),
+  validationPost('post.content'),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    const post = req.body.post;
 
+    // validation error
+    if (!errors.isEmpty()) {
+      res.status(422);
+      res.render('posts/update', {
+        title: 'Post update',
+        post: post,
+        errors: errors.array(),
+      });
+    }
+
+    axios.patch(getApiPostURL(req.params.id), post)
+      .then(res => res.data)
+      .then(post => res.redirect('/posts/' + post.id))
+      .catch(err => {
+        // post not found
+        if (err.response.status === 404) {
+          res.status(404);
+          res.render('posts/404', {
+            title: 'Post not found',
+          });
+          return;
+        }
+        next(err);
+      });
+  },
+];
 // display post delete
 exports.delete_get = (req, res, next) => {
-  res.send('NOT IMPLEMENT: post delete');
+  axios.get(getApiPostURL(req.params.id))
+    .then(res => res.data)
+    .then(post => {
+      res.render('posts/delete', {
+        title: 'Post delete',
+        post: post,
+      })
+    })
+    .catch(err => {
+      // post not found
+      if (err.response.status === 404) {
+        res.status(404);
+        res.render('posts/404', {
+          title: 'Post not found',
+        });
+        return;
+      }
+      next(err);
+    });
 };
 
 // handle post delete
-exports.delete_delete = (req, res, next) => {
-  res.send('NOT IMPLEMENT: post delete');
-};
+exports.delete_post = [
+  validationPost('post.id'),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    const post = req.body.post;
+
+    // validation error
+    if (!errors.isEmpty()) {
+      res.status(422);
+      res.render('posts/delete', {
+        title: 'Post delete',
+        post: post,
+        errors: errors.array(),
+      });
+    }
+
+    axios.delete(getApiPostURL(req.params.id), post)
+      .then(() => res.redirect('/posts/list'))
+      .catch(err => {
+        // post not found
+        if (err.response.status === 404) {
+          res.status(404);
+          res.render('posts/404', {
+            title: 'Post not found',
+          });
+          return;
+        }
+        next(err);
+      });
+  },
+];
 
 function validationPost(field) {
   switch (field) {
+    case 'post.id':
+      return check(field)
+        .trim()
+        .escape()
     case 'post.title':
       return check(field, 'Title is empty')
         .trim()
@@ -110,4 +208,8 @@ function validationPost(field) {
         .escape()
         .isLength({ min: 1 })
   }
+}
+
+function getApiPostURL(id) {
+  return apiURL + '/api/v1/posts/' + id;
 }

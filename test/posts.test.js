@@ -20,13 +20,9 @@ describe('GET /posts/list', function () {
 describe('GET /posts/:id', function () {
   let post = {}
 
-  beforeEach(async () => {
-    post = await createPost();
-  });
+  beforeEach(async () => { post = await createPost(); });
 
-  afterEach(async () => {
-    await deletePost(post);
-  });
+  afterEach(async () => { await deletePost(post); });
 
   test('it should be success', async function () {
     await request(app)
@@ -38,7 +34,7 @@ describe('GET /posts/:id', function () {
       });
   });
 
-  test('it should be failed', async function () {
+  test('post not found', async function () {
     await request(app)
       .get('/posts/111111')
       .expect(404)
@@ -83,7 +79,7 @@ describe('POST /posts/create', function () {
     await deletePost(post);
   });
 
-  test('it should be failed', async function () {
+  test('validation error', async function () {
     let post = {}
 
     await request(app)
@@ -98,9 +94,15 @@ describe('POST /posts/create', function () {
 });
 
 describe('GET /posts/:id/update', function () {
+  let post = {}
+
+  beforeEach(async () => { post = await createPost(); });
+
+  afterEach(async () => { await deletePost(post); });
+
   test('it should be success', async function () {
     await request(app)
-      .get('/posts/1/update')
+      .get('/posts/' + post.id + '/update')
       .expect(200)
       .expect('Content-Type', /html/)
       .then(res => {
@@ -108,9 +110,9 @@ describe('GET /posts/:id/update', function () {
       });
   });
 
-  test('it should be failed', async function () {
+  test('post not found', async function () {
     await request(app)
-      .get('/posts/0192837465/update')
+      .get('/posts/' + '1234567890' + '/update')
       .expect(404)
       .expect('Content-Type', /html/)
       .then(res => {
@@ -119,32 +121,31 @@ describe('GET /posts/:id/update', function () {
   });
 });
 
-describe('PATCH /posts/:id/update', function () {
-  test('it should be success', async function () {
-    let post = {
-      post: {
-        id: 1,
-        title: 'test',
-        content: 'update test',
-      }
-    };
+describe('POST /posts/:id/update', function () {
+  let post = {}
 
+  beforeEach(async () => { post = await createPost(); });
+
+  afterEach(async () => { await deletePost(post); });
+
+  test('it should be success', async function () {
     await request(app)
-      .patch('/posts/1/update')
-      .send(post)
+      .post('/posts/' + post.id + '/update')
+      .send({ 'post': post })
+      .redirects()
       .expect(200)
       .expect('Content-Type', /html/)
       .then(res => {
         expect(res.text).toMatch(/Post detail/);
+        expect(res.text).toMatch(new RegExp(post.title));
+        expect(res.text).toMatch(new RegExp(post.content));
       });
   });
 
   test('unknown post id', async function () {
-    let post = {};
-
     await request(app)
-      .patch('/posts/0192837465/update')
-      .send(post)
+      .post('/posts/' + '1234567890' + '/update')
+      .send({ 'post': post })
       .expect(404)
       .expect('Content-Type', /html/)
       .then(res => {
@@ -152,12 +153,11 @@ describe('PATCH /posts/:id/update', function () {
       });
   });
 
-  test('wrong post data', async function () {
-    let post = {};
-
+  test('validation error', async function () {
+    post.title = post.content = ''
     await request(app)
-      .patch('/posts/1/update')
-      .send(post)
+      .post('/posts/' + post.id + '/update')
+      .send({ 'post': post })
       .expect(422)
       .expect('Content-Type', /html/)
       .then(res => {
@@ -167,9 +167,15 @@ describe('PATCH /posts/:id/update', function () {
 });
 
 describe('GET /posts/:id/delete', function () {
+  let post = {}
+
+  beforeEach(async () => { post = await createPost(); });
+
+  afterEach(async () => { await deletePost(post); });
+
   test('it should be success', async function () {
     await request(app)
-      .get('posts/1/delete')
+      .get('/posts/' + post.id + '/delete')
       .expect(200)
       .expect('Content-Type', /html/)
       .then(res => {
@@ -177,9 +183,9 @@ describe('GET /posts/:id/delete', function () {
       });
   });
 
-  test('it should be failed', async function () {
+  test('post not found', async function () {
     await request(app)
-      .get('posts/0192837465/delete')
+      .get('/posts/' + '1234567890' + '/delete')
       .expect(404)
       .expect('Content-Type', /html/)
       .then(res => {
@@ -188,13 +194,16 @@ describe('GET /posts/:id/delete', function () {
   });
 });
 
-describe('DELETE /posts/:id/delete', function () {
-  test('it should be success', async function () {
-    let post = { id: 1 };
+describe('POST /posts/:id/delete', function () {
+  let post = {}
 
+  beforeEach(async () => { post = await createPost(); });
+
+  test('it should be success', async function () {
     await request(app)
-      .delete('posts/1/delete')
-      .send(post)
+      .post('/posts/' + post.id + '/delete')
+      .send({ 'post': post })
+      .redirects()
       .expect(200)
       .expect('Content-Type', /html/)
       .then(res => {
@@ -203,29 +212,16 @@ describe('DELETE /posts/:id/delete', function () {
   });
 
   test('post not found', async function () {
-    let post = { id: 1 };
-
     await request(app)
-      .delete('posts/0192837465/delete')
-      .send(post)
+      .post('/posts/' + '1234567890' + '/delete')
+      .send({ 'post': post })
       .expect(404)
       .expect('Content-Type', /html/)
       .then(res => {
         expect(res.text).toMatch(/Post not found/);
       });
-  });
-
-  test('wrong post id', async function () {
-    let post = { id: 192837465 };
-
-    await request(app)
-      .delete('posts/1/delete')
-      .send(post)
-      .expect(422)
-      .expect('Content-Type', /html/)
-      .then(res => {
-        expect(res.text).toMatch(/Post delete/);
-      });
+    await deletePost(post);
+    
   });
 });
 

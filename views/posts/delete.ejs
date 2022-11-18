@@ -1,0 +1,23 @@
+<h1><%= title %></h1>
+<% if (typeof errors !== 'undefined') { %>
+  <ul>
+    <% errors.forEach(error => { %>
+      <li><%= error.msg %></li>
+    <% }) %> 
+  </ul>
+<% } %>
+<form action="" method="post">
+  <input type="hidden" name="post[id]" value=<%= post.id %>>
+  <ul>
+    <li>
+      <input type="submit" value="Delete post">
+    </li>
+  </ul>
+</form>
+
+<pre>
+  <code>
+// post
+<%= post %>
+  </code>
+</pre>
