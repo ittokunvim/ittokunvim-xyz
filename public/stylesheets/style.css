@@ -1,8 +1,174 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+:root {
+	--color-bg-body: #F1F1F1;
+	--color-bg-header: #262626;
+	--color-bg-nav: #ADADAD;
+	--color-bg-footer: #F1F1F1;
+	--color-text-link-default: #3f3f3f;
+	--color-text-link-hover: #0000ff;
+	--color-border: #A0A0A0;
 }
 
-a {
-  color: #00B7FF;
+html {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--color-bg-body);
+}
+
+a[href*="https"]::after {
+	content: '';
+	position: relative;
+	top: 0.4em;
+	left: 0.2em;
+	padding-left: 1.2em;
+	background-image: url(/images/external-link.svg);
+	background-size: 0.8em;
+	background-repeat: no-repeat;
+}
+
+.site__header {
+  width: 100%;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  background-color: var(--color-bg-header);
+}
+
+.site__header div {
+  text-align: center;
+}
+
+.site__header__logo {
+  width: 100%;
+  max-width: 64px;
+}
+
+.site__nav {
+  padding: 0.5rem 0;
+  background-color: var(--color-bg-nav);
+}
+
+.site__nav ul {
+  display: flex;
+  gap: 0.2rem;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  overflow: scroll;
+  /* hidden scrollbar  */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.site__nav ul::-webkit-scrollbar {
+  display: none;
+}
+
+.site__nav ul li {
+  display: inline;
+}
+
+.site__nav ul li:first-child {
+  margin-left: 0.5rem;
+}
+
+.site__nav ul li a {
+  color: #EE5145;
+  outline: none;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border: 1px solid #EE5145;
+  border-radius: 1rem;
+  display: block;
+  transition: all .3s;
+}
+
+.site__nav ul li a:link,
+.site__nav ul li a:visited,
+.site__nav ul li a:focus {
+  background-color: #F1F1F1;
+}
+
+.site__nav ul li a:hover {
+  background-color: #EE5145;
+  color: white;
+  border-color: white;
+}
+
+.site__nav ul li a:active {
+  color: black;
+}
+
+.site__main {
+  padding: 0.5rem;
+  box-sizing: border-box;
+  min-height: 50vh;
+}
+
+.site__footer {
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+.site__footer {
+  display: grid;
+  grid-template-areas:
+    "sns technology technology"
+    "copyright copyright copyright";
+  grid-template-columns: 1fr 2fr;
+  gap: 1rem;
+  padding: 0 1rem;
+  border-top: 1px solid var(--color-border);
+  background-color: var(--color-bg-footer);
+}
+
+.site__footer ul {
+  list-style-type: none;
+  padding-left: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.site__footer__sns {
+  grid-area: sns;
+}
+
+.site__footer__technology {
+  grid-area: technology;
+  border-left: 1px solid var(--color-border);
+  padding-left: 1rem;
+}
+
+.site__footer__copyright {
+  grid-area: copyright;
+  text-align: center;
+  border-top: 1px solid var(--color-border);
+}
+
+.site__footer h2 {
+  font-size: 1.2rem;
+}
+
+.site__footer a {
+  text-decoration: none;
+}
+
+.site__footer a:link,
+.site__footer a:visited,
+.site__footer a:focus {
+  color: var(--color-text-link-default);
+}
+
+.site__footer a:hover,
+.site__footer a:active {
+  color: var(--color-text-link-hover);
+  text-decoration: underline;
+}
+
+.site__footer__copyright p {
+  letter-spacing: 1px;
+  word-spacing: 4px;
 }

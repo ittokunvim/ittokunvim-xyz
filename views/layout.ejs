@@ -5,12 +5,61 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blog ittoku tech | <%= typeof title !== 'undefined' ? title : '' %></title>
+  <meta name="description" content="Blog web application">
+  <meta name="keywords" content="ittoku-tech, Blog">
+  <meta name="author" content="ittoku-ky73">
+  <title>
+    <%= typeof title !=='undefined' ? title : '' %>
+  </title>
+  <!-- normalize.css -->
+  <link rel="stylesheet" href="/stylesheets/normalize.css">
+  <!-- Noto Sans Japanese -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+  <!-- mycss -->
   <link rel="stylesheet" href="/stylesheets/style.css">
+  <script src="/javascripts/script.js" defer></script>
 </head>
 
 <body>
-  <%- body %>
+  <header class="site__header">
+    <div>
+      <a href="/">
+        <img src="/images/logo.png" alt="logo" class="site__header__logo">
+      </a>
+    </div>
+  </header>
+  <nav class="site__nav">
+    <ul>
+      <li><a href="/posts/list">Post list</a></li>
+    </ul>
+  </nav>
+  <main class="site__main">
+    <%- body %>
+  </main>
+  <footer class="site__footer">
+		<div class="site__footer__sns">
+			<h3>SNS</h3>
+			<ul>
+				<li><a href="https://github.com/ittoku-ky73">Github</a></li>
+				<li><a href="https://crowdworks.jp/public/employees/4852074">Crowdworks</a></li>
+			</ul>
+		</div>
+		<div class="site__footer__technology">
+			<h3>Technology</h3>
+			<ul>
+        <li>Node/Express</li>
+				<li>HTML</li>
+				<li>CSS</li>
+				<li>JavaScript</li>
+				<li>Pixlr (Logo)</li>
+			</ul>
+		</div>
+		<div class="site__footer__copyright">
+			<p>©︎ 2022 ittoku-tech.com</p>
+		</div>
+	</footer>
 </body>
 
 </html>
