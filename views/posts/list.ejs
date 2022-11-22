@@ -1,7 +1,13 @@
-<pre>
-<% posts.forEach(post => { %>
-  <% Object.keys(post).forEach(key => { %>
-    <%= `${key}: ${post[key]}` %>
+<h1><%= title %></h1>
+
+<div class="post__list">
+  <% posts.forEach(post => { %>
+    <div id=<%= 'post_' + post.id %>>
+      <h2>
+        <a href=<%= '/posts/' + post.id %>><%= post.title %></a>
+      </h2>
+      <p>作成時：<%= post.created_at %></p>
+    </div>
   <% }) %>
-<% }) %>
-</pre>
+</div>
+

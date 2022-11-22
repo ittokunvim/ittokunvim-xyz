@@ -2,6 +2,7 @@ const axios = require('axios');
 const debug = require('debug')('blog:posts');
 const config = require('config');
 const { check, validationResult } = require('express-validator');
+const { DateTime } = require('luxon');
 
 const apiURL = config.get('apiURL');
 
@@ -9,6 +10,13 @@ const apiURL = config.get('apiURL');
 exports.list = async (req, res, next) => {
   axios.get(apiURL + '/api/v1/posts')
     .then((res) => res.data)
+    .then((posts) => {
+      posts.forEach(post => {
+        post.created_at = formatDateTime(post.created_at)
+        post.updated_at = formatDateTime(post.updated_at)
+      })
+      return posts;
+    })
     .then((posts) => res.render('posts/list', {
       title: 'Post list',
       posts: posts,
@@ -212,4 +220,8 @@ function validationPost(field) {
 
 function getApiPostURL(id) {
   return apiURL + '/api/v1/posts/' + id;
+}
+
+function formatDateTime(date) {
+  return DateTime.fromISO(date).setLocale('ja').toLocaleString(DateTime.DATE_MED)
 }
