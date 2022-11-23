@@ -11,10 +11,7 @@ exports.list = async (req, res, next) => {
   axios.get(apiURL + '/api/v1/posts')
     .then((res) => res.data)
     .then((posts) => {
-      posts.forEach(post => {
-        post.created_at = formatDateTime(post.created_at)
-        post.updated_at = formatDateTime(post.updated_at)
-      })
+      posts.forEach(callbackFormatDateTime)
       return posts;
     })
     .then((posts) => res.render('posts/list', {
@@ -28,9 +25,10 @@ exports.list = async (req, res, next) => {
 exports.detail = (req, res, next) => {
   axios.get(getApiPostURL(req.params.id))
     .then(res => res.data)
+    .then(callbackFormatDateTime)
     .then(post => {
       res.render('posts/detail', {
-        title: 'Post detail',
+        title: post.title,
         post: post,
       })
     })
@@ -220,6 +218,12 @@ function validationPost(field) {
 
 function getApiPostURL(id) {
   return apiURL + '/api/v1/posts/' + id;
+}
+
+function callbackFormatDateTime(post) {
+  post.created_at = formatDateTime(post.created_at);
+  post.updated_at = formatDateTime(post.updated_at);
+  return post;
 }
 
 function formatDateTime(date) {

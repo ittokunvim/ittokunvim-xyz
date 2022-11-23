@@ -1,8 +1,14 @@
-<pre>
-  <code>
-// post
-<% Object.keys(post).forEach(key => { %>
-  <%= `${key}: ${post[key]}` %>
-<% }) %>
-  </code>
-</pre>
+<div class="post__detail-wrapper">
+  <div class="post__detail">
+    <h1><%= title %></h1>
+    <ul>
+      <li>作成時：<%= post.created_at %></li>
+      <li>更新時：<%= post.updated_at %></li>
+    </ul>
+    <article>
+      <div>
+        <%= post.content %>
+      </div>
+    </article>
+  </div>
+</div>

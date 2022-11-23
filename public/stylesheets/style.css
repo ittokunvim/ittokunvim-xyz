@@ -189,6 +189,8 @@ a[href*="https"]::after {
 .post__list h2 {
   font-size: 1.2em;
   margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .post__list a {
@@ -222,9 +224,43 @@ a[href*="https"]::after {
   font-size: 0.8em;
 }
 
+.post__detail {
+  overflow: visible;
+  overflow-wrap: break-word;
+  background-color: white;
+  border-radius: 0.2em;
+}
+
+.post__detail-wrapper {
+  padding: 1rem;
+}
+
+.post__detail h1 {
+  margin: 0;
+  padding: 0.5em;
+  padding-left: 16px;
+}
+
+.post__detail ul {
+  font-size: 0.8em;
+  color: gray;
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  margin: 0;
+  padding: 0 0.5em;
+  padding-left: 16px;
+  list-style: none;
+}
+
+.post__detail article {
+  padding: 1em;
+  padding-top: 2em;
+}
+
 @media screen and (min-width: 768px) {
   .post__list {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1000px));
   }
 }
