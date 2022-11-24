@@ -258,6 +258,55 @@ a[href*="https"]::after {
   padding-top: 2em;
 }
 
+.post__links {
+  width: 100%;
+  max-width: 200px;
+  border: 2px solid var(--color-border);
+  border-radius: 0.5em;
+  padding: 0.5em 0;
+}
+
+.post__links-wrapper {
+  margin-top: 1rem;
+}
+
+.post__links h2 {
+  font-size: 1.2em;
+  margin: 0;
+  padding-left: 0.5em;
+}
+
+.post__links ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.post__links ul li a {
+  display: block;
+  line-height: 2.5;
+  color: black;
+  padding-left: 1em;
+  text-decoration: none;
+  transition: all .3s;
+}
+
+.post__links ul li a:hover {
+  color: darkgray;
+  background-color: #ddd;
+}
+.post__links ul li a.update::before {
+  color: blue;
+  content: "\f01e";
+  padding-right: 0.5em;
+}
+
+.post__links ul li a.delete::before {
+  color: red;
+  content: "\f057";
+  padding-right: 0.5em;
+}
+
 .post__create {
   display: flex;
   flex-direction: column;
@@ -303,6 +352,7 @@ a[href*="https"]::after {
   display: block;
   margin: 0 auto;
   padding: 0.5em;
+  color: black;
   background-color: white;
   border: 1px solid black;
   border-radius: 0.5em;
