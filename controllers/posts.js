@@ -141,28 +141,6 @@ exports.update_post = [
       });
   },
 ];
-// display post delete
-exports.delete_get = (req, res, next) => {
-  axios.get(getApiPostURL(req.params.id))
-    .then(res => res.data)
-    .then(post => {
-      res.render('posts/delete', {
-        title: 'Post delete',
-        post: post,
-      })
-    })
-    .catch(err => {
-      // post not found
-      if (err.response.status === 404) {
-        res.status(404);
-        res.render('posts/404', {
-          title: 'Post not found',
-        });
-        return;
-      }
-      next(err);
-    });
-};
 
 // handle post delete
 exports.delete_post = [
