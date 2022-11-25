@@ -17,7 +17,21 @@
       <hr>
       <ul>
         <li><a href=<%= '/posts/' + post.id + '/update' %> class="update">更新する</a></li>
-        <li><a href=<%= '/posts/' + post.id + '/delete' %> class="delete">削除する</a></li>
+        <li>
+          <form action=<%= `/posts/${post.id}/delete` %> name="post__delete" method="post">
+            <input type="hidden" name="post[id]" value=<%= post.id %>>
+            <a href="javascript:post__delete.submit()" class="delete">削除する</a>
+            <script>
+              const postDeleteLink = document.querySelector('form[name="post__delete"] a');
+
+              postDeleteLink.addEventListener('click', (e) => {
+                (window.confirm('本当に削除してよろしいですか？'))
+                  ? 'Delete'
+                  : e.preventDefault();
+              });
+            </script>
+          </form>
+        </li>
       </ul>
     </div>
   </div>
