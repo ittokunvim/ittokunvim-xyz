@@ -307,7 +307,7 @@ a[href*="https"]::after {
   padding-right: 0.5em;
 }
 
-.post__create {
+.post__form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -315,17 +315,17 @@ a[href*="https"]::after {
   padding: 1em;
 }
 
-.post__create-wrapper {
+.post__form-wrapper {
   padding: 1em;
 }
 
-.post__create h1 {
+.post__form h1 {
   text-align: center;
   margin: 0;
   line-height: 2;
 }
 
-.post__create form ul {
+.post__form form ul {
   display: flex;
   flex-direction: column;
   gap: 1em;
@@ -334,21 +334,21 @@ a[href*="https"]::after {
   padding: 0;
 }
 
-.post__create form input[type="text"] {
+.post__form form input[type="text"] {
   width: 100%;
   padding: 0.5em;
   box-sizing: border-box;
   height: 40px;
 }
 
-.post__create form textarea {
+.post__form form textarea {
   width: 100%;
   padding: 0.5em;
   box-sizing: border-box;
   min-height: 400px;
 }
 
-.post__create form input[type="submit"] {
+.post__form form input[type="submit"] {
   display: block;
   margin: 0 auto;
   padding: 0.5em;
@@ -358,11 +358,11 @@ a[href*="https"]::after {
   border-radius: 0.5em;
 }
 
-.post__create form input[type="submit"]:hover {
+.post__form form input[type="submit"]:hover {
   background-color: whitesmoke;
 }
 
-.post__create form input[type="submit"]:active {
+.post__form form input[type="submit"]:active {
   background-color: black;
   color: white;
 }
@@ -393,7 +393,7 @@ a[href*="https"]::after {
     grid-template-columns: repeat(3, minmax(0, 1000px));
   }
 
-  .post__create form input[type="submit"] {
+  .post__form form input[type="submit"] {
     margin: 0 0 0 auto;
   }
 }
