@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 
 <head>
   <meta charset="UTF-8">
@@ -13,9 +13,12 @@
   </title>
   <!-- normalize.css -->
   <link rel="stylesheet" href="/stylesheets/normalize.css">
-  <!-- Noto Sans Japanese -->
+  <!-- google fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- fonts - Roboto -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <!-- fonts - Noto Sans Japanese -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
   <!-- font awesome -->
   <script src="https://kit.fontawesome.com/f9b76f63aa.js" crossorigin="anonymous"></script>
@@ -34,35 +37,36 @@
   </header>
   <nav class="site__nav">
     <ul>
-      <li><a href="/posts/list">Post list</a></li>
-      <li><a href="/posts/create">Post create</a></li>
+      <li><a href="/posts/list">記事一覧</a></li>
+      <li><a href="/posts/create">記事を作る</a></li>
     </ul>
   </nav>
   <main class="site__main">
     <%- body %>
   </main>
   <footer class="site__footer">
-		<div class="site__footer__sns">
-			<h3>SNS</h3>
-			<ul>
-				<li><a href="https://github.com/ittoku-ky73">Github</a></li>
-				<li><a href="https://crowdworks.jp/public/employees/4852074">Crowdworks</a></li>
-			</ul>
-		</div>
-		<div class="site__footer__technology">
-			<h3>Technology</h3>
-			<ul>
-        <li>Node/Express</li>
-				<li>HTML</li>
-				<li>CSS</li>
-				<li>JavaScript</li>
-				<li>Pixlr (Logo)</li>
-			</ul>
-		</div>
-		<div class="site__footer__copyright">
-			<p>©︎ 2022 ittoku-tech.com</p>
-		</div>
-	</footer>
+    <div class="site__footer__sns">
+      <h3>SNS</h3>
+      <ul>
+        <li><a href="https://github.com/ittoku-ky73">Github</a></li>
+        <li><a href="https://crowdworks.jp/public/employees/4852074">Crowdworks</a></li>
+      </ul>
+    </div>
+    <div class="site__footer__technology">
+      <h3>Technology</h3>
+      <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>JavaScript</li>
+        <li><a href="https://expressjs.com/">Node/Express</a></li>
+        <li><a href="https://pixlr.com/">Pixlr (Logo)</a></li>
+        <li><a href="https://fly.io/">Fly.io</a></li>
+      </ul>
+    </div>
+    <div class="site__footer__copyright">
+      <p>©︎ 2022 ittoku-tech.com</p>
+    </div>
+  </footer>
 </body>
 
 </html>
