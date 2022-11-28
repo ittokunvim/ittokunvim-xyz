@@ -41,6 +41,17 @@
       <li><a href="/posts/create">記事を作る</a></li>
     </ul>
   </nav>
+  <% if (typeof flash !== 'undefined') { %>
+    <% if (Object.keys(flash).length) { %>
+      <div class="site__flash">
+        <% for (const key in flash) { %>
+          <p class=<%= key %>>
+            <%= flash[key] %>
+          </p>
+        <% } %>
+      </div>
+    <% } %>
+  <% } %>
   <main class="site__main">
     <%- body %>
   </main>

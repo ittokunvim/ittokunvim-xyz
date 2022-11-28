@@ -14,10 +14,13 @@ exports.list = async (req, res, next) => {
       posts.forEach(callbackFormatDateTime)
       return posts;
     })
-    .then((posts) => res.render('posts/list', {
-      title: 'Post list',
-      posts: posts,
-    }))
+    .then((posts) => {
+      res.render('posts/list', {
+        title: 'Post list',
+        flash: getFlash(req),
+        posts: posts,
+      });
+    })
     .catch((err) => next(err))
 };
 
@@ -29,11 +32,11 @@ exports.detail = (req, res, next) => {
     .then(post => {
       res.render('posts/detail', {
         title: post.title,
+        flash: getFlash(req),
         post: post,
       })
     })
     .catch(err => {
-      debug(err.response);
       // post not found
       if (err.response.status === 404) {
         res.status(404);
@@ -43,7 +46,7 @@ exports.detail = (req, res, next) => {
         return;
       }
       next(err);
-    })
+    });
 };
 
 // display post create
@@ -77,6 +80,7 @@ exports.create_post = [
     axios.post(apiURL + '/api/v1/posts', post)
       .then(res => res.data)
       .then(post => {
+        req.flash('success', '記事を作成しました');
         res.redirect(post.id);
       })
       .catch(err => next(err));
@@ -127,7 +131,10 @@ exports.update_post = [
 
     axios.patch(getApiPostURL(req.params.id), post)
       .then(res => res.data)
-      .then(post => res.redirect('/posts/' + post.id))
+      .then(post => {
+        req.flash('success', '記事を更新しました');
+        res.redirect('/posts/' + post.id)
+      })
       .catch(err => {
         // post not found
         if (err.response.status === 404) {
@@ -160,7 +167,10 @@ exports.delete_post = [
     }
 
     axios.delete(getApiPostURL(req.params.id), post)
-      .then(() => res.redirect('/posts/list'))
+      .then(() => {
+        req.flash('success', '記事を削除しました');
+        res.redirect('/posts/list');
+      })
       .catch(err => {
         // post not found
         if (err.response.status === 404) {
@@ -206,4 +216,14 @@ function callbackFormatDateTime(post) {
 
 function formatDateTime(date) {
   return DateTime.fromISO(date).setLocale('ja').toLocaleString(DateTime.DATE_MED)
+}
+
+function getFlash(req) {
+  flash = req.flash();
+  if (flash.success || flash.warning || flash.failed) {
+    return flash;
+  }
+  else {
+    return {};
+  }
 }

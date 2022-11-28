@@ -93,6 +93,20 @@ a[href*="https"]::after {
   color: lightgray;
 }
 
+.site__flash {
+  padding: 1rem 0;
+}
+
+.site__flash p {
+  font-size: 0.9em;
+  margin: 0;
+  margin-left: 1em;
+}
+
+.site__flash:has(p.success) {
+  background: linear-gradient(to right, skyblue, lightblue);
+}
+
 .site__main {
   margin-top: 1rem;
   min-height: 50vh;

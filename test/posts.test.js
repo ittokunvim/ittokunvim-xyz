@@ -1,4 +1,5 @@
 const request = require('supertest');
+const session = require('supertest-session');
 const axios = require('axios');
 const config = require('config');
 
@@ -66,7 +67,7 @@ describe('POST /posts/create', function () {
       }
     };
 
-    await request(app)
+    await session(app)
       .post('/posts/create')
       .send(post)
       .redirects()
@@ -75,6 +76,7 @@ describe('POST /posts/create', function () {
       .then(res => {
         post['id'] = res.request.url.match(/posts\/([\d]+)/)[1]
         expect(res.text).toMatch(new RegExp(post.title));
+        expect(res.text).toMatch(new RegExp(/flash/))
       });
     await deletePost(post);
   });
@@ -129,7 +131,7 @@ describe('POST /posts/:id/update', function () {
   afterEach(async () => { await deletePost(post); });
 
   test('it should be success', async function () {
-    await request(app)
+    await session(app)
       .post('/posts/' + post.id + '/update')
       .send({ 'post': post })
       .redirects()
@@ -138,6 +140,7 @@ describe('POST /posts/:id/update', function () {
       .then(res => {
         expect(res.text).toMatch(new RegExp(post.title));
         expect(res.text).toMatch(new RegExp(post.content));
+        expect(res.text).toMatch(new RegExp(/flash/))
       });
   });
 
@@ -171,7 +174,7 @@ describe('POST /posts/:id/delete', function () {
   beforeEach(async () => { post = await createPost(); });
 
   test('it should be success', async function () {
-    await request(app)
+    await session(app)
       .post('/posts/' + post.id + '/delete')
       .send({ 'post': post })
       .redirects()
@@ -179,6 +182,7 @@ describe('POST /posts/:id/delete', function () {
       .expect('Content-Type', /html/)
       .then(res => {
         expect(res.text).toMatch(/Post list/);
+        expect(res.text).toMatch(new RegExp(/flash/))
       });
   });
 
