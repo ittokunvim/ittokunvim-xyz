@@ -1,19 +1,17 @@
-<div class="post__detail-wrapper">
-  <div class="post__detail">
-    <h1><%= title %></h1>
-    <ul>
-      <li>作成時：<%= post.created_at %></li>
-      <li>更新時：<%= post.updated_at %></li>
-    </ul>
-    <article>
-      <div>
-        <%= post.content %>
-      </div>
-    </article>
-  </div>
+<div class="post__detail">
+  <h1><%= title %></h1>
+  <ul class="post__detail__date">
+    <li>作成時：<%= post.created_at %></li>
+    <li>更新時：<%= post.updated_at %></li>
+  </ul>
+  <article>
+    <div>
+      <%= post.content %>
+    </div>
+  </article>
   <div class="post__links-wrapper">
     <div class="post__links">
-      <h2>記事の操作</h2>
+      <h2><i class="fa-regular fa-newspaper"></i></h2>
       <hr>
       <ul>
         <li><a href=<%= '/posts/' + post.id + '/update' %> class="update">更新する</a></li>
