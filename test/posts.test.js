@@ -77,6 +77,7 @@ describe('POST /posts/create', function () {
         post['id'] = res.request.url.match(/posts\/([\d]+)/)[1]
         expect(res.text).toMatch(new RegExp(post.title));
         expect(res.text).toMatch(new RegExp(/flash/))
+        request(app).get('/').then(res => expect(res.text).not.toMatch(/flash/))
       });
     await deletePost(post);
   });

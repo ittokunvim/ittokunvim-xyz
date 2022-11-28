@@ -33,6 +33,12 @@ app.use(session(sess));
 app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// before each method
+app.use(function (req, res, next) {
+  app.locals.flash = req.flash();
+  next();
+});
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/posts', postsRouter);

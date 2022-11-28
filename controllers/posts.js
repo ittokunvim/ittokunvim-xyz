@@ -17,7 +17,6 @@ exports.list = async (req, res, next) => {
     .then((posts) => {
       res.render('posts/list', {
         title: 'Post list',
-        flash: getFlash(req),
         posts: posts,
       });
     })
@@ -32,7 +31,6 @@ exports.detail = (req, res, next) => {
     .then(post => {
       res.render('posts/detail', {
         title: post.title,
-        flash: getFlash(req),
         post: post,
       })
     })
@@ -218,12 +216,3 @@ function formatDateTime(date) {
   return DateTime.fromISO(date).setLocale('ja').toLocaleString(DateTime.DATE_MED)
 }
 
-function getFlash(req) {
-  flash = req.flash();
-  if (flash.success || flash.warning || flash.failed) {
-    return flash;
-  }
-  else {
-    return {};
-  }
-}
