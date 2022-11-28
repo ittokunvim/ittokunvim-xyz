@@ -167,50 +167,57 @@ a[href*="https"]::after {
  * Post
  */
   .post__list {
+    padding: 0.5em;
+  }
+
+  .post__list h1 {
+    text-align: center;
+  }
+
+  .post__list .posts {
     display: flex;
     flex-direction: column;
-    gap: 1em;
+    gap: 2em;
   }
 
-  .post__list div[id*="post_"] {
-    padding: 1rem;
+  .post__list .posts div[id*="post_"] {
+    padding: 0 0.5em;
   }
 
-  .post__list h2 {
+  .post__list .posts h2 {
     font-size: 1.2em;
     margin: 0;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-  .post__list a {
+  .post__list .posts a {
     outline: none;
     text-decoration: none;
   }
 
-  .post__list a:link {
+  .post__list .posts a:link {
     color: black;
   }
 
-  .post__list a:visited {
+  .post__list .posts a:visited {
     color: #797979;
   }
 
-  .post__list a:focus {
-    border: 1.5px solid blue;
-    border-radius: 0.2em;
+  .post__list .posts a:focus {
+    text-decoration: underline;
   }
 
-  .post__list a:hover {
+  .post__list .posts a:hover {
     opacity: 0.5;
     text-decoration: underline;
   }
 
-  .post__list a:active {
+  .post__list .posts a:active {
     opacity: 0.7;
   }
 
-  .post__list p {
+  .post__list .posts p {
     font-size: 0.8em;
   }
 
@@ -378,7 +385,11 @@ a[href*="https"]::after {
   }
 
   @media screen and (min-width: 768px) {
-    .post__list {
+    .post__list h1 {
+      margin-bottom: 2em;
+    }
+
+    .post__list .posts {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1000px));
     }
