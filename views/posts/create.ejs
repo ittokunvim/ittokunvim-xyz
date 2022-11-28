@@ -1,33 +1,35 @@
-<div class="post__form-wrapper">
-  <div class="post__form">
-    <h1><i class="fa-regular fa-newspaper"></i></h1>
-    <% if (typeof errors !== 'undefined') { %>
-      <%- include('./error', { errors: errors }) %>
-    <% } %>
-    <form action="/posts/create" method="post">
-      <ul>
-        <li>
-          <input
-            type="text"
-            name="post[title]"
-            id="post_title"
-            class=""
-            placeholder="&#xf1dc タイトル"
-            value=<%= post.title %>
-          >
-        </li>
-        <li>
-          <textarea
-            name="post[content]"
-            id="post_content"
-            class=""
-            placeholder="&#xf15c 内容"
-            ><%= post.content %></textarea>
-        </li>
-        <li>
-          <input type="submit" value="&#xf055 作成">
-        </li>
-      </ul>
-    </form>
-  </div>
+<div class="post__form">
+  <h1><i class="fa-regular fa-newspaper"></i></h1>
+  <% if (typeof errors !== 'undefined') { %>
+    <%- include('./error', { errors: errors }) %>
+  <% } %>
+  <form action="/posts/create" method="post">
+    <ul>
+      <li>
+        <input
+          type="text"
+          name="post[title]"
+          id="post_title"
+          class=""
+          placeholder="&#xf1dc タイトル"
+          value=<%= post.title %>
+        >
+      </li>
+      <li>
+        <textarea
+          name="post[content]"
+          id="post_content"
+          class=""
+          placeholder="&#xf15c 内容"
+          ><%= post.content %></textarea>
+      </li>
+      <li>
+        <input 
+          type="submit" 
+          class="post__form__submit-create"
+          value="&#xf055 作成"
+        >
+      </li>
+    </ul>
+  </form>
 </div>

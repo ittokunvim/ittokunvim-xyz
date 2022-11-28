@@ -309,11 +309,7 @@ a[href*="https"]::after {
   flex-direction: column;
   gap: 1rem;
   background-color: white;
-  padding: 1em;
-}
-
-.post__form-wrapper {
-  padding: 1em;
+  padding: 0 1em;
 }
 
 .post__form h1 {
@@ -346,33 +342,65 @@ a[href*="https"]::after {
 }
 
 .post__form form input[type="submit"] {
+  cursor: pointer;
   display: block;
   margin: 0 auto;
   padding: 0.5em;
-  color: black;
-  background-color: white;
   border: 1px solid black;
   border-radius: 0.5em;
 }
 
-.post__form form input[type="submit"]:hover {
-  background-color: whitesmoke;
+.post__form__submit-create:default {
+  color: forestgreen;
+  background-color: white;
 }
 
-.post__form form input[type="submit"]:active {
-  background-color: black;
+.post__form__submit-create:hover {
   color: white;
+  background-color: forestgreen;
+}
+
+.post__form__submit-create:active {
+  opacity: 0.8;
+}
+
+.post__form__submit-update:default {
+  color: blue;
+  background-color: white;
+}
+
+.post__form__submit-update:hover {
+  color: white;
+  background-color: blue;
+}
+
+.post__form__submit-update:active {
+  opacity: 0.8;
+}
+
+.post__errors {
+  font-size: 0.8em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  color: red;
+  border: 2px solid red;
+  border-radius: 1em;
+}
+
+.post__errors-wrapper {
+  padding: 0.5rem;
+}
+
+.post__errors p {
+  margin: 0;
 }
 
 .post__errors ul {
   list-style: none;
   margin: 0;
-  padding: 0.5em 1em;
-  background-color: pink;
-  color: red;
-  border: 1px solid red;
-  border-left-width: 4px;
-  border-radius: 0.5em;
+  padding-left: 1em;
 }
 
 .post__errors ul li {
