@@ -3,6 +3,7 @@ const debug = require('debug')('blog:posts');
 const config = require('config');
 const { check, validationResult } = require('express-validator');
 const { DateTime } = require('luxon');
+const { marked } = require('marked');
 
 const apiURL = config.get('apiURL');
 
@@ -28,6 +29,7 @@ exports.detail = (req, res, next) => {
   axios.get(getApiPostURL(req.params.id))
     .then(res => res.data)
     .then(callbackFormatDateTime)
+    .then(callbackFormatContent)
     .then(post => {
       res.render('posts/detail', {
         title: post.title,
@@ -66,6 +68,7 @@ exports.create_post = [
     // validation error
     if (!errors.isEmpty()) {
       res.status(422);
+      post.content = unescapeContent(post.content)
       res.render('posts/create', {
         title: 'Post create',
         post: post,
@@ -90,6 +93,7 @@ exports.update_get = (req, res, next) => {
   axios.get(getApiPostURL(req.params.id))
     .then(res => res.data)
     .then(post => {
+      post.content = unescapeContent(post.content)
       res.render('posts/update', {
         title: 'Post update',
         post: post,
@@ -216,3 +220,12 @@ function formatDateTime(date) {
   return DateTime.fromISO(date).setLocale('ja').toLocaleString(DateTime.DATE_MED)
 }
 
+function callbackFormatContent(post) {
+  post.content = marked.parse(unescapeContent(post.content));
+  return post;
+}
+
+function unescapeContent(content) {
+  return content
+    .replace(/&gt;/g, '>')
+}

@@ -323,7 +323,7 @@ a[href*="https"]::after {
   flex-direction: column;
   gap: 1rem;
   background-color: white;
-  padding: 0 1em;
+  padding: 0 0.5em;
 }
 
 .post__form h1 {
@@ -393,6 +393,7 @@ a[href*="https"]::after {
 }
 
 .post__errors {
+  max-width: 400px;
   font-size: 0.8em;
   display: flex;
   flex-direction: column;
@@ -401,10 +402,6 @@ a[href*="https"]::after {
   color: red;
   border: 2px solid red;
   border-radius: 1em;
-}
-
-.post__errors-wrapper {
-  padding: 0.5rem;
 }
 
 .post__errors p {

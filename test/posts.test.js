@@ -32,6 +32,7 @@ describe('GET /posts/:id', function () {
       .expect('Content-Type', /html/)
       .then((res) => {
         expect(res.text).toMatch(new RegExp(post.title));
+        expect(res.text).toMatch(new RegExp(post.content.replace('# ', '') + '</h1>'));
       });
   });
 
@@ -83,7 +84,12 @@ describe('POST /posts/create', function () {
   });
 
   test('validation error', async function () {
-    let post = {}
+    let post = {
+      post: {
+        title: '',
+        content: '> ref',
+      }
+    };
 
     await request(app)
       .post('/posts/create')
@@ -92,6 +98,7 @@ describe('POST /posts/create', function () {
       .expect('Content-Type', /html/)
       .then(res => {
         expect(res.text).toMatch(/Post create/);
+        expect(res.text).toMatch(new RegExp(post.content));
       });
   })
 });
@@ -110,6 +117,7 @@ describe('GET /posts/:id/update', function () {
       .expect('Content-Type', /html/)
       .then(res => {
         expect(res.text).toMatch(/Post update/);
+        expect(res.text).toMatch(post.title);
       });
   });
 
@@ -140,7 +148,7 @@ describe('POST /posts/:id/update', function () {
       .expect('Content-Type', /html/)
       .then(res => {
         expect(res.text).toMatch(new RegExp(post.title));
-        expect(res.text).toMatch(new RegExp(post.content));
+        expect(res.text).toMatch(new RegExp(post.content.replace('# ', '') + '</h1>'));
         expect(res.text).toMatch(new RegExp(/flash/))
       });
   });
@@ -204,7 +212,7 @@ describe('POST /posts/:id/delete', function () {
 async function createPost() {
   let post = {
     title: 'test',
-    content: 'hello',
+    content: '# hello world',
   };
 
   return await axios.post(apiURL + '/api/v1/posts', post)
