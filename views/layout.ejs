@@ -38,6 +38,18 @@
   </header>
   <nav class="site__nav">
     <ul>
+      <li>
+        <form action="/search/result" method="get">
+          <input
+            type="search"
+            name="q"
+            placeholder="Search..."
+          >
+          <button type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </form>
+      </li>
       <li><a href="/posts/list">記事一覧</a></li>
       <li><a href="/posts/create">記事を作る</a></li>
     </ul>

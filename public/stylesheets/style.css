@@ -51,6 +51,7 @@ a[href*="https"]::after {
   margin: 0;
   white-space: nowrap;
   overflow: scroll;
+  align-items: center;
   /* hidden scrollbar  */
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -64,12 +65,58 @@ a[href*="https"]::after {
   display: inline;
 }
 
-.site__nav ul li:first-child {
+.site__nav ul li:first-child,
+.site__nav ul li:last-child {
   margin-left: 0.5em;
 }
 
-.site__nav ul li:last-child {
-  margin-right: 0.5em;
+.site__nav ul li form {
+  font-size: 0.9em;
+}
+
+.site__nav ul li input[type="search"] {
+  background-color: inherit;
+  padding: 0.2em 0.5em;
+  border: 1px solid lightgray;
+  border-radius: 0.2em;
+  color: white;
+}
+
+.site__nav ul li input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+.site__nav ul li input[type="search"]::-ms-clear {
+  visibility: hidden;
+}
+
+.site__nav ul li input[type="search"]::placeholder {
+  color: lightgray;
+}
+
+.site__nav ul li input[type="search"]:focus {
+  color: black;
+  background-color: white;
+}
+
+.site__nav ul li input[type="search"]:focus + button {
+  color: black;
+}
+
+.site__nav ul li form button {
+  position: relative;
+  left: -32px;
+  width: 0;
+  cursor: pointer;
+  color: white;
+  border: none;
+  background-color: inherit;
+  z-index: 1;
+}
+
+.site__nav ul li form button:hover {
+  color: skyblue;
+  transition: all .3s;
 }
 
 .site__nav ul li a {

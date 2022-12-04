@@ -6,8 +6,13 @@ describe('/', function () {
     request(app)
       .get('/')
       .expect(200)
-      .expect('Content-Type', /text\/html/)
-      .end(callbackError)
+      .expect('Content-Type', /html/)
+      .then(res => {
+        expect(res.text).toMatch(new RegExp('Blog ittoku tech</title>'));
+        expect(res.text).toMatch(new RegExp('href="/"'));
+        expect(res.text).toMatch(new RegExp('ittoku-ky73'));
+        expect(res.text).toMatch(new RegExp('/search/result'));
+      })
   });
 });
 
@@ -16,10 +21,6 @@ describe('/hogebar', function () {
     return request(app)
       .get('/hogebar')
       .expect(404)
-      .expect('Content-Type', /text\/html/)
+      .expect('Content-Type', /html/)
   });
 });
-
-function callbackError(err, res) {
-  if (err) throw err;
-}
