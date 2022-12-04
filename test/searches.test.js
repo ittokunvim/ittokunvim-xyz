@@ -5,7 +5,7 @@ const config = require('config');
 const app = require('../app.js');
 const apiURL = config.get('apiURL');
 
-describe('GET /search/posts', function () {
+describe('GET /search/result', function () {
   let post = {}
 
   beforeEach(async () => { post = await createPost(); });
@@ -14,7 +14,7 @@ describe('GET /search/posts', function () {
 
   test('it should be success', async function () {
     await request(app)
-      .get('/search/posts?q=' + post.title)
+      .get('/search/result?q=' + post.title + '&type=posts')
       .expect(200)
       .expect('Content-Type', /html/)
       .then(res => {
@@ -24,7 +24,7 @@ describe('GET /search/posts', function () {
 
   test('post not found', async function () {
     await request(app)
-      .get('/search/posts')
+      .get('/search/result')
       .expect(404)
       .expect('Content-Type', /html/)
       .then(res => {

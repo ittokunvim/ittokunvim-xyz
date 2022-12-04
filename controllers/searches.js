@@ -5,15 +5,17 @@ const config = require('config');
 const apiURL = config.get('apiURL');
 
 // display search list
-exports.posts_get = (req, res, next) => {
-  req.query.q = (typeof req.query.q === 'undefined') ? '' : req.query.q;
+exports.result_get = (req, res, next) => {
+  const url = getSearchURL(req);
 
-  axios.get(apiURL + '/api/v1/search/posts?q=' + req.query.q)
+  axios.get(url)
     .then(res => res.data)
-    .then(posts => {
-      res.render('search/result', {
+    .then(data => {
+      const searchTarget = getSearchTarget(req);
+
+      res.render('search/' + searchTarget, {
         title: 'Search - ' + req.query.q,
-        posts: posts,
+        [searchTarget]: data,
       });
     })
     .catch((err) => {
@@ -28,3 +30,19 @@ exports.posts_get = (req, res, next) => {
       next(err)
     });
 };
+
+function getSearchTarget(req) {
+  return (req.query.type) ? req.query.type : 'posts';
+}
+
+function getSearchURL(req) {
+  const q = getQeury('q', req);
+  const type = getQeury('type', req);
+  const target = getSearchTarget(req);
+
+  return `${apiURL}/api/v1/search/${target}?${q}&${type}`;
+}
+
+function getQeury(name, req) {
+  return (req.query[name]) ? `${name}=${req.query[name]}` : '';
+}
