@@ -6,7 +6,7 @@ kill_timeout = 5
 processes = []
 
 [build]
-  dockerfile = "Dockerfile.flyio"
+  dockerfile = "Dockerfile.prod"
 
 [env]
   PORT = "8080"
