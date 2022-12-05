@@ -30,14 +30,12 @@
 
 <body>
   <header class="site__header">
-    <div>
-      <a href="/">
-        <img src="/images/logo.png" alt="logo" class="site__header__logo">
-      </a>
-    </div>
-  </header>
-  <nav class="site__nav">
     <ul>
+      <li>
+        <a href="/">
+          <img src="/images/logo.png" alt="logo" class="site__header__logo">
+        </a>
+      </li>
       <li>
         <form action="/search/result" method="get">
           <input
@@ -50,6 +48,10 @@
           </button>
         </form>
       </li>
+    </ul>
+  </header>
+  <nav class="site__nav">
+    <ul>
       <li><a href="/posts/list">記事一覧</a></li>
       <li><a href="/posts/create">記事を作る</a></li>
     </ul>

@@ -28,13 +28,62 @@ a[href*="https"]::after {
   background-color: var(--color-bg-header);
 }
 
-.site__header div {
-  text-align: center;
+.site__header ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0 0.5em;
 }
 
 .site__header__logo {
   width: 100%;
   max-width: 48px;
+}
+
+.site__header form {
+    position: relative;
+}
+
+.site__header input[type="search"] {
+  -webkit-appearance: none;
+  appearance: none;
+  color: black;
+  background-color: white;
+  padding: 0.2em 0.5em;
+  border: 1px solid lightgray;
+  border-radius: 0.2em;
+}
+
+.site__header input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+.site__header input[type="search"]::-ms-clear {
+  visibility: hidden;
+}
+
+.site__header input[type="search"]::placeholder {
+  color: lightgray;
+}
+
+.site__header form button {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 20px;
+  padding: 0;
+  cursor: pointer;
+  border: none;
+  background-color: inherit;
+  z-index: 1;
+  color: black;
+}
+
+.site__header form button:hover {
+  color: skyblue;
+  transition: all .3s;
 }
 
 .site__nav {
@@ -65,58 +114,16 @@ a[href*="https"]::after {
   display: inline;
 }
 
-.site__nav ul li:first-child,
-.site__nav ul li:last-child {
+.site__nav ul li:first-child {
   margin-left: 0.5em;
+}
+
+.site__nav ul li:last-child {
+  margin-right: 0.5em;
 }
 
 .site__nav ul li form {
   font-size: 0.9em;
-}
-
-.site__nav ul li input[type="search"] {
-  background-color: inherit;
-  padding: 0.2em 0.5em;
-  border: 1px solid lightgray;
-  border-radius: 0.2em;
-  color: white;
-}
-
-.site__nav ul li input[type="search"]::-webkit-search-cancel-button {
-  -webkit-appearance: none;
-}
-
-.site__nav ul li input[type="search"]::-ms-clear {
-  visibility: hidden;
-}
-
-.site__nav ul li input[type="search"]::placeholder {
-  color: lightgray;
-}
-
-.site__nav ul li input[type="search"]:focus {
-  color: black;
-  background-color: white;
-}
-
-.site__nav ul li input[type="search"]:focus + button {
-  color: black;
-}
-
-.site__nav ul li form button {
-  position: relative;
-  left: -32px;
-  width: 0;
-  cursor: pointer;
-  color: white;
-  border: none;
-  background-color: inherit;
-  z-index: 1;
-}
-
-.site__nav ul li form button:hover {
-  color: skyblue;
-  transition: all .3s;
 }
 
 .site__nav ul li a {
