@@ -31,18 +31,25 @@ exports.result_get = (req, res, next) => {
     });
 };
 
-function getSearchTarget(req) {
-  return (req.query.type) ? req.query.type : 'posts';
-}
-
 function getSearchURL(req) {
   const q = getQeury('q', req);
   const type = getQeury('type', req);
+  const page = getQeury('page', req);
   const target = getSearchTarget(req);
 
-  return `${apiURL}/api/v1/search/${target}?${q}&${type}`;
+  return `${apiURL}/api/v1/search/${target}?${q}&${type}&${page}`;
 }
 
 function getQeury(name, req) {
   return (req.query[name]) ? `${name}=${req.query[name]}` : '';
+
+}
+
+function getSearchTarget(req) {
+  switch (req.query.type) {
+    case 'posts':
+      return 'posts';
+    default:
+      return 'posts';
+  }
 }
