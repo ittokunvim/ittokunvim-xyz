@@ -37,7 +37,7 @@ function getSearchURL(req) {
   const page = getQeury('page', req);
   const target = getSearchTarget(req);
 
-  return `${apiURL}/api/v1/search/${target}?${q}&${type}&${page}`;
+  return `${apiURL}/search/${target}?${q}&${type}&${page}`;
 }
 
 function getQeury(name, req) {

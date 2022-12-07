@@ -9,7 +9,9 @@ const apiURL = config.get('apiURL');
 
 // display post list
 exports.list = async (req, res, next) => {
-  axios.get(apiURL + `/api/v1/posts?${getQeury('page', req)}`)
+  const url = getApiPostURL('list', req);
+
+  axios.get(url)
     .then((res) => res.data)
     .then((data) => {
       data['posts'].forEach(callbackFormatDateTime)
@@ -36,7 +38,9 @@ exports.list = async (req, res, next) => {
 
 // display post detail
 exports.detail = (req, res, next) => {
-  axios.get(getApiPostURL(req.params.id))
+  const url = getApiPostURL('detail', req)
+
+  axios.get(url)
     .then(res => res.data)
     .then(callbackFormatDateTime)
     .then(callbackFormatContent)
@@ -88,7 +92,7 @@ exports.create_post = [
     }
 
     // success
-    axios.post(apiURL + '/api/v1/posts', post)
+    axios.post(apiURL + '/posts', post)
       .then(res => res.data)
       .then(post => {
         req.flash('success', '記事を作成しました');
@@ -100,7 +104,9 @@ exports.create_post = [
 
 // display post update
 exports.update_get = (req, res, next) => {
-  axios.get(getApiPostURL(req.params.id))
+  const url = getApiPostURL('update_get', req);
+
+  axios.get(url)
     .then(res => res.data)
     .then(post => {
       post.content = unescapeContent(post.content)
@@ -141,7 +147,9 @@ exports.update_post = [
       });
     }
 
-    axios.patch(getApiPostURL(req.params.id), post)
+    const url = getApiPostURL('update_post', req)
+
+    axios.patch(url, post)
       .then(res => res.data)
       .then(post => {
         req.flash('success', '記事を更新しました');
@@ -178,7 +186,9 @@ exports.delete_post = [
       });
     }
 
-    axios.delete(getApiPostURL(req.params.id), post)
+    const url = getApiPostURL('delete_post', req);
+
+    axios.delete(url, post)
       .then(() => {
         req.flash('success', '記事を削除しました');
         res.redirect('/posts/list');
@@ -216,8 +226,19 @@ function validationPost(field) {
   }
 }
 
-function getApiPostURL(id) {
-  return apiURL + '/api/v1/posts/' + id;
+function getApiPostURL(name, req) {
+  switch (name) {
+    case 'list': 
+      return `${apiURL}/posts?${getQeury('page', req)}`;
+    case 'detail':
+    // case 'create_get':
+    // case 'create_post':
+    case 'update_get':
+    case 'update_post':
+    // case 'delete_get':
+    case 'delete_post':
+      return `${apiURL}/posts/${req.params.id}`
+  }
 }
 
 function callbackFormatDateTime(post) {

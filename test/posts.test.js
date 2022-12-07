@@ -1,10 +1,7 @@
 const request = require('supertest');
 const session = require('supertest-session');
-const axios = require('axios');
-const config = require('config');
 
 const app = require('../app.js');
-const apiURL = config.get('apiURL');
 
 describe('GET /posts/list', function () {
   test('it should be success', async function () {
@@ -218,20 +215,3 @@ describe('POST /posts/:id/delete', function () {
     
   });
 });
-
-async function createPost() {
-  let post = {
-    title: 'test',
-    content: '# hello world',
-  };
-
-  return await axios.post(apiURL + '/api/v1/posts', post)
-    .then(res => res.data)
-    .catch(err => console.error(err));
-}
-
-async function deletePost(post) {
-  await axios.delete(apiURL + '/api/v1/posts/' + post.id)
-    .then(res => res.data)
-    .catch(err => console.error(err));
-}
