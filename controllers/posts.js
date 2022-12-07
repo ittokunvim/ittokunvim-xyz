@@ -9,19 +9,29 @@ const apiURL = config.get('apiURL');
 
 // display post list
 exports.list = async (req, res, next) => {
-  axios.get(apiURL + '/api/v1/posts')
+  axios.get(apiURL + `/api/v1/posts?${getQeury('page', req)}`)
     .then((res) => res.data)
-    .then((posts) => {
-      posts.forEach(callbackFormatDateTime)
-      return posts;
+    .then((data) => {
+      data['posts'].forEach(callbackFormatDateTime)
+      return data;
     })
-    .then((posts) => {
+    .then((data) => {
       res.render('posts/list', {
         title: 'Post list',
-        posts: posts,
+        posts: data['posts']
       });
     })
-    .catch((err) => next(err))
+    .catch(err => {
+      // post not found
+      if (err.response.status === 404) {
+        res.status(404);
+        res.render('posts/404', {
+          title: 'Post not found',
+        });
+        return;
+      }
+      next(err);
+    });
 };
 
 // display post detail
@@ -228,4 +238,8 @@ function callbackFormatContent(post) {
 function unescapeContent(content) {
   return content
     .replace(/&gt;/g, '>')
+}
+
+function getQeury(name, req) {
+  return (req.query[name]) ? `${name}=${req.query[name]}` : '';
 }

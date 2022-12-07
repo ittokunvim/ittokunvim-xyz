@@ -16,6 +16,16 @@ describe('GET /posts/list', function () {
         expect(res.text).toMatch(/Post list/);
       });
   });
+
+  test('too many page', async function () {
+    await request(app)
+      .get('/posts/list?page=999')
+      .expect(404)
+      .expect('Content-Type', /html/)
+      .then(res => {
+        expect(res.text).toMatch(/Post not found/);
+      });
+  });
 });
 
 describe('GET /posts/:id', function () {
