@@ -20,7 +20,8 @@ exports.list = async (req, res, next) => {
     .then((data) => {
       res.render('posts/list', {
         title: 'Post list',
-        posts: data['posts']
+        posts: data['posts'],
+        post_count: data['post_count'],
       });
     })
     .catch(err => {

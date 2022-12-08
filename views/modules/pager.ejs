@@ -1,0 +1,12 @@
+<%# REQ: total_count %>
+
+<div class="module__pager">
+</div>
+
+<script>
+  const pager = document.querySelector('.module__pager');
+  const totalCount = <%= total_count %>;
+  const pageStep = 20;
+</script>
+
+<script src="/javascripts/pager.js"></script>

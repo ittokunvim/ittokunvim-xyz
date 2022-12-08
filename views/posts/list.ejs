@@ -1,5 +1,6 @@
 <div class="post__list">
   <h1><i class="fa-regular fa-newspaper"></i> List</h1>
+  <p>Post: <%= post_count %></p>
   <div class="posts">
     <% posts.forEach(post => { %>
       <div id=<%= 'post_' + post.id %>>
@@ -12,4 +13,5 @@
       </div>
     <% }) %>
   </div>
+  <%- include('../modules/pager.ejs', { total_count: post_count }) %>
 </div>

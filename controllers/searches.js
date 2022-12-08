@@ -15,7 +15,8 @@ exports.result_get = (req, res, next) => {
 
       res.render('search/' + searchTarget, {
         title: 'Search - ' + req.query.q,
-        [searchTarget]: data,
+        total_count: data['search_count'],
+        items: data['items'],
       });
     })
     .catch((err) => {
