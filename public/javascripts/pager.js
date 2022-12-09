@@ -49,8 +49,26 @@ window.addEventListener('load', function () {
   // リストのスパンを作成する
   function createPageSpan(text) {
     const myspan = document.createElement('span');
-    myspan.textContent = text;
-    return myspan;
+
+    switch (text) {
+      case 'Prev':
+        myspan.textContent = text;
+        myspan.href = getPageURL(Number(params.get('page')) - 1);
+        myspan.classList.add('prev')
+          break;
+      case 'Next':
+        myspan.textContent = text;
+        myspan.href = getPageURL(Number(params.get('page') || 1) + 1);
+        myspan.classList.add('next')
+        break;
+      default:
+        myspan.textContent = text;
+        myspan.href = getPageURL(text);
+        if (params.get('page') === text || (!params.get('page') && text === '1')) 
+          myspan.classList.add('current');
+        break;
+    }
+     return myspan;
   }
 
   // リストのリンクを作成する
@@ -61,10 +79,12 @@ window.addEventListener('load', function () {
       case 'Prev':
         mylink.textContent = text;
         mylink.href = getPageURL(Number(params.get('page')) - 1);
+        mylink.classList.add('prev')
           break;
       case 'Next':
         mylink.textContent = text;
         mylink.href = getPageURL(Number(params.get('page') || 1) + 1);
+        mylink.classList.add('next')
         break;
       default:
         mylink.textContent = text;
