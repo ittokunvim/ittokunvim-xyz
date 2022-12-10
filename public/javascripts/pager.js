@@ -53,17 +53,14 @@ window.addEventListener('load', function () {
     switch (text) {
       case 'Prev':
         myspan.textContent = text;
-        myspan.href = getPageURL(Number(params.get('page')) - 1);
         myspan.classList.add('prev')
           break;
       case 'Next':
         myspan.textContent = text;
-        myspan.href = getPageURL(Number(params.get('page') || 1) + 1);
         myspan.classList.add('next')
         break;
       default:
         myspan.textContent = text;
-        myspan.href = getPageURL(text);
         if (params.get('page') === text || (!params.get('page') && text === '1')) 
           myspan.classList.add('current');
         break;
@@ -99,11 +96,11 @@ window.addEventListener('load', function () {
     const page = 'page=' + i;
 
     if (params.toString() === '') 
-      return url.href + '?' + page;
+      return url.pathname + '?' + page;
 
     if (params.get('page'))
-      return url.href.replace(/page=\d*/i, page);
+      return url.pathname + url.search.replace(/page=\d*/i, page);
     else
-      return url.href + '&' + page;
+      return url.pathname + url.search + '&' + page;
   }
 });
