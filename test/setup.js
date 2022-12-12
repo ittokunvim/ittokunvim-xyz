@@ -27,4 +27,14 @@ global.deletePost = async function (post) {
     .catch(err => console.error(err));
 }
 
+global.createPostComment = async function (post) {
+  let comment = {
+    content: '1 comment',
+  }
+
+  return await axios.post(apiURL + '/posts/' + post.id + '/comments', comment)
+    .then(res => res.data)
+    .catch(err => console.error(err));
+}
+
 module.exports = setup;
