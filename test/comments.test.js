@@ -67,48 +67,48 @@ describe('POST /posts/:id/comments', function () {
   });
 });
 
-// describe('POST /posts/:id/comments/:id', function () {
-//   let post = {}
+describe('POST /posts/:id/comments/:id', function () {
+  let post = {}
 
-//   beforeEach(async () => {
-//     post = await createPost();
-//     comment = await createPostComment(post);
-//   });
+  beforeEach(async () => {
+    post = await createPost();
+    comment = await createPostComment(post);
+  });
 
-//   afterEach(async () => { await deletePost(post); });
+  afterEach(async () => { await deletePost(post); });
 
-//   test('it should be success', async function () {
-//     await session(app)
-//       .post('/posts/' + post.id + '/comments/' + comment.id)
-//       .redirects()
-//       .expect(200)
-//       .expect('Content-Type', /html/)
-//       .then(res => {
-//         expect(res.text).toMatch(new RegExp(post.title + '</title>'));
-//         expect(res.text).not.toMatch(new RegExp(comment.content));
-//         expect(res.text).toMatch(/flash/);
-//       });
-//   });
+  test('it should be success', async function () {
+    await session(app)
+      .post('/posts/' + post.id + '/comments/' + comment.id)
+      .redirects()
+      .expect(200)
+      .expect('Content-Type', /html/)
+      .then(res => {
+        expect(res.text).toMatch(new RegExp(post.title + '</title>'));
+        expect(res.text).not.toMatch(new RegExp(comment.content));
+        expect(res.text).toMatch(/flash/);
+      });
+  });
 
-//   test('post not found', async function () {
-//     await request(app)
-//       .post('/posts/' + 1234 + '/comments/' + comment.id)
-//       .redirects()
-//       .expect(404)
-//       .expect('Content-Type', /html/)
-//       .then(res => {
-//         expect(res.text).toMatch(new RegExp('Post not found'));
-//       });
-//   });
+  test('post not found', async function () {
+    await request(app)
+      .post('/posts/' + 1234 + '/comments/' + comment.id)
+      .redirects()
+      .expect(404)
+      .expect('Content-Type', /html/)
+      .then(res => {
+        expect(res.text).toMatch(new RegExp('Post not found'));
+      });
+  });
 
-//   test('comment not found', async function () {
-//     await session(app)
-//       .post('/posts/' + post.id + '/comments/' + 1234)
-//       .redirects()
-//       .expect(404)
-//       .expect('Content-Type', /html/)
-//       .then(res => {
-//         expect(res.text).toMatch(/Could not found Comment/);
-//       });
-//   });
-// });
+  test('comment not found', async function () {
+    await session(app)
+      .post('/posts/' + post.id + '/comments/' + 1234)
+      .redirects()
+      // .expect(404)
+      .expect('Content-Type', /html/)
+      .then(res => {
+        expect(res.text).toMatch(/flash/);
+      });
+  });
+});

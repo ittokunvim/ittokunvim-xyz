@@ -10,11 +10,33 @@ exports.create_post = [
   async (req, res, next) => {
     const errors = validationResult(req);
     const comment = req.body.comment;
-    let url = getApiURL('create_post', req);
+    const postURL = getApiURL('create_post.post', req);
+    const commentURL = getApiURL('create_post.comment', req);
 
-    const post = await axios.get(url)
+    axios.get(postURL)
       .then(res => res.data)
+      .then(post => {
+        debug('create_post post found:', post);
+        // validation error
+        if (!errors.isEmpty()) {
+          debug('create_post comment validation error:', errors.array());
+          res.status(422);
+          req.flash('failed', errors.array()[0].msg)
+          res.redirect('/posts/' + post.id);
+          return;
+        }
+        // success
+        axios.post(commentURL, comment)
+          .then(res => res.data)
+          .then(comment => {
+            debug('create_post comment created:', comment);
+            req.flash('success', 'コメントを作成しました');
+            res.redirect('/posts/' + post.id);
+          })
+          .catch(err => next(err));
+      })
       .catch(err => {
+        debug('create_post post not found');
         // post not found
         if (err.response.status === 404) {
           res.status(404);
@@ -25,34 +47,53 @@ exports.create_post = [
         }
         next(err);
       });
-
-    // validation error
-    if (!errors.isEmpty()) {
-      res.status(422);
-      req.flash('failed', errors.array()[0].msg)
-      res.redirect('/posts/' + post.id);
-    }
-
-    // success
-    axios.post(url + '/comments', comment)
-      .then(res => res.data)
-      .then(comment => {
-        req.flash('success', 'コメントを作成しました');
-        res.redirect('/posts/' + post.id);
-      })
-      .catch(err => next(err));
   }
 ];
 
-exports.delete_post = (req, res, next) => {
-  // post not found
+exports.delete_post = async (req, res, next) => {
+  const postURL = getApiURL('delete_post.post', req);
+  const commentURL = getApiURL('delete_post.comment', req);
 
-  // comment not found
-
-  // success
+  axios.get(postURL)
+    .then(res => res.data)
+    .then(post => {
+      debug('delete_post post found:', post);
+      axios.delete(commentURL)
+        .then(res => res.data)
+        .then(comment => {
+          debug('delete_post comment found:', comment);
+          // success
+          req.flash('success', 'コメントを削除しました');
+          res.redirect('/posts/' + post.id);
+        })
+        .catch(err => {
+          debug('delete_post comment not found');
+          // comment not found
+          if (err.response.status === 404) {
+            res.status(404);
+            req.flash('failed', 'コメントが見つかりません');
+            res.redirect('/posts/' + post.id);
+            return;
+          }
+          next(err);
+        });
+    })
+    .catch(err => {
+      debug('delete_post post not found');
+      // post not found
+      if (err.response.status === 404) {
+        res.status(404);
+        res.render('posts/404', {
+          title: 'Post not found',
+        });
+        return;
+      }
+      next(err);
+    });
 };
 
 function validationComment(field) {
+  debug('validationComment: ', field);
   switch (field) {
     case 'comment.content':
       return check(field, 'コメントを入力してください')
@@ -63,10 +104,14 @@ function validationComment(field) {
 }
 
 function getApiURL(action_name, req) {
+  debug('getApiURL: ', action_name)
   switch (action_name) {
-    case 'create_post':
+    case 'create_post.post':
+    case 'delete_post.post':
       return `${apiURL}/posts/${req.params.post_id}`;
-    case 'delete_post':
-      break;
+    case 'create_post.comment':
+      return `${apiURL}/posts/${req.params.post_id}/comments`;
+    case 'delete_post.comment':
+      return `${apiURL}/posts/${req.params.post_id}/comments/${req.params.comment_id}`;
   }
 }
