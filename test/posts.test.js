@@ -28,7 +28,10 @@ describe('GET /posts/list', function () {
 describe('GET /posts/:id', function () {
   let post = {}
 
-  beforeEach(async () => { post = await createPost(); });
+  beforeEach(async () => {
+    post = await createPost();
+    comment = await createPostComment(post);
+  });
 
   afterEach(async () => { await deletePost(post); });
 
@@ -40,6 +43,7 @@ describe('GET /posts/:id', function () {
       .then((res) => {
         expect(res.text).toMatch(new RegExp(post.title));
         expect(res.text).toMatch(new RegExp(post.content.replace('# ', '') + '</h1>'));
+        expect(res.text).toMatch(new RegExp(comment.content));
       });
   });
 

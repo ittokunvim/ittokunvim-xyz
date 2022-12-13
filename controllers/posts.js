@@ -38,18 +38,30 @@ exports.list = async (req, res, next) => {
 };
 
 // display post detail
-exports.detail = (req, res, next) => {
-  const url = getApiPostURL('detail', req)
+exports.detail = async (req, res, next) => {
+  const postURL = getApiPostURL('detail.post', req);
+  const commentURL = getApiPostURL('detail.comments', req);
 
-  axios.get(url)
+  axios.get(postURL)
     .then(res => res.data)
     .then(callbackFormatDateTime)
     .then(callbackFormatContent)
     .then(post => {
-      res.render('posts/detail', {
-        title: post.title,
-        post: post,
-      })
+      // success
+      axios.get(commentURL)
+        .then(res => res.data)
+        .then(data => { 
+          data.forEach(callbackFormatDateTime)
+          return data;
+        })
+        .then(comments => {
+          res.render('posts/detail', {
+            title: post.title,
+            post: post,
+            comments: comments,
+          })
+        })
+        .catch(err => next(err));
     })
     .catch(err => {
       // post not found
@@ -79,6 +91,7 @@ exports.create_post = [
   (req, res, next) => {
     const errors = validationResult(req);
     const post = req.body.post;
+    const url = getApiPostURL('create_post', req);
 
     // validation error
     if (!errors.isEmpty()) {
@@ -93,7 +106,7 @@ exports.create_post = [
     }
 
     // success
-    axios.post(apiURL + '/posts', post)
+    axios.post(url, post)
       .then(res => res.data)
       .then(post => {
         req.flash('success', '記事を作成しました');
@@ -137,6 +150,7 @@ exports.update_post = [
   (req, res, next) => {
     const errors = validationResult(req);
     const post = req.body.post;
+    const url = getApiPostURL('update_post', req)
 
     // validation error
     if (!errors.isEmpty()) {
@@ -147,8 +161,6 @@ exports.update_post = [
         errors: errors.array(),
       });
     }
-
-    const url = getApiPostURL('update_post', req)
 
     axios.patch(url, post)
       .then(res => res.data)
@@ -176,6 +188,7 @@ exports.delete_post = [
   (req, res, next) => {
     const errors = validationResult(req);
     const post = req.body.post;
+    const url = getApiPostURL('delete_post', req);
 
     // validation error
     if (!errors.isEmpty()) {
@@ -186,8 +199,6 @@ exports.delete_post = [
         errors: errors.array(),
       });
     }
-
-    const url = getApiPostURL('delete_post', req);
 
     axios.delete(url, post)
       .then(() => {
@@ -231,14 +242,15 @@ function getApiPostURL(name, req) {
   switch (name) {
     case 'list': 
       return `${apiURL}/posts?${getQeury('page', req)}`;
-    case 'detail':
-    // case 'create_get':
-    // case 'create_post':
+    case 'detail.post':
     case 'update_get':
     case 'update_post':
-    // case 'delete_get':
     case 'delete_post':
-      return `${apiURL}/posts/${req.params.id}`
+      return `${apiURL}/posts/${req.params.id}`;
+    case 'detail.comments':
+      return `${apiURL}/posts/${req.params.id}/comments`;
+    case 'create_post':
+      return `${apiURL}/posts`;
   }
 }
 
