@@ -9,28 +9,35 @@
       <%- post.content %>
     </div>
   </article>
-  <div class="post__links-wrapper">
-    <div class="post__links">
-      <h2><i class="fa-regular fa-newspaper"></i></h2>
-      <hr>
-      <ul>
-        <li><a href=<%= '/posts/' + post.id + '/update' %> class="update">更新する</a></li>
-        <li>
-          <form action=<%= `/posts/${post.id}/delete` %> name="post__delete" method="post">
-            <input type="hidden" name="post[id]" value=<%= post.id %>>
-            <a href="javascript:post__delete.submit()" class="delete">削除する</a>
-            <script>
-              const postDeleteLink = document.querySelector('form[name="post__delete"] a');
-
-              postDeleteLink.addEventListener('click', (e) => {
-                (window.confirm('本当に削除してよろしいですか？'))
-                  ? 'Delete'
-                  : e.preventDefault();
-              });
-            </script>
-          </form>
-        </li>
-      </ul>
-    </div>
-  </div>
 </div>
+<%- include('../comments/list', { post: post, comments: comments }) %>
+<%- include('./links', { post: post }) %>
+
+<script>
+  const postDeleteLink = document.querySelector('form[name=post_delete] a');
+  const commentDeleteLinks = document.querySelectorAll('form[name^=comment_delete_] a');
+
+  postDeleteLink.addEventListener('click', callbackDeleteLink);
+  commentDeleteLinks.forEach(link => {
+    link.addEventListener('click', callbackDeleteLink)
+  });
+
+  function callbackDeleteLink(e) {
+    (window.confirm('本当に削除してよろしいですか？'))
+      ? 'Delete'
+      : e.preventDefault();
+  }
+
+  const commentFormTextarea = document.querySelector('.comment__form textarea');
+
+  commentFormTextarea.addEventListener('input', (e) => {
+    let lineHeight = getComputedStyle(e.target).lineHeight;
+    let lines = e.target.value.concat('\n').match(/\n/g).length + 1;
+    e.target.style.height = (pxToEm(parseFloat(lineHeight)) * lines) + 'em';
+  });
+
+  function pxToEm(px) {
+    let fontSize = getComputedStyle(document.documentElement).fontSize;
+    return px / parseFloat(fontSize);
+  }
+</script>

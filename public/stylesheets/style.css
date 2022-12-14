@@ -161,6 +161,10 @@ a[href*="https"]::after {
   background: linear-gradient(to right, skyblue, lightblue);
 }
 
+.site__flash:has(p.failed) {
+  background: linear-gradient(to right, gold, yellow);
+}
+
 .site__main {
   margin-top: 1rem;
   min-height: 50vh;
@@ -331,6 +335,7 @@ a[href*="https"]::after {
 
 .post__links-wrapper {
   margin-top: 1rem;
+  padding: 0 1rem;
 }
 
 .post__links h2 {
@@ -475,6 +480,103 @@ a[href*="https"]::after {
 .post__errors ul li::before {
   content: "\f00d";
   margin-right: 0.5em;
+}
+
+/* post comment */
+
+.post__comments {
+  padding: 0 1rem;
+}
+
+.post__comments .comments {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.post__comments li[id^=comment_] {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  margin-bottom: 2em;
+} 
+
+li[id^=comment_] p {
+  font-size: 0.8em;
+  color: gray;
+  margin: 0;
+}
+
+li[id^=comment_] article {
+  white-space: pre-wrap;
+}
+
+li[id^=comment_] a {
+  font-size: 0.9em;
+  display: inline-block;
+  text-decoration: none;
+  color: dodgerblue;
+  padding: 0.5em 1em;
+  border-radius: 1em;
+}
+
+li[id^=comment_] a:hover {
+  background-color: lightblue;
+}
+
+/* comment form */
+
+.comment__form {
+  
+}
+
+.comment__form form {
+  max-width: 750px;
+}
+
+.comment__form textarea {
+  resize: none;
+  overflow-y: hidden;
+  width: 100%;
+  /* line-height: 1.2; */
+  height: 2em;
+  padding: 0.5em;
+  border: none;
+  border-bottom: 1px solid black;
+  box-sizing: border-box;
+  /* hidden scrollbar  */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.comment__form textarea::-webkit-scrollbar {
+  display: none;
+}
+
+.comment__form textarea:focus-visible {
+  outline: none;
+  border-bottom: 2px solid black;
+}
+
+.comment__form input[type=submit] {
+  appearance: none;
+  display: block;
+  cursor: pointer;
+  font-size: 0.8em;
+  padding: 0.5em;
+  margin-left: auto;
+  border: none;
+  border-radius: 1em;
+  color: white;
+  background-color: dodgerblue;
+}
+
+.comment__form input[type=submit]:hover {
+  opacity: 0.8;
+}
+
+.comment__form input[type=submit]:active {
+  opacity: 1;
 }
 
 /* module pager */
