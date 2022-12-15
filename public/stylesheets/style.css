@@ -498,6 +498,8 @@ a[href*="https"]::after {
   display: flex;
   flex-direction: column;
   gap: 0.5em;
+  overflow: visible;
+  overflow-wrap: break-word;
   margin-bottom: 2em;
 } 
 
@@ -527,7 +529,7 @@ li[id^=comment_] a:hover {
 /* comment form */
 
 .comment__form {
-  
+
 }
 
 .comment__form form {

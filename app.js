@@ -8,7 +8,6 @@ const session = require('express-session');
 const flash = require('express-flash');
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
 const postsRouter = require('./routes/posts');
 const commentsRouter = require('./routes/comments');
 const searchesRouter = require('./routes/searches');
@@ -42,7 +41,6 @@ app.use(function (req, res, next) {
 });
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
 app.use('/posts', commentsRouter);
 app.use('/search', searchesRouter);

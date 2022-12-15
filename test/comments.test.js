@@ -11,11 +11,7 @@ describe('POST /posts/:id/comments', function () {
   afterEach(async () => { await deletePost(post); });
 
   test('it should be success', async function () {
-    let comment = {
-      comment: {
-        content: 'hello',
-      }
-    };
+    let comment = commentHash;
 
     await session(app)
       .post('/posts/' + post.id + '/comments')
@@ -50,11 +46,7 @@ describe('POST /posts/:id/comments', function () {
   });
 
   test('post not found', async function () {
-    let comment = {
-      comment: {
-        content: 'test',
-      }
-    };
+    let comment = commentHash;
 
     await request(app)
       .post('/posts/' + 1234 + '/comments')

@@ -10,6 +10,13 @@ const setup = {
   },
 };
 
+global.postHash = {
+  post: {
+    title: 'test',
+    content: '# hello world',
+  }
+};
+
 global.createPost = async function () {
   let post = {
     title: 'test',
@@ -25,6 +32,12 @@ global.deletePost = async function (post) {
   await axios.delete(apiURL + '/posts/' + post.id)
     .then(res => res.data)
     .catch(err => console.error(err));
+}
+
+global.commentHash = {
+  comment: {
+    content: '1 comment',
+  }
 }
 
 global.createPostComment = async function (post) {

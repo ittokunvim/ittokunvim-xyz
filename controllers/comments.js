@@ -16,10 +16,10 @@ exports.create_post = [
     axios.get(postURL)
       .then(res => res.data)
       .then(post => {
-        debug('create_post post found:', post);
+        debug('create_post: post found');
         // validation error
         if (!errors.isEmpty()) {
-          debug('create_post comment validation error:', errors.array());
+          debug('create_post: validation error');
           res.status(422);
           req.flash('failed', errors.array()[0].msg)
           res.redirect('/posts/' + post.id);
@@ -29,14 +29,14 @@ exports.create_post = [
         axios.post(commentURL, comment)
           .then(res => res.data)
           .then(comment => {
-            debug('create_post comment created:', comment);
+            debug('create_post: comment created');
             req.flash('success', 'コメントを作成しました');
             res.redirect('/posts/' + post.id);
           })
           .catch(err => next(err));
       })
       .catch(err => {
-        debug('create_post post not found');
+        debug('create_post: post not found');
         // post not found
         if (err.response.status === 404) {
           res.status(404);
@@ -57,17 +57,16 @@ exports.delete_post = async (req, res, next) => {
   axios.get(postURL)
     .then(res => res.data)
     .then(post => {
-      debug('delete_post post found:', post);
+      debug('delete_post: post found');
       axios.delete(commentURL)
-        .then(res => res.data)
-        .then(comment => {
-          debug('delete_post comment found:', comment);
+        .then(() => {
+          debug('delete_post: comment found');
           // success
           req.flash('success', 'コメントを削除しました');
           res.redirect('/posts/' + post.id);
         })
         .catch(err => {
-          debug('delete_post comment not found');
+          debug('delete_post: comment not found');
           // comment not found
           if (err.response.status === 404) {
             res.status(404);
@@ -79,7 +78,7 @@ exports.delete_post = async (req, res, next) => {
         });
     })
     .catch(err => {
-      debug('delete_post post not found');
+      debug('delete_post: post not found');
       // post not found
       if (err.response.status === 404) {
         res.status(404);
@@ -93,7 +92,7 @@ exports.delete_post = async (req, res, next) => {
 };
 
 function validationComment(field) {
-  debug('validationComment: ', field);
+  debug(`validationComment(${field})`);
   switch (field) {
     case 'comment.content':
       return check(field, 'コメントを入力してください')

@@ -1,7 +1,7 @@
+<%# REQ: total_count %>
+
 <% if (total_count >= 20) { %>
-  <%# REQ: total_count %>
-  <div class="module__pager">
-  </div>
+  <div class="module__pager"></div>
   <script>
     const pager = document.querySelector('.module__pager');
     const totalCount = <%= total_count %>;

@@ -72,12 +72,7 @@ describe('GET /posts/create', function () {
 
 describe('POST /posts/create', function () {
   test('it should be success', async function () {
-    let post = {
-      post: {
-        title: 'test',
-        content: 'hello world',
-      }
-    };
+    let post = postHash;
 
     await session(app)
       .post('/posts/create')
@@ -95,12 +90,8 @@ describe('POST /posts/create', function () {
   });
 
   test('validation error', async function () {
-    let post = {
-      post: {
-        title: '',
-        content: '> ref',
-      }
-    };
+    let post = postHash;
+    post.post.title = '';
 
     await request(app)
       .post('/posts/create')
@@ -166,7 +157,7 @@ describe('POST /posts/:id/update', function () {
 
   test('unknown post id', async function () {
     await request(app)
-      .post('/posts/' + '1234567890' + '/update')
+      .post('/posts/' + 1234 + '/update')
       .send({ 'post': post })
       .expect(404)
       .expect('Content-Type', /html/)
@@ -177,6 +168,7 @@ describe('POST /posts/:id/update', function () {
 
   test('validation error', async function () {
     post.title = post.content = ''
+
     await request(app)
       .post('/posts/' + post.id + '/update')
       .send({ 'post': post })
@@ -208,7 +200,7 @@ describe('POST /posts/:id/delete', function () {
 
   test('post not found', async function () {
     await request(app)
-      .post('/posts/' + '1234567890' + '/delete')
+      .post('/posts/' + 1234 + '/delete')
       .send({ 'post': post })
       .expect(404)
       .expect('Content-Type', /html/)
@@ -216,6 +208,5 @@ describe('POST /posts/:id/delete', function () {
         expect(res.text).toMatch(/Post not found/);
       });
     await deletePost(post);
-    
   });
 });

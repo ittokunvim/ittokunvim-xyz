@@ -9,15 +9,17 @@ const apiURL = config.get('apiURL');
 
 // display post list
 exports.list = async (req, res, next) => {
-  const url = getApiPostURL('list', req);
+  const url = getApiURL('list', req);
 
   axios.get(url)
-    .then((res) => res.data)
-    .then((data) => {
+    .then(res => res.data)
+    .then(data => {
+      debug('list: post format dateTime');
       data['posts'].forEach(callbackFormatDateTime)
       return data;
     })
-    .then((data) => {
+    .then(data => {
+      debug('list: posts found');
       res.render('posts/list', {
         title: 'Post list',
         posts: data['posts'],
@@ -25,6 +27,7 @@ exports.list = async (req, res, next) => {
       });
     })
     .catch(err => {
+      debug('list: post not found');
       // post not found
       if (err.response.status === 404) {
         res.status(404);
@@ -39,14 +42,15 @@ exports.list = async (req, res, next) => {
 
 // display post detail
 exports.detail = async (req, res, next) => {
-  const postURL = getApiPostURL('detail.post', req);
-  const commentURL = getApiPostURL('detail.comments', req);
+  const postURL = getApiURL('detail.post', req);
+  const commentURL = getApiURL('detail.comments', req);
 
   axios.get(postURL)
     .then(res => res.data)
     .then(callbackFormatDateTime)
     .then(callbackFormatContent)
     .then(post => {
+      debug('detail: post found');
       // success
       axios.get(commentURL)
         .then(res => res.data)
@@ -55,6 +59,7 @@ exports.detail = async (req, res, next) => {
           return data;
         })
         .then(comments => {
+          debug('detail: post comments found');
           res.render('posts/detail', {
             title: post.title,
             post: post,
@@ -64,6 +69,7 @@ exports.detail = async (req, res, next) => {
         .catch(err => next(err));
     })
     .catch(err => {
+      debug('detail: post not found');
       // post not found
       if (err.response.status === 404) {
         res.status(404);
@@ -91,10 +97,11 @@ exports.create_post = [
   (req, res, next) => {
     const errors = validationResult(req);
     const post = req.body.post;
-    const url = getApiPostURL('create_post', req);
+    const url = getApiURL('create_post', req);
 
     // validation error
     if (!errors.isEmpty()) {
+      debug('create_post: validation error');
       res.status(422);
       post.content = unescapeContent(post.content)
       res.render('posts/create', {
@@ -109,6 +116,7 @@ exports.create_post = [
     axios.post(url, post)
       .then(res => res.data)
       .then(post => {
+        debug('create_post: post created');
         req.flash('success', '記事を作成しました');
         res.redirect(post.id);
       })
@@ -118,11 +126,12 @@ exports.create_post = [
 
 // display post update
 exports.update_get = (req, res, next) => {
-  const url = getApiPostURL('update_get', req);
+  const url = getApiURL('update_get', req);
 
   axios.get(url)
     .then(res => res.data)
     .then(post => {
+      debug('update_get: post found');
       post.content = unescapeContent(post.content)
       res.render('posts/update', {
         title: 'Post update',
@@ -130,6 +139,7 @@ exports.update_get = (req, res, next) => {
       });
     })
     .catch(err => {
+      debug('update_get: post not found');
       // post not found
       if (err.response.status === 404) {
         res.status(404);
@@ -144,16 +154,16 @@ exports.update_get = (req, res, next) => {
 
 // handle post update
 exports.update_post = [
-  validationPost('post.id'),
   validationPost('post.title'),
   validationPost('post.content'),
   (req, res, next) => {
     const errors = validationResult(req);
     const post = req.body.post;
-    const url = getApiPostURL('update_post', req)
+    const url = getApiURL('update_post', req)
 
     // validation error
     if (!errors.isEmpty()) {
+      debug('update_post: validation error');
       res.status(422);
       res.render('posts/update', {
         title: 'Post update',
@@ -162,13 +172,16 @@ exports.update_post = [
       });
     }
 
+    // success
     axios.patch(url, post)
       .then(res => res.data)
       .then(post => {
+        debug('update_post: post updated');
         req.flash('success', '記事を更新しました');
         res.redirect('/posts/' + post.id)
       })
       .catch(err => {
+        debug('update_post: post not found');
         // post not found
         if (err.response.status === 404) {
           res.status(404);
@@ -183,43 +196,31 @@ exports.update_post = [
 ];
 
 // handle post delete
-exports.delete_post = [
-  validationPost('post.id'),
-  (req, res, next) => {
-    const errors = validationResult(req);
-    const post = req.body.post;
-    const url = getApiPostURL('delete_post', req);
+exports.delete_post = (req, res, next) => {
+  const url = getApiURL('delete_post', req);
 
-    // validation error
-    if (!errors.isEmpty()) {
-      res.status(422);
-      res.render('posts/delete', {
-        title: 'Post delete',
-        post: post,
-        errors: errors.array(),
-      });
-    }
-
-    axios.delete(url, post)
-      .then(() => {
-        req.flash('success', '記事を削除しました');
-        res.redirect('/posts/list');
-      })
-      .catch(err => {
-        // post not found
-        if (err.response.status === 404) {
-          res.status(404);
-          res.render('posts/404', {
-            title: 'Post not found',
-          });
-          return;
-        }
-        next(err);
-      });
-  },
-];
+  axios.delete(url)
+    .then(() => {
+      debug('delete_post: post deleted');
+      req.flash('success', '記事を削除しました');
+      res.redirect('/posts/list');
+    })
+    .catch(err => {
+      debug('delete_post: post not found');
+      // post not found
+      if (err.response.status === 404) {
+        res.status(404);
+        res.render('posts/404', {
+          title: 'Post not found',
+        });
+        return;
+      }
+      next(err);
+    });
+};
 
 function validationPost(field) {
+  debug(`validationPost(${field})`);
   switch (field) {
     case 'post.id':
       return check(field)
@@ -238,10 +239,11 @@ function validationPost(field) {
   }
 }
 
-function getApiPostURL(name, req) {
+function getApiURL(name, req) {
+  debug(`getApiURL(${name}, req)`);
   switch (name) {
     case 'list': 
-      return `${apiURL}/posts?${getQeury('page', req)}`;
+      return `${apiURL}/posts?${getQuery('page', req)}`;
     case 'detail.post':
     case 'update_get':
     case 'update_post':
@@ -265,15 +267,18 @@ function formatDateTime(date) {
 }
 
 function callbackFormatContent(post) {
+  debug('callbackFormatContent(post)');
   post.content = marked.parse(unescapeContent(post.content));
   return post;
 }
 
 function unescapeContent(content) {
+  debug('unescapeContent(content)')
   return content
     .replace(/&gt;/g, '>')
 }
 
-function getQeury(name, req) {
+function getQuery(name, req) {
+  debug(`getQuery(${name}, req)`);
   return (req.query[name]) ? `${name}=${req.query[name]}` : '';
 }

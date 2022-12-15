@@ -19,7 +19,7 @@
   </div> <ul class="comments">
     <% if (typeof comments !== 'undefined' && comments.length > 0) { %>
       <% comments.forEach((comment, i) => { %>
-        <%- include('./comment', { post: post, comment: comment }) %>
+        <%- include('./_comment', { post: post, comment: comment }) %>
       <% }) %>
     <% } %>
   </ul>

@@ -10,34 +10,8 @@
     </div>
   </article>
 </div>
-<%- include('../comments/list', { post: post, comments: comments }) %>
-<%- include('./links', { post: post }) %>
+<%- include('../comments/_list', { post: post, comments: comments }) %>
+<%- include('./_links', { post: post }) %>
 
-<script>
-  const postDeleteLink = document.querySelector('form[name=post_delete] a');
-  const commentDeleteLinks = document.querySelectorAll('form[name^=comment_delete_] a');
-
-  postDeleteLink.addEventListener('click', callbackDeleteLink);
-  commentDeleteLinks.forEach(link => {
-    link.addEventListener('click', callbackDeleteLink)
-  });
-
-  function callbackDeleteLink(e) {
-    (window.confirm('本当に削除してよろしいですか？'))
-      ? 'Delete'
-      : e.preventDefault();
-  }
-
-  const commentFormTextarea = document.querySelector('.comment__form textarea');
-
-  commentFormTextarea.addEventListener('input', (e) => {
-    let lineHeight = getComputedStyle(e.target).lineHeight;
-    let lines = e.target.value.concat('\n').match(/\n/g).length + 1;
-    e.target.style.height = (pxToEm(parseFloat(lineHeight)) * lines) + 'em';
-  });
-
-  function pxToEm(px) {
-    let fontSize = getComputedStyle(document.documentElement).fontSize;
-    return px / parseFloat(fontSize);
-  }
-</script>
+<script src="/javascripts/deleteLink.js"></script>
+<script src="/javascripts/commentForm.js"></script>
