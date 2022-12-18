@@ -170,69 +170,63 @@ a[href*="https"]::after {
   min-height: 50vh;
 }
 
-.site__footer {
-  display: grid;
-  grid-template-areas:
-  "sns technology technology"
-  "copyright copyright copyright";
-  grid-template-columns: 1fr 2fr;
-  gap: 1rem;
-  margin-top: 1rem;
-  padding: 0.5rem;
-  box-sizing: border-box;
-  border-top: 1px solid black;
-  background-color: var(--color-bg-footer);
-}
+/* site footer */
 
-.site__footer ul {
-  list-style-type: none;
-  padding-left: 0.5rem;
+.site__footer {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-}
-
-.site__footer__sns {
-  grid-area: sns;
-}
-
-.site__footer__technology {
-  grid-area: technology;
-  border-left: 1px solid black;
-  padding-left: 1rem;
-}
-
-.site__footer__copyright {
-  grid-area: copyright;
   text-align: center;
-  border-top: 1px solid black;
+  box-sizing: border-box;
+  background-color: var(--color-bg-footer);
+  margin-top: 1rem;
 }
 
-.site__footer h2 {
-  font-size: 1.2rem;
+.site__footer__tools a[href*="https"]::after {
+  content: "";
+  margin: 0;
 }
 
-.site__footer a {
+.site__footer__tools ul {
+  font-size: 2rem;
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  gap: 4rem;
+  margin: 0;
+  padding: 0.5em;
+}
+
+.site__footer__tools p {
+  letter-spacing: 2px;
+  word-spacing: 4px;
+}
+
+.site__footer__tools a:link,
+.site__footer__tools a:visited,
+.site__footer__tools a:focus {
+  color: navy;
   text-decoration: none;
+  transition: all 0.25s;
 }
 
-.site__footer a:link,
-.site__footer a:visited,
-.site__footer a:focus {
-  color: darkblue;
+.site__footer__tools a:hover {
+  color: gray;
 }
 
-.site__footer a:hover {
-  color: black;
-}
-
-.site__footer a:active {
-  text-decoration: underline;
+.site__footer__tools a:active {
+  opacity: 0.8;
 }
 
 .site__footer__copyright p {
+  font-size: 1em;
   letter-spacing: 1px;
-  word-spacing: 4px;
+  word-spacing: 2px;
+}
+
+.site__footer__copyright p::before {
+  content: "\f1f9";
+  margin-right: 0.5em;
 }
 
 /* Post list */
@@ -640,6 +634,11 @@ li[id^=comment_] a:hover {
 }
 
 @media screen and (min-width: 768px) {
+  .site__footer__tools ul {
+    justify-content: center;
+    gap: 2.5em;
+  }
+
   .post__list h1 {
     margin-bottom: 2em;
   }
