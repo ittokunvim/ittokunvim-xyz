@@ -191,7 +191,7 @@ a[href*="https"]::after {
   list-style-type: none;
   display: flex;
   flex-wrap: wrap;
-  justify-content: left;
+  justify-content: center;
   gap: 4rem;
   margin: 0;
   padding: 0.5em;
@@ -205,7 +205,7 @@ a[href*="https"]::after {
 .site__footer__tools a:link,
 .site__footer__tools a:visited,
 .site__footer__tools a:focus {
-  color: navy;
+  color: black;
   text-decoration: none;
   transition: all 0.25s;
 }
@@ -227,6 +227,74 @@ a[href*="https"]::after {
 .site__footer__copyright p::before {
   content: "\f1f9";
   margin-right: 0.5em;
+}
+
+/* site index */
+
+.site__index {
+  padding: 0 0.5em;
+}
+
+.site__index .hero {
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 1.5rem;
+}
+
+.hero p {
+  line-height: 2;
+}
+
+.hero ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.hero ul a {
+  display: block;
+  text-decoration: none;
+  padding: 1em;
+  border: 1.5px solid black;
+  border-radius: 0.5em;
+  box-shadow: 0px 4px 1px black;
+  margin-top: 0;
+  margin-bottom: 4px;
+}
+
+.hero ul a:active {
+  box-shadow: none;
+  margin-top: 4px;
+  margin-bottom: 0;
+}
+
+.hero ul a:nth-of-type(odd):link,
+.hero ul a:nth-of-type(odd):visited,
+.hero ul a:nth-of-type(odd):focus {
+  color: white;
+  background-color: dodgerblue;
+}
+
+.hero ul a:nth-of-type(odd):hover {
+  background-color: royalblue;
+}
+
+.hero ul a:nth-of-type(even):link,
+.hero ul a:nth-of-type(even):visited,
+.hero ul a:nth-of-type(even):focus {
+  color: black;
+  background-color: white;
+}
+
+.hero ul a:nth-of-type(even):hover {
+  background-color: lightgray;
 }
 
 /* Post list */
@@ -635,8 +703,11 @@ li[id^=comment_] a:hover {
 
 @media screen and (min-width: 768px) {
   .site__footer__tools ul {
-    justify-content: center;
     gap: 2.5em;
+  }
+
+  .site__index .hero ul {
+    flex-direction: row;
   }
 
   .post__list h1 {
