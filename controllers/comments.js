@@ -40,8 +40,8 @@ exports.create_post = [
         // post not found
         if (err.response.status === 404) {
           res.status(404);
-          res.render('posts/404', {
-            title: 'Post not found',
+          res.render('./404', {
+            title: 'URL Not Found',
           });
           return;
         }
@@ -82,8 +82,8 @@ exports.delete_post = async (req, res, next) => {
       // post not found
       if (err.response.status === 404) {
         res.status(404);
-        res.render('posts/404', {
-          title: 'Post not found',
+        res.render('./404', {
+          title: 'URL Not Found',
         });
         return;
       }

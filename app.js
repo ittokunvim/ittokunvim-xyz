@@ -50,7 +50,7 @@ app.use(function (req, res, next) {
   res.status(404);
   req.app.get('env') === 'development'
     ? next(createError(404))
-    : res.render('./404');
+    : res.render('./404', { title: 'URL Not Found' });
 });
 
 // error handler

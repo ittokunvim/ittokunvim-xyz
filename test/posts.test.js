@@ -20,7 +20,7 @@ describe('GET /posts/list', function () {
       .expect(404)
       .expect('Content-Type', /html/)
       .then(res => {
-        expect(res.text).toMatch(/Post not found/);
+        expect(res.text).toMatch(/URL Not Found/);
       });
   });
 });
@@ -53,7 +53,7 @@ describe('GET /posts/:id', function () {
       .expect(404)
       .expect('Content-Type', /html/)
       .then(res => {
-        expect(res.text).toMatch(/Post not found/);
+        expect(res.text).toMatch(/URL Not Found/);
       });
   });
 });
@@ -129,7 +129,7 @@ describe('GET /posts/:id/update', function () {
       .expect(404)
       .expect('Content-Type', /html/)
       .then(res => {
-        expect(res.text).toMatch(/Post not found/);
+        expect(res.text).toMatch(/URL Not Found/);
       });
   });
 });
@@ -162,7 +162,7 @@ describe('POST /posts/:id/update', function () {
       .expect(404)
       .expect('Content-Type', /html/)
       .then(res => {
-        expect(res.text).toMatch(/Post not found/);
+        expect(res.text).toMatch(/URL Not Found/);
       });
   });
 
@@ -205,7 +205,7 @@ describe('POST /posts/:id/delete', function () {
       .expect(404)
       .expect('Content-Type', /html/)
       .then(res => {
-        expect(res.text).toMatch(/Post not found/);
+        expect(res.text).toMatch(/URL Not Found/);
       });
     await deletePost(post);
   });
