@@ -54,7 +54,7 @@ describe('POST /posts/:id/comments', function () {
       .expect(404)
       .expect('Content-Type', /html/)
       .then(res => {
-        expect(res.text).toMatch(new RegExp('Post not found'));
+        expect(res.text).toMatch(new RegExp('URL Not Found'));
       });
   });
 });
@@ -89,7 +89,7 @@ describe('POST /posts/:id/comments/:id', function () {
       .expect(404)
       .expect('Content-Type', /html/)
       .then(res => {
-        expect(res.text).toMatch(new RegExp('Post not found'));
+        expect(res.text).toMatch(new RegExp('URL Not Found'));
       });
   });
 

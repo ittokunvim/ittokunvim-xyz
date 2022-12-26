@@ -2,7 +2,7 @@ const request = require('supertest');
 const app = require('../app');
 
 describe('/', function () {
-  it('it should response the GET method', () => {
+  it('it should be success', () => {
     request(app)
       .get('/')
       .expect(200)
@@ -17,10 +17,13 @@ describe('/', function () {
 });
 
 describe('/hogebar', function () {
-  it('it should response 404 Not Found', () => {
+  it('URL Not Found', () => {
     return request(app)
       .get('/hogebar')
       .expect(404)
       .expect('Content-Type', /html/)
+      .then(res => {
+        expect(res.text).toMatch(new RegExp('URL Not Found'));
+      })
   });
 });

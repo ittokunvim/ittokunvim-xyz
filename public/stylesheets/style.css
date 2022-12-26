@@ -297,6 +297,27 @@ a[href*="https"]::after {
   background-color: lightgray;
 }
 
+/* 404 page */
+
+.site__notfound {
+  padding: 0.5em;
+}
+
+.site__notfound h1 {
+  text-align: center;
+  color: saddlebrown;
+}
+
+.site__notfound article {
+  font-size: 0.8em;
+  padding-left: 1em;
+  line-height: 2;
+}
+
+.site__notfound article h2 {
+  font-size: 1rem;
+}
+
 /* Post list */
 
 .post__list {
