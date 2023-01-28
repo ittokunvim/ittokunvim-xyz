@@ -1,7 +1,9 @@
 import { faCopyright } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import SearchForm from "./searchForm";
 import Font from "./font";
 import styles from "./layout.module.css";
 
@@ -12,6 +14,9 @@ type Props = {
 export default function Layout({ children }: Props) {
   return (
     <>
+      <Head>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0" />
+      </Head>
       <header className={styles.header}>
         <Link href={"/"}>
           <Image
@@ -22,6 +27,7 @@ export default function Layout({ children }: Props) {
             alt="Site Logo"
           />
         </Link>
+        <SearchForm />
       </header>
       <main className={styles.main}>
         {children}
