@@ -2,3 +2,16 @@
   text-align: center;
   border-bottom: 1px solid black;
 }
+
+.main {
+  min-height: 70vh;
+}
+
+.footer {
+  text-align: center;
+  border-top: 1px solid black;
+}
+
+.copyright svg {
+  margin-right: 0.4em;
+}
