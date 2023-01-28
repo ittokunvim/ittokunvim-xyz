@@ -1,3 +1,4 @@
+import '@/config/fontawesome'
 import '@/styles/globals.css'
 import 'normalize.css'
 import type { AppProps } from 'next/app'
