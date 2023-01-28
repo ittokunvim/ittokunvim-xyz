@@ -1,8 +1,9 @@
+import Layout from "@/components/layout";
 import Link from "next/link";
 
 export default function Home() {
   return (
-    <>
+    <Layout>
       <p>/pages/index.tsx</p>
       <p>Routes</p>
       <ul>
@@ -35,6 +36,6 @@ export default function Home() {
           </Link>
         </li>
       </ul>
-    </>
+    </Layout>
   );
 }
