@@ -12,6 +12,7 @@ export default function Font() {
       {`
         html {
           font-family: ${fontsFontFamily};
+          font-size: 14px;
           word-spacing: 2px;
           letter-spacing: 1px;
         }

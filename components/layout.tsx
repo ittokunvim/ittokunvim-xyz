@@ -1,9 +1,8 @@
-import { faCopyright } from "@fortawesome/free-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import SearchForm from "./searchForm";
+import Footer from "./footer";
 import Font from "./font";
 import styles from "./layout.module.css";
 
@@ -32,12 +31,7 @@ export default function Layout({ children }: Props) {
       <main className={styles.main}>
         {children}
       </main>
-      <footer className={styles.footer}>
-        <p className={styles.copyright}>
-          <FontAwesomeIcon icon={faCopyright} />
-          2023 ittoku-tech.com
-        </p>
-      </footer>
+      <Footer />
       <Font />
     </>
   );
