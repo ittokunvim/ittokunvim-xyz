@@ -1,7 +1,5 @@
 import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
-import SearchForm from "./searchForm";
+import Header from "./header";
 import Footer from "./footer";
 import Font from "./font";
 import styles from "./layout.module.css";
@@ -16,18 +14,7 @@ export default function Layout({ children }: Props) {
       <Head>
         <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0" />
       </Head>
-      <header className={styles.header}>
-        <Link href={"/"}>
-          <Image
-            priority
-            src="/blog.svg"
-            width={64}
-            height={64}
-            alt="Site Logo"
-          />
-        </Link>
-        <SearchForm />
-      </header>
+      <Header />
       <main className={styles.main}>
         {children}
       </main>
