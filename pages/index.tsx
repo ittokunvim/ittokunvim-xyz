@@ -1,41 +1,30 @@
 import Layout from "@/components/layout";
-import Link from "next/link";
+import Head from "next/head";
+import styles from "@/styles/Home.module.css";
 
 export default function Home() {
   return (
     <Layout>
-      <p>/pages/index.tsx</p>
-      <p>Routes</p>
-      <ul>
-        <li>
-          <Link href={"/posts/list"}>
-            Post List
-          </Link>
-        </li>
-        <li>
-          <Link href={"/posts/hogebar"}>
-            Post Detail
-          </Link>
-        </li>
+      <Head>
+        <title>Blog Ittoku Tech</title>
+      </Head>
+      <article className={styles.article}>
+        <h1>Blog Ittoku Tech</h1>
+        <p>
+          Hello. My name is ittokun. Thank you for finding this site😆
 
-        <li>
-          <Link href={"/posts/create"}>
-            Post Create
-          </Link>
-        </li>
-
-        <li>
-          <Link href={"/posts/update"}>
-            Post Update
-          </Link>
-        </li>
-
-        <li>
-          <Link href={"/search/result"}>
-            Search Result
-          </Link>
-        </li>
-      </ul>
+        </p>
+        <p>
+          This site allows you to post, edit, and delete blog posts. Please take a look😎
+        </p>
+      <hr />
+        <p>
+          こんにちは。いっとくです。このサイトを見つけてくれてありがとう😆
+        </p>
+        <p>
+          このサイトでは、ブログ記事を投稿、編集、削除することができます。ぜひ使ってみてください😎
+        </p>
+      </article>
     </Layout>
   );
 }

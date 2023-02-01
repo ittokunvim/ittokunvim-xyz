@@ -16,6 +16,7 @@
 }
 
 .searchForm input {
+  max-width: 200px;
   height: 100%;
   padding-left: 30px;
   padding-top: 4px;
