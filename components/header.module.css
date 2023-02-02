@@ -84,3 +84,11 @@
 .toggleMenu nav ul a:active {
   opacity: 0.8;
 }
+
+.toggleMenu div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}

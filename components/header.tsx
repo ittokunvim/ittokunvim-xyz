@@ -28,20 +28,23 @@ export default function Header() {
           <FontAwesomeIcon icon={faBars} size="xl" />
         </button>
         {isToggleOn && (
-          <nav>
-            <ul>
-              <li>
-                <Link href={"/posts/list"}>
-                  Post List
-                </Link>
-              </li>
-              <li>
-                <Link href={"/posts/create"}>
-                  Post Create
-                </Link>
-              </li>
-            </ul>
-          </nav>
+          <>
+            <nav>
+              <ul>
+                <li>
+                  <Link href={"/posts/list"}>
+                    Post List
+                  </Link>
+                </li>
+                <li>
+                  <Link href={"/posts/create"}>
+                    Post Create
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+            <div onClick={() => setIsToggleOn(false)}></div>
+          </>
         )}
       </div>
     </header>
