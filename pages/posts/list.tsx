@@ -15,7 +15,7 @@ export default function PostList({ data }: Props) {
       <p>{data.post_count}</p>
       <div>
         {data.posts.map((post) => (
-          <ul>
+          <ul key={post.id}>
             <li>{post.id}</li>
             <li>{post.title}</li>
             <li>{post.content}</li>
@@ -46,6 +46,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   const res = await fetch(url);
   const data = await res.json();
+
+  if (res.status === 404)
+    return { notFound: true }
 
   return {
     props: { data },
