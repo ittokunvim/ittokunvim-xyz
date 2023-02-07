@@ -1,6 +1,7 @@
 import { GetServerSidePropsContext } from "next/types";
 import PostType from "@/interfaces/post";
 import Layout from "@/components/layout";
+import { queryToString } from "@/lib/post";
 
 type Props = {
   data: {
@@ -26,17 +27,6 @@ export default function PostList({ data }: Props) {
       </div>
     </Layout>
   );
-}
-
-/** URLクエリを以下の文字列に変換する
- * { key: "value" } => "key=value"
- * { key1: 'value1', key2: 'value2' } => "key1=value1&key2=value2"
- * {} => ""
- */
-function queryToString(obj: any) {
-  return Object.entries(obj)
-    .map(entry => entry.join("="))
-    .join("&");
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
