@@ -1,18 +1,29 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import PostType from '@/interfaces/post'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { getPostData, queryToString } from '@/lib/post';
+import data from "@/lib/posts.json"
 
 type Data = {
   post_count: number
   posts: PostType[]
 }
 
-export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
+export default function handler(req: NextApiRequest, res: NextApiResponse<Data | PostType>) {
+  switch (req.method) {
+    case "GET":
+      getAction(req, res);
+      break;
+    case "POST":
+      postAction(req, res);
+      break;
+  }
+}
+
+function getAction(req: NextApiRequest, res: NextApiResponse<Data>) {
   const maxDisplayPostCount = 20;
   const pageNumber: number = Number(req.query.page);
   let status = 200;
-  let { post_count, posts } = getPostData();
+  let { post_count, posts } = data;
 
   // もし、pageクエリ指定があったら
   if (pageNumber && pageNumber > 0) {
@@ -28,5 +39,16 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
   res.status(status).json({
     post_count,
     posts,
+  })
+}
+
+function postAction(req: NextApiRequest, res: NextApiResponse<PostType>) {
+  const { title, content } = req.body;
+  res.status(200).json({
+    id: 9999,
+    title,
+    content,
+    created_at: "2023-02-03TI13:35:28.271Z",
+    updated_at: "2023-02-03TI13:35:28.271Z",
   })
 }

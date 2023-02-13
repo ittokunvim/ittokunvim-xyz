@@ -1,16 +1,48 @@
-import { GetServerSidePropsContext } from "next/types";
-import PostType from "@/interfaces/post";
 import Layout from "@/components/layout";
 import { queryToString } from "@/lib/post";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
-type Props = {
-  data: {
-    post_count: number
-    posts: PostType[]
+export default function PostList() {
+  const router = useRouter()
+  const [isLoading, setLoading] = useState(false)
+  const [data, setData] = useState({
+    post_count: 0, posts: [
+      { id: 0, title: "", content: "", created_at: "", updated_at: "" }
+    ]
+  })
+
+  useEffect(() => {
+    setLoading(true)
+    const apiBaseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
+    const query = queryToString(router.query);
+    const url = `${apiBaseURL}/posts?${query}`;
+
+    if (router.isReady) {
+      fetch(url)
+        .then(res => res.json())
+        .then(data => {
+          setData(data)
+          setLoading(false)
+        })
+    }
+  }, [])
+
+  if (isLoading) {
+    return (
+      <Layout>
+        <p>Loading ...</p>
+      </Layout>
+    );
   }
-}
+  if (!data) {
+    return (
+      <Layout>
+        <p>No Post data...</p>
+      </Layout>
+    )
+  }
 
-export default function PostList({ data }: Props) {
   return (
     <Layout>
       <p>{data.post_count}</p>
@@ -27,20 +59,4 @@ export default function PostList({ data }: Props) {
       </div>
     </Layout>
   );
-}
-
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const apiBaseURL = process.env.API_BASE_URL;
-  const query = queryToString(context.query);
-  const url = `${apiBaseURL}/posts?${query}`;
-
-  const res = await fetch(url);
-  const data = await res.json();
-
-  if (res.status === 404)
-    return { notFound: true }
-
-  return {
-    props: { data },
-  }
 }
