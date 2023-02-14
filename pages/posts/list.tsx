@@ -1,7 +1,8 @@
-import Layout from "@/components/layout";
 import { queryToString } from "@/lib/post";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Layout from "@/components/layout";
+import Pager from "@/components/ui/pager";
 
 export default function PostList() {
   const router = useRouter()
@@ -33,8 +34,9 @@ export default function PostList() {
       <Layout>
         <p>Loading ...</p>
       </Layout>
-    );
+    )
   }
+
   if (!data) {
     return (
       <Layout>
@@ -56,6 +58,11 @@ export default function PostList() {
             <li>{post.updated_at}</li>
           </ul>
         ))}
+        <Pager
+          router={router}
+          totalCount={data.post_count}
+          pageStep={20}
+        />
       </div>
     </Layout>
   );
