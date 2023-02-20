@@ -16,10 +16,8 @@ export default function PostList() {
 
   useEffect(() => {
     setLoading(true)
-    const apiBaseURL = process.env.NEXT_PUBLIC_API_BASE_URL
-    const url = `${apiBaseURL}/posts?${query || ""}`
 
-    fetch(url)
+    fetch(`/api/posts?${query || ""}`)
       .then(res => res.json())
       .then(data => {
         setData(data)

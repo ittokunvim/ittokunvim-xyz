@@ -1,4 +1,3 @@
-import Link from "next/link"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons"
 import styles from "./styles.module.css"
@@ -70,12 +69,9 @@ function setPageItem(path: string, currentPage: number, i: number) {
   if (i < currentPage + pageWidth && i > currentPage - pageWidth) {
     return (
       <li key={i}>
-        <Link
-          href={{
-            pathname: path,
-            query: { page: i },
-          }}
-        >{i}</Link>
+        <a
+          href={`${path}?page=${i}`}
+        >{i}</a>
       </li>
     )
   }
@@ -86,16 +82,13 @@ function setPrevPageItem(path: string, currentPage: number) {
     <li key="prev" className={styles.prev}>
       {(currentPage <= 1)
         ? <span>Prev</span>
-        : <Link
+        : <a
           className={styles.prev_link}
-          href={{
-            pathname: path,
-            query: { page: currentPage - 1 },
-          }}
+          href={`${path}?page=${currentPage - 1}`}
         >
           <FontAwesomeIcon icon={faAngleLeft} />
           Prev
-        </Link>
+        </a>
       }
     </li>
   )
@@ -106,16 +99,13 @@ function setNextPageItem(path: string, currentPage: number, pageCount: number) {
     <li key="next" className={styles.next}>
       {(pageCount <= currentPage)
         ? <span>Next</span>
-        : <Link
+        : <a
           className={styles.next_link}
-          href={{
-            pathname: path,
-            query: { page: currentPage + 1 }
-          }}
+          href={`${path}?page=${currentPage + 1}`}
         >
           Next
           <FontAwesomeIcon icon={faAngleRight} />
-        </Link>
+        </a>
       }
     </li>
   )
