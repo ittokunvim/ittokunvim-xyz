@@ -1,5 +1,7 @@
 import Link from "next/link"
-import React from "react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons"
+import styles from "./styles.module.css"
 
 type Props = {
   path: string
@@ -32,12 +34,10 @@ export default function Pager(props: Props) {
   pageList.push(setNextPageItem(path, currentPage, pageCount))
 
   return (
-    <div>
-      <li>
-        <ul>
-          {pageList}
-        </ul>
-      </li>
+    <div className={styles.list_wrapper}>
+      <ul className={styles.list}>
+        {pageList}
+      </ul>
     </div>
   )
 }
@@ -53,8 +53,8 @@ function setPageItem(path: string, currentPage: number, i: number) {
 
   if (currentPage === i) {
     return (
-      <li key={i}>
-        <span>{i}</span>
+      <li key={i} className={styles.item}>
+        <span className={styles.current}>{i}</span>
       </li>
     )
   }
@@ -82,31 +82,40 @@ function setPageItem(path: string, currentPage: number, i: number) {
 }
 
 function setPrevPageItem(path: string, currentPage: number) {
-  return (<li key="prev">
-    {(currentPage <= 1)
-      ? <span>Prev</span>
-      : <Link
-        href={{
-          pathname: path,
-          query: { page: currentPage - 1 },
-        }}
-      >Prev</Link>
-    }
-  </li>
+  return (
+    <li key="prev" className={styles.prev}>
+      {(currentPage <= 1)
+        ? <span>Prev</span>
+        : <Link
+          className={styles.prev_link}
+          href={{
+            pathname: path,
+            query: { page: currentPage - 1 },
+          }}
+        >
+          <FontAwesomeIcon icon={faAngleLeft} />
+          Prev
+        </Link>
+      }
+    </li>
   )
 }
 
 function setNextPageItem(path: string, currentPage: number, pageCount: number) {
   return (
-    <li key="next">
+    <li key="next" className={styles.next}>
       {(pageCount <= currentPage)
         ? <span>Next</span>
         : <Link
+          className={styles.next_link}
           href={{
             pathname: path,
             query: { page: currentPage + 1 }
           }}
-        >Next</Link>
+        >
+          Next
+          <FontAwesomeIcon icon={faAngleRight} />
+        </Link>
       }
     </li>
   )
