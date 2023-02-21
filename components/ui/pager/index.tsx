@@ -1,115 +1,112 @@
-import { queryToString } from "@/lib/post"
-import Link from "next/link"
-import { NextRouter } from "next/router"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons"
+import styles from "./styles.module.css"
 
 type Props = {
-  router: NextRouter
+  path: string
+  query: string
   totalCount: number
-  pageStep: number
+  perPage: number
 }
 
 export default function Pager(props: Props) {
   const {
-    router,
+    path,
+    query,
     totalCount,
-    pageStep,
+    perPage,
   } = props
-  const pageCount = Math.ceil(totalCount / pageStep)
+  const pageCount = Math.ceil(totalCount / perPage)
 
-  // ページャを表示しない
-  if (totalCount <= pageStep) return <></>
+  // ポストの総数より、ポスト表示数が大きければ
+  if (props.totalCount <= props.perPage) return <></>
 
-  const list = []
-  for (let i = 1; i <= pageCount; i++) {
-    if (i <= 1)
-      list.push(pageList(router, "Prev", pageCount))
+  const pageList = []
+  const currentPage = getCurrentPage(query)
 
-    list.push(pageList(router, i.toString(), pageCount))
+  pageList.push(setPrevPageItem(path, currentPage))
 
-    if (i >= pageCount)
-      list.push(pageList(router, "Next", pageCount))
+  for (let i=1; i<=pageCount; i++) {
+    pageList.push(setPageItem(path, currentPage, i))
   }
+
+  pageList.push(setNextPageItem(path, currentPage, pageCount))
+
   return (
-    <div>
-      <ul>
-        {list}
+    <div className={styles.list_wrapper}>
+      <ul className={styles.list}>
+        {pageList}
       </ul>
     </div>
   )
 }
 
-function pageList(router: NextRouter, text: string, pageCount: number): JSX.Element {
-  const query = router.query
+function getCurrentPage(query: string): number {
+  const result = query.match(/page=(\d+)/)
 
-  switch (text) {
-    case "Prev":
-    case "1":
-      return (!query.page || query.page === "1")
-        ? <li>{createSpan(router, text)}</li>
-        : <li>{createLink(router, text)}</li>
-    case "Next":
-      return (query.page === pageCount.toString())
-        ? <li>{createSpan(router, text)}</li>
-        : <li>{createLink(router, text)}</li>
-    default:
-      return (query.page === text)
-        ? <li>{createSpan(router, text)}</li>
-        : <li>{createLink(router, text)}</li>
+  return (result) ? Number(result[1]) : 1
+}
+
+function setPageItem(path: string, currentPage: number, i: number) {
+  const pageWidth = 3
+
+  if (currentPage === i) {
+    return (
+      <li key={i} className={styles.item}>
+        <span className={styles.current}>{i}</span>
+      </li>
+    )
+  }
+
+  if (i === currentPage - pageWidth || i === currentPage + pageWidth) {
+    return (
+      <li key={i}>
+        <span>...</span>
+      </li>
+    )
+  }
+
+  if (i < currentPage + pageWidth && i > currentPage - pageWidth) {
+    return (
+      <li key={i}>
+        <a
+          href={`${path}?page=${i}`}
+        >{i}</a>
+      </li>
+    )
   }
 }
 
-// リストのスパンを作成する
-function createSpan(router: NextRouter, text: string): JSX.Element {
-  const query = router.query
-
-  switch (text) {
-    case 'Prev':
-      return <span className="prev">{text}</span>
-    case 'Next':
-      return <span className="next">{text}</span>
-    default:
-      const className = (query.page === text || (!query.page && text === "1")) ? "current" : "";
-      return <span className={className}>{text}</span>
-  }
+function setPrevPageItem(path: string, currentPage: number) {
+  return (
+    <li key="prev" className={styles.prev}>
+      {(currentPage <= 1)
+        ? <span>Prev</span>
+        : <a
+          className={styles.prev_link}
+          href={`${path}?page=${currentPage - 1}`}
+        >
+          <FontAwesomeIcon icon={faAngleLeft} />
+          Prev
+        </a>
+      }
+    </li>
+  )
 }
 
-// リストのリンクを作成する
-function createLink(router: NextRouter, text: string): JSX.Element {
-  const { query } = router
-
-  switch (text) {
-    case "Prev":
-      return (
-        <Link
-          href={getPageURL(router, Number(query.page) - 1)}
-          className="prev"
-        >{text}</Link>
-      )
-    case "Next":
-      return (
-        <Link
-          href={getPageURL(router, Number(query.page || 1) + 1)}
-          className="next"
-        >{text}</Link>
-      )
-    default:
-      return (
-        <Link
-          href={getPageURL(router, Number(text))}
-        >{text}</Link>
-      )
-  }
-}
-
-// リストのリンクのURLを作成する
-function getPageURL(router: NextRouter, i: number): string {
-  const { query, pathname } = router
-
-  if (!Object.keys(query).length)
-  return pathname + '?' + "page=" + i;
-
-  if (query.page)
-  query.page = i.toString()
-
-  return pathname + '?' + queryToString(query);
+function setNextPageItem(path: string, currentPage: number, pageCount: number) {
+  return (
+    <li key="next" className={styles.next}>
+      {(pageCount <= currentPage)
+        ? <span>Next</span>
+        : <a
+          className={styles.next_link}
+          href={`${path}?page=${currentPage + 1}`}
+        >
+          Next
+          <FontAwesomeIcon icon={faAngleRight} />
+        </a>
+      }
+    </li>
+  )
 }

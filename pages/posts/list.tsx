@@ -1,12 +1,13 @@
-import { queryToString } from "@/lib/post";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Layout from "@/components/layout";
 import Pager from "@/components/ui/pager";
 
 export default function PostList() {
-  const router = useRouter()
   const [isLoading, setLoading] = useState(false)
+  const router = useRouter()
+  const { asPath } = router
+  const [path, query] = asPath.split("?")
   const [data, setData] = useState({
     post_count: 0, posts: [
       { id: 0, title: "", content: "", created_at: "", updated_at: "" }
@@ -15,18 +16,13 @@ export default function PostList() {
 
   useEffect(() => {
     setLoading(true)
-    const apiBaseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
-    const query = queryToString(router.query);
-    const url = `${apiBaseURL}/posts?${query}`;
 
-    if (router.isReady) {
-      fetch(url)
-        .then(res => res.json())
-        .then(data => {
-          setData(data)
-          setLoading(false)
-        })
-    }
+    fetch(`/api/posts?${query || ""}`)
+      .then(res => res.json())
+      .then(data => {
+        setData(data)
+        setLoading(false)
+      })
   }, [])
 
   if (isLoading) {
@@ -37,7 +33,7 @@ export default function PostList() {
     )
   }
 
-  if (!data) {
+  if (data.posts.length === 0) {
     return (
       <Layout>
         <p>No Post data...</p>
@@ -58,12 +54,13 @@ export default function PostList() {
             <li>{post.updated_at}</li>
           </ul>
         ))}
-        <Pager
-          router={router}
-          totalCount={data.post_count}
-          pageStep={20}
-        />
       </div>
+      <Pager
+        path={path}
+        query={query || ""}
+        totalCount={data.post_count}
+        perPage={20}
+      />
     </Layout>
   );
 }
