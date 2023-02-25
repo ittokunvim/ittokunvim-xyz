@@ -1,7 +1,6 @@
 import Head from "next/head";
 import Header from "./header";
 import Footer from "./footer";
-import Font from "./font";
 import styles from "./layout.module.css";
 
 type Props = {
@@ -19,7 +18,6 @@ export default function Layout({ children }: Props) {
         {children}
       </main>
       <Footer />
-      <Font />
     </>
   );
 }
