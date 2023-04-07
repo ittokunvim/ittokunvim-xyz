@@ -2,25 +2,19 @@
 
 このリポジトリは、ittokunのブログサイトです。日々の出来事をブログ記事として記録することが出来ます。
 
-## ディレクトリ構造
+## アプリを動かす
 
-- `pages/`、URLにアクセスした時のページの表示、操作についてのファイル(.ts,.tsx)
-- `public/`、共有するファイル（画像、アイコンなど）
-- `styles/`、共有するスタイルファイル(.css)
-
-## 始める
-
-まずは、開発サーバーを立ち上げます。
+以下のコマンドを実行することで、アプリを動かすことができます。
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+docker-compose build
+docker-compose up
 ```
 
-ブラウザで以下のURLを開いて表示されているか確認します。
+[http://localhost:3000](http://localhost:3000)にアクセスして、動作を確認してみましょう。
 
-- http://localhost:3000
-- http://localhost:3000/api/hello
+アプリを終了するには以下のコマンドを実行します。
+
+```bash
+docker-compose down
+```
