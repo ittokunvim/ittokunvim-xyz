@@ -18,3 +18,15 @@ docker-compose up
 ```bash
 docker-compose down
 ```
+
+webコンテナに入るには以下のコマンドを実行します。
+
+```bash
+make web-bash
+```
+
+ESlintで構文をチェックするには以下のコマンドを実行します。
+
+```bash
+make web-lint
+```

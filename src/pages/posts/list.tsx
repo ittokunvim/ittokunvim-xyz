@@ -23,7 +23,7 @@ export default function PostList() {
         setData(data)
         setLoading(false)
       })
-  }, [])
+  }, [query])
 
   if (isLoading) {
     return (
