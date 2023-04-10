@@ -2,6 +2,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons"
 import styles from "./styles.module.css"
 
+/* Pager usage
+ * import Pager from "@/components/ui/pager";
+ *
+ * <Pager path="/posts/list" query={"?page=1"} totalCount={100} perPage={10} />
+ */
 type Props = {
   path: string
   query: string

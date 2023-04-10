@@ -1,0 +1,52 @@
+.headline {
+  font-size: 2em;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  word-spacing: 8px;
+  letter-spacing: 4px;
+}
+
+.list_wrapper {
+  padding: 1em;
+}
+
+.list {
+  border: 1px solid #ddd;
+  border-radius: 0.5em;
+}
+
+.item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 1em;
+  border-bottom: 1px solid #ddd;
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.item:hover {
+  background: #eee;
+}
+
+.item_title {
+  font-size: 1em;
+  color: black;
+}
+
+.item_time {
+  font-size: 0.8em;
+  color: #888;
+}
+
+.item_link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
