@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import { useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 
 import Layout from "@/components/layout";
 import styles from "@/styles/posts/uid.module.css";
@@ -16,13 +16,17 @@ export default function PostDetail() {
   const textareaBody = useRef<HTMLTextAreaElement>(null);
   const divBody = useRef<HTMLDivElement>(null);
   const { uid } = router.query;
-  const post = {
-    id: "f7c6436a-f346-4066-bee9-57ff9566ef51",
-    title: "This is a post title",
-    body: "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.",
-    created_at: "2023-03-26T10:04:39.445113",
-    updated_at: "2023-03-26T10:04:39.445113"
-  };
+  const [post, setPost] = useState({
+    id: "", title: "", body: "", created_at: "", updated_at: "",
+  })
+
+  useEffect(() => {
+    fetch(`/api/posts/${uid}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setPost(data);
+      })
+  }, [])
 
   return (
     <Layout>

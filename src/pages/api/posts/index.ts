@@ -8,7 +8,7 @@ type Data = {
 }
 
 export default function handler(
-  req: NextApiRequest,
+  _req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
   const data = {
