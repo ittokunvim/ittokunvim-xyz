@@ -33,36 +33,49 @@ export default function PostDetail() {
       <Head>
         <title>{post.title}</title>
       </Head>
-      <div className={styles.title}>
-        {!titleEditing && <h1 className={styles.headline} ref={divTitle}>{post.title}</h1>}
-        {titleEditing && <form action={`/api/posts/${uid}`} method="post">
-          <input type="text" name="title" ref={inputTitle} />
-        </form>
-        }
-        <button className={styles.editbtn} onClick={handleTitleEdit}>
-          <FontAwesomeIcon icon={faEdit} />
-          Edit
-        </button>
-      </div>
-      <div className={styles.article_wrap}>
+      <div className={styles.main}>
+        <div className={styles.title}>
+          {!titleEditing && <h1 className={styles.headline} ref={divTitle}>{post.title}</h1>}
+          {titleEditing && <form action={`/api/posts/${uid}/update`} method="post">
+            <input type="text" name="title" ref={inputTitle} />
+            <input type="submit" value="Save" />
+            <button type="button" onClick={handleTitleEdit}>Cancel</button>
+          </form>
+          }
+          {!titleEditing && <button className={styles.editbtn} onClick={handleTitleEdit}>
+            <FontAwesomeIcon icon={faEdit} />
+            Edit
+          </button>
+          }
+        </div>
         <div className={styles.article}>
           <div className={styles.article_control}>
             <div className={styles.article_time}>Posted 2 days ago</div>
             <div className={styles.article_edit}>
-              <button className={styles.editbtn} onClick={handleBodyEdit}>
+              {!bodyEditing && <button className={styles.editbtn} onClick={handleBodyEdit}>
                 <FontAwesomeIcon icon={faEdit} />
                 Edit
               </button>
+              }
             </div>
           </div>
           {!bodyEditing && <div className={styles.article_body} ref={divBody}>
             {post.body}
           </div>
           }
-          {bodyEditing && <form action={`/api/posts/${uid}`} method="post">
+          {bodyEditing && <form action={`/api/posts/${uid}/update`} method="post">
             <textarea name="body" ref={textareaBody} />
+            <div className={styles.article_form_btns}>
+              <button type="button" onClick={handleBodyEdit}>Cancel</button>
+              <input type="submit" value="Update post" />
+            </div>
           </form>
           }
+        </div>
+        <div className={styles.sidebar}>
+          <form action={`/api/posts/${uid}/delete`} method="post">
+            <input type="submit" value="Delete post" onClick={confirmDelete} />
+          </form>
         </div>
       </div>
     </Layout>
@@ -87,6 +100,12 @@ export default function PostDetail() {
       textareaBody.current!.focus();
     }
   }
+}
+
+function confirmDelete(e: React.MouseEvent<HTMLInputElement, MouseEvent>) {
+  (window.confirm("本当に削除してよろしいですか？"))
+    ? "Delete"
+    : e.preventDefault();
 }
 
 function sleep(ms: number) {
