@@ -33,7 +33,7 @@ export default function PostDetail() {
           body: data.body,
         });
       })
-  }, [])
+  }, [uid])
 
   return (
     <Layout>
@@ -43,13 +43,13 @@ export default function PostDetail() {
       <div className={styles.main}>
         <div className={styles.title}>
           {!titleEditing && <h1 className={styles.headline} ref={divTitle}>{post.title}</h1>}
-          {titleEditing && <form onSubmit={handleSubmit}>
-            <input type="text" name="title" ref={inputTitle} onChange={handleChange} />
+          {titleEditing && <form onSubmit={handleUpdateSubmit}>
+            <input type="text" name="title" ref={inputTitle} onChange={handleUpdateFormData} />
             <input type="submit" value="Save" />
-            <button type="button" onClick={handleTitleEdit}>Cancel</button>
+            <button type="button" onClick={handleUpdateTitle}>Cancel</button>
           </form>
           }
-          {!titleEditing && <button className={styles.editbtn} onClick={handleTitleEdit}>
+          {!titleEditing && <button className={styles.editbtn} onClick={handleUpdateTitle}>
             <FontAwesomeIcon icon={faEdit} />
             Edit
           </button>
@@ -59,7 +59,7 @@ export default function PostDetail() {
           <div className={styles.article_control}>
             <div className={styles.article_time}>Posted 2 days ago</div>
             <div className={styles.article_edit}>
-              {!bodyEditing && <button className={styles.editbtn} onClick={handleBodyEdit}>
+              {!bodyEditing && <button className={styles.editbtn} onClick={handleUpdateBody}>
                 <FontAwesomeIcon icon={faEdit} />
                 Edit
               </button>
@@ -70,17 +70,17 @@ export default function PostDetail() {
             {post.body}
           </div>
           }
-          {bodyEditing && <form onSubmit={handleSubmit}>
-            <textarea name="body" ref={textareaBody} onChange={handleChange} />
+          {bodyEditing && <form onSubmit={handleUpdateSubmit}>
+            <textarea name="body" ref={textareaBody} onChange={handleUpdateFormData} />
             <div className={styles.article_form_btns}>
-              <button type="button" onClick={handleBodyEdit}>Cancel</button>
+              <button type="button" onClick={handleUpdateBody}>Cancel</button>
               <input type="submit" value="Update post" />
             </div>
           </form>
           }
         </div>
         <div className={styles.sidebar}>
-          <form action={`/api/posts/${uid}/delete`} method="post" onSubmit={confirmDelete}>
+          <form onSubmit={handleDeleteSubmit}>
             <input type="submit" value="Delete post" />
           </form>
         </div>
@@ -88,11 +88,7 @@ export default function PostDetail() {
     </Layout>
   );
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  }
-
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleUpdateSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     fetch(`/api/posts/${uid}/update`, { method: "POST", body: JSON.stringify(formData), })
       .then((res) => res.json())
@@ -106,7 +102,20 @@ export default function PostDetail() {
     console.log("Form submitted:", formData);
   }
 
-  async function handleTitleEdit() {
+  function handleDeleteSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (!window.confirm("本当に削除してよろしいですか？"))
+      return;
+
+    fetch(`/api/posts/${uid}/delete`, { method: "POST" })
+      .then(() => router.replace("/posts/list"))
+  }
+
+  function handleUpdateFormData(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  }
+
+  async function handleUpdateTitle() {
     setTitleEditing(!titleEditing);
     if (!titleEditing) {
       await sleep(10);
@@ -115,7 +124,7 @@ export default function PostDetail() {
     }
   }
 
-  async function handleBodyEdit() {
+  async function handleUpdateBody() {
     setBodyEditing(!bodyEditing);
     if (!bodyEditing) {
       await sleep(10);
@@ -123,12 +132,6 @@ export default function PostDetail() {
       textareaBody.current!.focus();
     }
   }
-}
-
-function confirmDelete(e: React.MouseEvent<HTMLFormElement, MouseEvent>) {
-  (window.confirm("本当に削除してよろしいですか？"))
-    ? "Delete"
-    : e.preventDefault();
 }
 
 function sleep(ms: number) {
