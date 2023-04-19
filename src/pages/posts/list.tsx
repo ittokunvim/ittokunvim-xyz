@@ -1,26 +1,14 @@
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
 import Layout from "@/components/layout";
 import styles from "@/styles/posts/list.module.css";
 import Pager from "@/components/ui/pager";
+import { PostListType } from "@/interfaces/post";
 
-export default function PostList() {
-  const [data, setData] = useState({
-    total_count: 0,
-    posts: [
-      { id: "", title: "", body: "", created_at: "", updated_at: "" }
-    ]
-  });
-
-  useEffect(() => {
-    fetch("/api/posts")
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-      })
-  }, [])
+export default function PostList({ data }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const posts: PostListType = data;
 
   return (
     <Layout>
@@ -30,7 +18,7 @@ export default function PostList() {
       <div className={styles.list_wrapper}>
         <h1 className={styles.headline}>Post List</h1>
         <div className={styles.list}>
-          {data.posts.map((post) =>
+          {posts.posts.map((post) =>
             <div key={post.id} className={styles.item}>
               <div className={styles.item_title}>{post.title}</div>
               <div className={styles.item_time}>Posted 2 days ago</div>
@@ -42,4 +30,16 @@ export default function PostList() {
       </div>
     </Layout>
   );
+}
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const apiBaseURL = process.env.API_BASE_URL as string;
+  const res = await fetch(`${apiBaseURL}/posts`);
+  const data = await res.json();
+
+  return {
+    props: {
+      data,
+    }
+  }
 }
