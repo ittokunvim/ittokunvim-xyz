@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import PostType from "@/interfaces/post"
+import { PostType } from "@/interfaces/post"
 
 export default function handler(
   req: NextApiRequest,
