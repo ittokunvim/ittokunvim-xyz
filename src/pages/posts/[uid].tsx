@@ -14,7 +14,7 @@ export default function PostDetail({ data }: InferGetServerSidePropsType<typeof 
   const { uid } = router.query;
   const post: PostType = data;
   const [formData, setFormData] = useState({
-    title: post.title, body: post.body,
+    id: post.id, title: post.title, body: post.body,
   });
   const [titleEditing, setTitleEditing] = useState(false);
   const [bodyEditing, setBodyEditing] = useState(false);
@@ -78,16 +78,17 @@ export default function PostDetail({ data }: InferGetServerSidePropsType<typeof 
 
   async function handleUpdateSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    fetch(`/api/posts/${uid}/update`, { method: "POST", body: JSON.stringify(formData), })
-      .then((res) => res.json())
-      .then(async (data) => {
-        setTitleEditing(false);
-        setBodyEditing(false);
-        await sleep(10);
-        divTitle.current!.textContent = data.title;
-        divBody.current!.textContent = data.body;
-      })
-    console.log("Form submitted:", formData);
+    const res = await fetch(`/api/posts/update`, {
+      method: "POST",
+      body: JSON.stringify(formData),
+    });
+    const json = await res.json();
+
+    setTitleEditing(false);
+    setBodyEditing(false);
+    await sleep(10);
+    divTitle.current!.textContent = json.title;
+    divBody.current!.textContent = json.body;
   }
 
   function handleDeleteSubmit(e: React.FormEvent<HTMLFormElement>) {
