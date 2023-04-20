@@ -4,6 +4,9 @@
 
 ## アプリを動かす
 
+アプリを動作させるには[api-ittoku-tech](https://github.com/ittokun/api-ittoku-tech)が必要です。
+[ittoku-tech](https://github.com/ittokun/ittoku-tech)を入手してアプリを動かしてみましょう。
+
 以下のコマンドを実行することで、アプリを動かすことができます。
 
 ```bash
