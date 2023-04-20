@@ -96,7 +96,10 @@ export default function PostDetail({ data }: InferGetServerSidePropsType<typeof 
     if (!window.confirm("本当に削除してよろしいですか？"))
       return;
 
-    fetch(`/api/posts/${uid}/delete`, { method: "POST" })
+    fetch(`/api/posts/delete`, {
+      method: "POST",
+      body: JSON.stringify(formData),
+    })
       .then(() => router.replace("/posts/list"))
   }
 
