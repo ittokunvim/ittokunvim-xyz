@@ -1,20 +1,20 @@
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef } from "react";
 
 import Layout from "@/components/layout";
 import styles from "@/styles/posts/uid.module.css";
+import { PostType } from "@/interfaces/post";
 
-export default function PostDetail() {
+export default function PostDetail({ data }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
   const { uid } = router.query;
-  const [post, setPost] = useState({
-    id: "", title: "", body: "", created_at: "", updated_at: "",
-  });
+  const post: PostType = data;
   const [formData, setFormData] = useState({
-    title: "", body: "",
+    id: post.id, title: post.title, body: post.body,
   });
   const [titleEditing, setTitleEditing] = useState(false);
   const [bodyEditing, setBodyEditing] = useState(false);
@@ -22,18 +22,6 @@ export default function PostDetail() {
   const divTitle = useRef<HTMLDivElement>(null);
   const textareaBody = useRef<HTMLTextAreaElement>(null);
   const divBody = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    fetch(`/api/posts/${uid}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setPost(data);
-        setFormData({
-          title: data.title,
-          body: data.body,
-        });
-      })
-  }, [uid])
 
   return (
     <Layout>
@@ -90,16 +78,17 @@ export default function PostDetail() {
 
   async function handleUpdateSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    fetch(`/api/posts/${uid}/update`, { method: "POST", body: JSON.stringify(formData), })
-      .then((res) => res.json())
-      .then(async (data) => {
-        setTitleEditing(false);
-        setBodyEditing(false);
-        await sleep(10);
-        divTitle.current!.textContent = data.title;
-        divBody.current!.textContent = data.body;
-      })
-    console.log("Form submitted:", formData);
+    const res = await fetch(`/api/posts/update`, {
+      method: "POST",
+      body: JSON.stringify(formData),
+    });
+    const json = await res.json();
+
+    setTitleEditing(false);
+    setBodyEditing(false);
+    await sleep(10);
+    divTitle.current!.textContent = json.title;
+    divBody.current!.textContent = json.body;
   }
 
   function handleDeleteSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -107,7 +96,10 @@ export default function PostDetail() {
     if (!window.confirm("本当に削除してよろしいですか？"))
       return;
 
-    fetch(`/api/posts/${uid}/delete`, { method: "POST" })
+    fetch(`/api/posts/delete`, {
+      method: "POST",
+      body: JSON.stringify(formData),
+    })
       .then(() => router.replace("/posts/list"))
   }
 
@@ -130,6 +122,25 @@ export default function PostDetail() {
       await sleep(10);
       textareaBody.current!.value = formData.body;
       textareaBody.current!.focus();
+    }
+  }
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const apiBaseURL = process.env.API_BASE_URL as string;
+  const { uid } = context.params ?? { uid: "" };
+  const res = await fetch(`${apiBaseURL}/posts/${uid}`);
+  const data = await res.json();
+
+  if (res.status === 404) {
+    return {
+      notFound: true,
+    }
+  }
+
+  return {
+    props: {
+      data,
     }
   }
 }

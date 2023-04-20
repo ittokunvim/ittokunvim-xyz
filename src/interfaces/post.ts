@@ -1,4 +1,4 @@
-type PostType = {
+export type PostType = {
   id: string,
   title: string,
   body: string,
@@ -6,4 +6,7 @@ type PostType = {
   updated_at: string,
 }
 
-export default PostType;
+export type PostListType = {
+  total_count: number,
+  posts: PostType[],
+}
