@@ -34,10 +34,13 @@ export default function PostCreate() {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    fetch("/api/posts/create", { method: "POST", body: JSON.stringify(form) })
-      .then((res) => res.json())
-      .then((data) => router.push(`/posts/${data.id}`))
+    const res = await fetch("/api/posts/create", {
+      method: "POST",
+      body: JSON.stringify(form)
+    });
+    const data = await res.json();
+    router.push(`/posts/${data.id}`)
   }
 }
