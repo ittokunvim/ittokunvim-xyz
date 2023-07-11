@@ -1,47 +1,34 @@
-# ittoku-tech
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-このリポジトリには、ドメイン名`ittoku-tech.com`のソースコードが置かれています。
+## Getting Started
 
-以下のコマンドを実行することで、動作を確認することができます。
-
-試してみましょう！
-
-### 動作要件
-
-ここにあるソースコードを実行するためにはDockerが必要になります。
-
-インストールしておきましょう。
-
-### 動かす
-
-アプリの起動
+First, run the development server:
 
 ```bash
-make run
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
 ```
 
-アプリの終了
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-```bash
-make down
-```
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-アプリにアクセス
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-```bash
-make web-bash
-```
+## Learn More
 
-ESlintを実行
+To learn more about Next.js, take a look at the following resources:
 
-```bash
-make web-lint
-```
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-### ページを見る
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-以下のURLにアクセスすることで、Webページを閲覧することができます。
+## Deploy on Vercel
 
-```bash
-curl http://0.0.0.0:3000
-```
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
