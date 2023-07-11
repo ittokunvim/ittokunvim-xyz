@@ -1,35 +1,47 @@
-# Blog Ittoku Tech
+# ittoku-tech
 
-このリポジトリは、ittokunのブログサイトです。日々の出来事をブログ記事として記録することが出来ます。
+このリポジトリには、ドメイン名`ittoku-tech.com`のソースコードが置かれています。
 
-## アプリを動かす
+以下のコマンドを実行することで、動作を確認することができます。
 
-アプリを動作させるには[api-ittoku-tech](https://github.com/ittokun/api-ittoku-tech)が必要です。
-[ittoku-tech](https://github.com/ittokun/ittoku-tech)を入手してアプリを動かしてみましょう。
+試してみましょう！
 
-以下のコマンドを実行することで、アプリを動かすことができます。
+### 動作要件
 
-```bash
-docker-compose build
-docker-compose up
-```
+ここにあるソースコードを実行するためにはDockerが必要になります。
 
-[http://localhost:3000](http://localhost:3000)にアクセスして、動作を確認してみましょう。
+インストールしておきましょう。
 
-アプリを終了するには以下のコマンドを実行します。
+### 動かす
+
+アプリの起動
 
 ```bash
-docker-compose down
+make run
 ```
 
-webコンテナに入るには以下のコマンドを実行します。
+アプリの終了
+
+```bash
+make down
+```
+
+アプリにアクセス
 
 ```bash
 make web-bash
 ```
 
-ESlintで構文をチェックするには以下のコマンドを実行します。
+ESlintを実行
 
 ```bash
 make web-lint
+```
+
+### ページを見る
+
+以下のURLにアクセスすることで、Webページを閲覧することができます。
+
+```bash
+curl http://0.0.0.0:3000
 ```

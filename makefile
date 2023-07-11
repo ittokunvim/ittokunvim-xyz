@@ -1,3 +1,10 @@
+run:
+	docker compose build
+	docker compose up
+
+down:
+	docker compose down
+
 web-bash:
 	docker compose run --rm web bash
 
