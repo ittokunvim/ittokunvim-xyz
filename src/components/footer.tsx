@@ -11,10 +11,10 @@ export default function Footer() {
         <p><strong>Account</strong></p>
         <ul>
           <li>
-            <FooterTechnologyIcon url="https://github.com/ittokun/" icon={faGithub} />
+            <FooterTechnologyIcon url="https://github.com/ittokunvim/" icon={faGithub} />
           </li>
           <li>
-            <FooterTechnologyIcon url="https://twitter.com/ittoku_ky73/" icon={faTwitter} />
+            <FooterTechnologyIcon url="https://twitter.com/ittokunvim/" icon={faTwitter} />
           </li>
         </ul>
       </div>

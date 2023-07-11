@@ -32,13 +32,8 @@ export default function Header() {
             <nav>
               <ul>
                 <li>
-                  <Link href={"/posts/list"}>
-                    Post List
-                  </Link>
-                </li>
-                <li>
-                  <Link href={"/posts/create"}>
-                    Post Create
+                  <Link href={"/"}>
+                    Root
                   </Link>
                 </li>
               </ul>
