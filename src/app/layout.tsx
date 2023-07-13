@@ -1,4 +1,5 @@
 import './globals.css'
+import '@/config/fontawesome'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
