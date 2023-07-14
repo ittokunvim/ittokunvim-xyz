@@ -3,6 +3,9 @@ import '@/config/fontawesome'
 
 import type { Metadata } from 'next'
 
+import { Noto_Sans_JP } from 'next/font/google'
+const noto_sans_jp = Noto_Sans_JP({ subsets: ['latin'] })
+
 import Link from 'next/link'
 import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -24,7 +27,7 @@ export default function RootLayout({
 
   return (
     <html lang="ja">
-      <body>
+      <body className={noto_sans_jp.className}>
         <header>
           <Link href="/">
             <Image
