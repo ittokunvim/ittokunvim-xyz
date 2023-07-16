@@ -6,6 +6,12 @@
   --header-height: 64px;
 }
 
+html {
+  -moz-text-size-adjust:100%;
+  -webkit-text-size-adjust:100%;
+  -ms-text-size-adjust:100%;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;

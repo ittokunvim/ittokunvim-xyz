@@ -14,6 +14,7 @@ import { faGithub, faTwitter } from "@fortawesome/free-brands-svg-icons";
 export const metadata: Metadata = {
   title: "ittoku-tech",
   description: "Here is ittokunvim portfolio site",
+  viewport: "width=device-width, initial-scale=1.0",
 };
 
 export default function RootLayout({
