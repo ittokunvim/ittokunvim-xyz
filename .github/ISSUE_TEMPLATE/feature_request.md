@@ -1,21 +1,11 @@
 ---
 name: Feature Request
-about: Create a feature request for api.
+about: Create a feature request.
 labels: 'enhancement'
 ---
 
-### Why
+どのような機能か。
 
-<!--なぜその機能を追加するのか -->
+実装手順。
 
-### What
-
-<!--新しく追加する機能の詳細 -->
-
-### ToDo
-
-<!-- 機能を実装するためにやっていくこと-->
-
-### Etc
-
-<!-- 上記以外で伝えておくべきこと -->
+追記。
