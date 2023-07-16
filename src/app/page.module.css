@@ -1,5 +1,5 @@
 .main {
-  line-height: 2.0;
+  line-height: 2;
   letter-spacing: 1px;
   word-spacing: 2px;
 }
@@ -7,11 +7,11 @@
 .about {
   max-width: 400px;
   margin: 0 auto;
-  padding: 1.0rem;
+  padding: 1rem;
 }
 
 .about h3 {
-  font-size: 1.0rem;
+  font-size: 1rem;
 }
 
 .about p {
