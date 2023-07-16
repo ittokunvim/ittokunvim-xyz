@@ -36,3 +36,9 @@ header div {
   display: flex;
   gap: 1rem;
 }
+
+hr {
+  width: 90%;
+  margin: 2.0rem auto;
+  border-top: 1px solid var(--border-color);
+}
