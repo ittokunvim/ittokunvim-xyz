@@ -33,3 +33,44 @@
 .myprofile p {
   text-align: left;
 }
+
+@media(min-width: 600px) {
+  .main {
+    max-width: 800px;
+  }
+
+  .main br {
+    display: none;
+  }
+
+  .profile {
+    border: 1px solid var(--border-color);
+    padding: 1.0rem 1.5rem;
+  }
+
+  .profile {
+    display: flex;
+    align-items: center;
+    gap: 1.0rem;
+  }
+
+  .myprofile img {
+    width: 120px;
+    height: 120px;
+  }
+
+  .myprofile .text {
+    border-left: 1px solid var(--border-color);
+    padding-left: 1.0rem;
+  }
+}
+
+@media (orientation: landscape){
+  .main h3 {
+    font-size: 0.8rem;
+  }
+
+  .main p {
+    font-size: 0.5rem;
+  }
+}

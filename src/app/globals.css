@@ -42,3 +42,9 @@ hr {
   margin: 2.0rem auto;
   border-top: 1px solid var(--border-color);
 }
+
+@media(min-width: 600px) {
+  hr {
+    width: 100%;
+  }
+}

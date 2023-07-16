@@ -18,12 +18,16 @@ export default function Home() {
       <hr />
       <article className={styles.myprofile}>
         <h3>Profile:</h3>
-        <Image src={iconPng} alt="My icon" />
-        <p>ittokunvimです。趣味でプログラムを書いています。最近はBevyというRust🦀で書かれたゲームエンジンを使ったゲーム開発をしています。</p>
-        <br />
-        <p>このサイトや、他のサイトに公開する予定なので、その際には是非ともプレイしてみてください。</p>
-        <br />
-        <p>あとはIT系の仕事も募集中です。ウェブ開発が得意分野なのでそのあたりの仕事ができたらなと思っています。</p>
+        <div className={styles.profile}>
+          <Image src={iconPng} alt="My icon" />
+          <div className={styles.text}>
+            <p>ittokunvimです。趣味でプログラムを書いています。最近はBevyというRust🦀で書かれたゲームエンジンを使ったゲーム開発をしています。</p>
+            <br />
+            <p>このサイトや、他のサイトに公開する予定なので、その際には是非ともプレイしてみてください。</p>
+            <br />
+            <p>あとはIT系の仕事も募集中です。ウェブ開発が得意分野なのでそのあたりの仕事ができたらなと思っています。</p>
+          </div>
+        </div>
       </article>
     </main>
   );
