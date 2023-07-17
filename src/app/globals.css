@@ -6,6 +6,12 @@
   --header-height: 64px;
 }
 
+html {
+  -moz-text-size-adjust:100%;
+  -webkit-text-size-adjust:100%;
+  -ms-text-size-adjust:100%;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -35,4 +41,16 @@ header a {
 header div {
   display: flex;
   gap: 1rem;
+}
+
+hr {
+  width: 90%;
+  margin: 2.0rem auto;
+  border-top: 1px solid var(--border-color);
+}
+
+@media(min-width: 600px) {
+  hr {
+    width: 100%;
+  }
 }

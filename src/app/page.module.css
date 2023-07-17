@@ -2,18 +2,65 @@
   line-height: 2;
   letter-spacing: 1px;
   word-spacing: 2px;
-}
-
-.about {
   max-width: 400px;
   margin: 0 auto;
-  padding: 1rem;
 }
 
-.about h3 {
+.main h3 {
   font-size: 1rem;
 }
 
-.about p {
+.main p {
   font-size: 0.8rem;
+}
+
+.about,
+.myprofile {
+  padding: 1rem;
+}
+
+.myprofile {
+  text-align: center;
+}
+
+.myprofile img {
+  width: 240px;
+  height: 240px;
+  border-radius: 14rem;
+}
+
+.myprofile h3,
+.myprofile p {
+  text-align: left;
+}
+
+@media(min-width: 600px) {
+  .main {
+    max-width: 800px;
+  }
+
+  .main br {
+    display: none;
+  }
+
+  .profile {
+    border: 1px solid var(--border-color);
+    padding: 1.0rem 1.5rem;
+  }
+
+  .profile {
+    display: flex;
+    align-items: center;
+    gap: 1.0rem;
+  }
+
+  .myprofile img {
+    width: 120px;
+    height: 120px;
+  }
+
+  .myprofile .text {
+    border-left: 1px solid var(--border-color);
+    padding-left: 1.0rem;
+  }
 }
