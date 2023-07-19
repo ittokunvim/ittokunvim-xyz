@@ -59,7 +59,7 @@ export default function RootLayout({
         </header>
         {children}
         <footer className={styles.page_footer}>
-          <p>
+          <div className={styles.external}>
             <a href={repo_url} target="_blank" rel="noopener noreferrer">
               <FontAwesomeIcon
                 icon={faGithub}
@@ -68,15 +68,52 @@ export default function RootLayout({
               />
               Source Code
             </a>
-          </p>
-          <p>
-            <FontAwesomeIcon
-              icon={faCopyright}
-              size="sm"
-              style={{ marginRight: "0.5em" }}
-            />
-            ittokunvim All Rights Reserved.
-          </p>
+            <a
+              href="https://nextjs.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Next.js
+            </a>
+            <a
+              href="https://vercel.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Vercel
+            </a>
+            <a
+              href="https://pixlr.com/jp/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Pixlr
+            </a>
+            <a
+              href="https://fontawesome.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Font Awesome
+            </a>
+            <a
+              href="https://github.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Github
+            </a>
+          </div>
+          <div className={styles.copyright}>
+            <p>
+              <FontAwesomeIcon
+                icon={faCopyright}
+                size="sm"
+                style={{ marginRight: "0.5em" }}
+              />
+              ittokunvim All Rights Reserved.
+            </p>
+          </div>
         </footer>
       </body>
     </html>
