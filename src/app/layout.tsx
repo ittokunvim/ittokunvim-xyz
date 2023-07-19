@@ -10,6 +10,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faTwitter } from "@fortawesome/free-brands-svg-icons";
+import { faCopyright } from "@fortawesome/free-regular-svg-icons";
 
 export const metadata: Metadata = {
   title: "ittoku-tech",
@@ -54,6 +55,16 @@ export default function RootLayout({
           </div>
         </header>
         {children}
+        <footer>
+          <p>
+            <FontAwesomeIcon
+              icon={faCopyright}
+              size="sm"
+              style={{ marginRight: "0.5em" }}
+            />
+            ittokunvim All Rights Reserved.
+          </p>
+        </footer>
       </body>
     </html>
   );
