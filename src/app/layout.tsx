@@ -1,6 +1,8 @@
 import "./globals.css";
 import "@/config/fontawesome";
 
+import styles from "./layout.module.css";
+
 import type { Metadata } from "next";
 
 import { Noto_Sans_JP } from "next/font/google";
@@ -26,11 +28,12 @@ export default function RootLayout({
   const github_url = "https://github.com/ittokunvim";
   const twitter_url = "https://twitter.com/ittokunvim";
   const zenn_url = "https://zenn.dev/ittoku_ky73";
+  const repo_url = "https://github.com/ittokunvim/ittoku-tech";
 
   return (
     <html lang="ja">
       <body className={noto_sans_jp.className}>
-        <header>
+        <header className={styles.page_header}>
           <Link href="/">
             <Image src="/logo.svg" width={44} height={44} alt="site logo" />
           </Link>
@@ -55,7 +58,17 @@ export default function RootLayout({
           </div>
         </header>
         {children}
-        <footer>
+        <footer className={styles.page_footer}>
+          <p>
+            <a href={repo_url} target="_blank" rel="noopener noreferrer">
+              <FontAwesomeIcon
+                icon={faGithub}
+                size="sm"
+                style={{ marginRight: "0.5em" }}
+              />
+              Source Code
+            </a>
+          </p>
           <p>
             <FontAwesomeIcon
               icon={faCopyright}

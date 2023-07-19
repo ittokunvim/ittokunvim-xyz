@@ -25,36 +25,8 @@ body {
   background-color: var(--background-color);
 }
 
-header {
-  padding: 0.5rem 1rem;
-  border-bottom: 1px solid var(--border-color);
-  height: var(--header-height);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-}
-
-header a {
-  color: inherit;
-  display: flex;
-}
-
-header div {
-  display: flex;
-  gap: 1rem;
-}
-
 main {
   min-height: 80vh;
-}
-
-footer {
-  font-size: 0.8rem;
-  color: var(--text-gray);
-  text-align: center;
-  padding: 1rem 0;
-  border-top: 1px solid var(--border-color);
 }
 
 hr {
