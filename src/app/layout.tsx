@@ -11,7 +11,7 @@ const noto_sans_jp = Noto_Sans_JP({ subsets: ["latin"] });
 import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithub, faTwitter } from "@fortawesome/free-brands-svg-icons";
+import { faGithub, faTwitter, faItchIo } from "@fortawesome/free-brands-svg-icons";
 import { faCopyright } from "@fortawesome/free-regular-svg-icons";
 
 export const metadata: Metadata = {
@@ -29,6 +29,7 @@ export default function RootLayout({
   const twitter_url = "https://twitter.com/ittokunvim";
   const zenn_url = "https://zenn.dev/ittoku_ky73";
   const repo_url = "https://github.com/ittokunvim/ittoku-tech";
+  const itch_url = "https://ittokunvim.itch.io";
 
   return (
     <html lang="ja">
@@ -54,6 +55,13 @@ export default function RootLayout({
             </a>
             <a href={zenn_url} target="_blank" rel="noopener noreferrer">
               <Image src="/zenn.svg" width={32} height={32} alt="zenn logo" />
+            </a>
+            <a href={itch_url} target="_blank" rel="noopener noreferrer">
+              <FontAwesomeIcon
+                icon={faItchIo}
+                size="2xl"
+                style={{ color: "#FA5C5C" }}
+              />
             </a>
           </div>
         </header>
