@@ -17,6 +17,7 @@ import { faCopyright } from "@fortawesome/free-regular-svg-icons";
 const site_name = "ittoku-tech";
 const description = "Here is ittokunvim portfolio site";
 const url = "https://ittoku-tech.com";
+const ogp_title = `${site_name} | ittokunvim portfolio site`;
 
 export const metadata: Metadata = {
   title: {
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
   },
   description,
   openGraph: {
-    title: site_name,
+    title: ogp_title,
     description,
     url,
     siteName: site_name,
@@ -34,7 +35,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: site_name,
+    title: ogp_title,
     description,
     site: "@ittokunvim",
     creator: "@ittokunvim",
