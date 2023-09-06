@@ -14,10 +14,37 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faTwitter, faItchIo } from "@fortawesome/free-brands-svg-icons";
 import { faCopyright } from "@fortawesome/free-regular-svg-icons";
 
+const site_name = "ittoku-tech";
+const description = "Here is ittokunvim portfolio site";
+const url = "https://ittoku-tech.com";
+
 export const metadata: Metadata = {
-  title: "ittoku-tech",
-  description: "Here is ittokunvim portfolio site",
-  viewport: "width=device-width, initial-scale=1.0",
+  title: {
+    default: site_name,
+    template: `%s | ${site_name}`
+  },
+  description,
+  openGraph: {
+    title: site_name,
+    description,
+    url,
+    siteName: site_name,
+    locale: "ja_JP",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: site_name,
+    description,
+    site: "@ittokunvim",
+    creator: "@ittokunvim",
+  },
+  verification: {
+    google: "",
+  },
+  alternates: {
+    canonical: url,
+  },
 };
 
 export default function RootLayout({
