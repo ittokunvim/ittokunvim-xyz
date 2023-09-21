@@ -14,9 +14,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faTwitter, faItchIo } from "@fortawesome/free-brands-svg-icons";
 import { faCopyright } from "@fortawesome/free-regular-svg-icons";
 
-const site_name = "ittoku-tech";
+const site_name = "ittokunvim-net";
 const description = "Here is ittokunvim portfolio site";
-const url = "https://ittoku-tech.com";
+const url = "https://ittokunvim.net";
 const ogp_title = `${site_name} | ittokunvim portfolio site`;
 
 export const metadata: Metadata = {
@@ -56,7 +56,7 @@ export default function RootLayout({
   const github_url = "https://github.com/ittokunvim";
   const twitter_url = "https://twitter.com/ittokunvim";
   const zenn_url = "https://zenn.dev/ittoku_ky73";
-  const repo_url = "https://github.com/ittokunvim/ittoku-tech";
+  const repo_url = "https://github.com/ittokunvim/ittokunvim-net";
   const itch_url = "https://ittokunvim.itch.io";
 
   return (
