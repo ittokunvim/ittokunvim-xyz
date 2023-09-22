@@ -15,19 +15,18 @@ export type NewsData = {
 export function getAllNewsIds() {
   const fileNames = fs.readdirSync(newsDirectory);
 
-  console.log(fileNames);
   return fileNames.map((fileName) => {
-    return {
-      params: {
-        id: fileName.replace(/\.md$/, ""),
-      },
-    };
+    if (fileName === "404.md") {
+      return;
+    }
+
+    return fileName.replace(/\.md$/, "");
   });
 }
 
 export async function getNewsData(slug: string): Promise<NewsData> {
   const fullPath = path.join(newsDirectory, `${slug}.md`);
-  const fileContents = fs.readFileSync(fullPath, "utf8");
+  const fileContents = getFileContents(fullPath);
 
   const matterResult = matter(fileContents);
   const title = matterResult.data.title;
@@ -43,4 +42,14 @@ export async function getNewsData(slug: string): Promise<NewsData> {
     date,
     contentHtml,
   };
+}
+
+function getFileContents(fullPath: string): string {
+  const notFoundPath = path.join(newsDirectory, "404.md");
+
+  if (fs.existsSync(fullPath)) {
+    return fs.readFileSync(fullPath, "utf8");
+  } else {
+    return fs.readFileSync(notFoundPath, "utf8")
+  }
 }
