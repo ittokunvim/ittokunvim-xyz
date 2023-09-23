@@ -14,12 +14,11 @@ export type NewsData = {
 
 export function getAllNewsIds() {
   const fileNames = fs.readdirSync(newsDirectory);
+  // Remove 404 and test files
+  fileNames.splice(fileNames.indexOf("404.md"), 1);
+  fileNames.splice(fileNames.indexOf("test.md"), 1);
 
   return fileNames.map((fileName) => {
-    if (fileName === "404.md") {
-      return;
-    }
-
     return fileName.replace(/\.md$/, "");
   });
 }
