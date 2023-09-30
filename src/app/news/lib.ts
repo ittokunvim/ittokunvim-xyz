@@ -12,7 +12,7 @@ export type NewsData = {
   contentHtml: string;
 }
 
-export function getAllNewsIds() {
+export function getAllNewsIds(): string[] {
   const fileNames = fs.readdirSync(newsDirectory);
   // Remove 404 and test files
   fileNames.splice(fileNames.indexOf("404.md"), 1);
