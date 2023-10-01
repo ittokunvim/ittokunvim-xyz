@@ -38,8 +38,8 @@ async function getNewsAllData(): Promise<NewsAllData[]> {
       const title = data.title;
       const timesAgo = getTimesAgo(data.date);
 
-      return { slug, title, timesAgo, };
-    })
+      return { slug, title, timesAgo };
+    }),
   );
 }
 
@@ -83,9 +83,7 @@ export default async function Home() {
           {news.map((news) => (
             <div className={styles.item} key={news.slug}>
               <div className={styles.title}>
-                <Link href={`/news/${news.slug}`}>
-                  {news.title}
-                </Link>
+                <Link href={`/news/${news.slug}`}>{news.title}</Link>
               </div>
               <div className={styles.date}>{news.timesAgo}</div>
             </div>

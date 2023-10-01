@@ -10,7 +10,7 @@ export type NewsData = {
   title: string;
   date: string;
   contentHtml: string;
-}
+};
 
 export function getAllNewsIds(): string[] {
   const fileNames = fs.readdirSync(newsDirectory);
@@ -54,6 +54,6 @@ function getFileContents(fullPath: string): string {
   if (fs.existsSync(fullPath)) {
     return fs.readFileSync(fullPath, "utf8");
   } else {
-    return fs.readFileSync(notFoundPath, "utf8")
+    return fs.readFileSync(notFoundPath, "utf8");
   }
 }

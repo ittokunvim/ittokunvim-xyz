@@ -11,7 +11,11 @@ const noto_sans_jp = Noto_Sans_JP({ subsets: ["latin"] });
 import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithub, faTwitter, faItchIo } from "@fortawesome/free-brands-svg-icons";
+import {
+  faGithub,
+  faTwitter,
+  faItchIo,
+} from "@fortawesome/free-brands-svg-icons";
 import { faCopyright } from "@fortawesome/free-regular-svg-icons";
 
 const site_name = "ittokunvim-net";
@@ -22,7 +26,7 @@ const ogp_title = `${site_name} | ittokunvim portfolio site`;
 export const metadata: Metadata = {
   title: {
     default: site_name,
-    template: `%s | ${site_name}`
+    template: `%s | ${site_name}`,
   },
   description,
   openGraph: {
