@@ -18,8 +18,13 @@ export function getAllNewsIds(): string[] {
   fileNames.splice(fileNames.indexOf("404.md"), 1);
   fileNames.splice(fileNames.indexOf("test.md"), 1);
 
-  return fileNames.map((fileName) => {
+  const newsIds = fileNames.map((fileName) => {
     return fileName.replace(/\.md$/, "");
+  });
+
+  // Sort news by date
+  return newsIds.sort((a, b) => {
+    return a > b ? -1 : 1;
   });
 }
 

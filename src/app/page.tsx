@@ -4,6 +4,7 @@ import Image from "next/image";
 import iconPng from "./icon.png";
 
 import { getAllNewsIds, getNewsData } from "./news/lib";
+import Link from "next/link";
 
 type NewsAllData = {
   slug: string;
@@ -74,6 +75,21 @@ export default async function Home() {
               あとはIT系の仕事も募集中です。ウェブ開発が得意分野なのでそのあたりの仕事ができたらなと思っています。
             </p>
           </div>
+        </div>
+      </article>
+      <article className={styles.news}>
+        <h3>News:</h3>
+        <div className={styles.list}>
+          {news.map((news) => (
+            <div className={styles.item} key={news.slug}>
+              <div className={styles.title}>
+                <Link href={`/news/${news.slug}`}>
+                  {news.title}
+                </Link>
+              </div>
+              <div className={styles.date}>{news.timesAgo}</div>
+            </div>
+          ))}
         </div>
       </article>
     </main>
