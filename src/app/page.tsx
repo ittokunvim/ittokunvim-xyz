@@ -13,7 +13,7 @@ type NewsAllData = {
 };
 
 function getTimesAgo(date: string): string {
-  const now = new Date();
+  const now = new Date(new Date().getTime() + 1000 * 60 * 60 * 9); // JST
   const d = new Date(date);
   const diff = now.getTime() - d.getTime();
   const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365));
