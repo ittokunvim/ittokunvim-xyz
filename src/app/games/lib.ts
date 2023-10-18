@@ -6,6 +6,8 @@ export type GameData = {
   height: number;
 };
 
+export const gameList: GameData[] = data;
+
 export function getGameData(slug: string): GameData {
   const slug_game = data.find((game: GameData) => game.name === slug);
 
