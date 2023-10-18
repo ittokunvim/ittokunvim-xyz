@@ -6,6 +6,8 @@ import iconPng from "./icon.png";
 import { getAllNewsIds, getNewsData } from "./news/lib";
 import Link from "next/link";
 
+import { gameList } from "./games/lib";
+
 type NewsAllData = {
   slug: string;
   title: string;
@@ -86,6 +88,19 @@ export default async function Home() {
                 <Link href={`/news/${news.slug}`}>{news.title}</Link>
               </div>
               <div className={styles.date}>{news.timesAgo}</div>
+            </div>
+          ))}
+        </div>
+      </article>
+      <article className={styles.games}>
+        <h3>Games:</h3>
+        <div className={styles.list}>
+          {gameList.map((game) => (
+            <div className={styles.item} key={game.name}>
+              <div className={styles.name}>
+                <Link href={`/games/${game.name}`}>{game.name}</Link>
+              </div>
+              <div className={styles.size}>{`Screen Size: ${game.width}x${game.height}`}</div>
             </div>
           ))}
         </div>
