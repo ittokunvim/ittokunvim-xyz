@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCirclePlay } from "@fortawesome/free-regular-svg-icons";
+
 import { GameData } from "../lib";
 
 import styles from './page.module.css';
@@ -12,6 +15,7 @@ function Button({ gameData, onButtonClick }: { gameData: GameData, onButtonClick
   return (
     <div className={styles.button} style={{ width, height }}>
       <button onClick={onButtonClick}>
+        <FontAwesomeIcon icon={faCirclePlay} color="dodgerblue" />
         Run Game
       </button>
     </div>

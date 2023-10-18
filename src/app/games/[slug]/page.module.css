@@ -1,5 +1,32 @@
 .game {
+  padding: 1rem;
   text-align: center;
+}
+
+.game .button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e6e6e6;
+  margin: 0 auto;
+}
+
+.game .button button {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--text-gray);
+  background-color: lightgray;
+  padding: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+}
+
+.game .button button:hover {
+  background-color: #d8d8d8;
+}
+
+.game .button svg {
+  margin-right: 0.2em;
 }
 
 .game iframe {
