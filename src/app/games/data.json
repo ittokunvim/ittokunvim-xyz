@@ -8,5 +8,10 @@
     "name": "click_game",
     "width": 1080,
     "height": 720
+  },
+  {
+    "name": "2d_shooting",
+    "width": 700,
+    "height": 700
   }
 ]
