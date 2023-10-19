@@ -13,5 +13,10 @@
     "name": "2d_shooting",
     "width": 700,
     "height": 700
+  },
+  {
+    "name": "frogger",
+    "width": 800,
+    "height": 600
   }
 ]
