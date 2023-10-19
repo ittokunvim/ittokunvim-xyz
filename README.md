@@ -1,3 +1,16 @@
+# Portfolio Nextjs
+
+このリポジトリは、自身の成果物をウェブサイトで公開するためのソースコードの置き場所です。
+
+## Dependencies
+
+以下のプロジェクトをローカルサーバーで立ち上げ、環境変数を設定する必要があります。
+
+- [ittokunvim/wasm-games](https://github.com/ittokunvim/wasm-games)
+  - 環境変数：`NEXT_PUBLIC_GAMESITE_URL=WASM_GAMES_LOCAL_URL`
+
+----------
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
