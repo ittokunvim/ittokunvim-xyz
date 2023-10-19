@@ -2,6 +2,9 @@
   --foreground-rgb: 0, 0, 0;
   --background-color: #f8f8f8;
   --background-color-dark: #f6f6f8;
+  --background-color-game: #e6e6e6;
+  --background-color-game-button: #d3d3d3;
+  --background-color-game-button-hover: #d8d8d8;
   --border-color: #d8d8d8;
 
   --header-height: 64px;

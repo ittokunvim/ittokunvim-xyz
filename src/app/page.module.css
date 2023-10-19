@@ -73,6 +73,46 @@
   color: var(--text-gray);
 }
 
+.games {
+  padding: 1rem;
+}
+
+.games .list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.games .list .item {
+  width: 100%;
+  border-bottom: 1px solid var(--border-color);
+  padding: 1rem 0;
+}
+
+.games .list .item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.games .list .item .name {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.games .list .item .name a {
+  color: black;
+  text-decoration: none;
+}
+
+.games .list .item .name a:hover {
+  cursor: pointer;
+}
+
+.games .list .item .size {
+  font-size: 0.8rem;
+  color: var(--text-gray);
+}
+
 @media (min-width: 600px) {
   .main {
     max-width: 800px;
