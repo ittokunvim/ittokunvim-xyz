@@ -1,21 +1,25 @@
 [
   {
-    "name": "timing_game",
+    "slug": "timing_game",
+    "name": "タイミングゲーム",
     "width": 800,
     "height": 600
   },
   {
-    "name": "click_game",
+    "slug": "click_game",
+    "name": "クリックゲーム",
     "width": 1080,
     "height": 720
   },
   {
-    "name": "2d_shooting",
+    "slug": "2d_shooting",
+    "name": "2Dシューティングゲーム",
     "width": 700,
     "height": 700
   },
   {
-    "name": "frogger",
+    "slug": "frogger",
+    "name": "フロッガーゲーム",
     "width": 800,
     "height": 600
   }

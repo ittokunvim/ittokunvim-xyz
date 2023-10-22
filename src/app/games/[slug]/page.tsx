@@ -28,7 +28,9 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
   return (
     <main className={styles.main}>
-      <Game gameData={gameData}/>
+      <div className={styles.game}>
+        <Game gameData={gameData} />
+      </div>
     </main>
   );
 }
