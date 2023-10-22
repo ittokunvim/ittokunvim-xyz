@@ -23,9 +23,9 @@ function Button({ gameData, onButtonClick }: { gameData: GameData, onButtonClick
 }
 
 function Iframe({ gameData }: { gameData: GameData }) {
-  const { name, width, height } = gameData;
+  const { slug, width, height } = gameData;
   const gameSiteURL = process.env.NEXT_PUBLIC_GAMESITE_URL;
-  const iframeURL = gameSiteURL + "/" + name;
+  const iframeURL = gameSiteURL + "/" + slug;
 
   return <iframe src={iframeURL} width={width} height={height}></iframe>;
 }
@@ -36,9 +36,9 @@ export default function Game({ gameData }: { gameData: GameData }) {
   const handleClick = () => setIsClicked(true);
 
   return (
-    <div className={styles.game}>
+    <>
       {!isClicked && <Button gameData={gameData} onButtonClick={() => handleClick()} />}
       {isClicked && <Iframe gameData={gameData} />}
-    </div>
+    </>
   );
 }
