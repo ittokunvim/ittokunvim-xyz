@@ -1,4 +1,4 @@
-import data from "./data.json" assert { type: "json" };
+import data from "@/games.json" assert { type: "json" };
 
 export type GameData = {
   slug: string;
