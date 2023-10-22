@@ -6,7 +6,7 @@ import iconPng from "./icon.png";
 import { getAllNewsIds, getNewsData } from "./news/lib";
 import Link from "next/link";
 
-import { gameList } from "./games/lib";
+import { getGameAllData } from "./games/lib";
 
 type NewsAllData = {
   slug: string;
@@ -47,6 +47,7 @@ async function getNewsAllData(): Promise<NewsAllData[]> {
 
 export default async function Home() {
   const news = await getNewsAllData();
+  const games = await getGameAllData();
 
   return (
     <main className={styles.main}>
@@ -91,7 +92,7 @@ export default async function Home() {
       <article className={styles.games}>
         <h3>Games:</h3>
         <div className={styles.list}>
-          {gameList.map((game) => (
+          {games.map((game) => (
             <div className={styles.item} key={game.slug}>
               <div className={styles.name}>
                 <Link href={`/games/${game.slug}`}>{game.name}</Link>
