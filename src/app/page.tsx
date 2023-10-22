@@ -1,52 +1,15 @@
-import styles from "./page.module.css";
-
 import Image from "next/image";
-import iconPng from "./icon.png";
-
-import { getAllNewsIds, getNewsData } from "./news/lib";
 import Link from "next/link";
 
+import iconPng from "./icon.png";
+
+import { getAllNewsData } from "./news/lib";
 import { gameList } from "./games/lib";
 
-type NewsAllData = {
-  slug: string;
-  title: string;
-  timesAgo: string;
-};
-
-function getTimesAgo(date: string): string {
-  const now = new Date(new Date().getTime() + 1000 * 60 * 60 * 9); // JST
-  const d = new Date(date);
-  const diff = now.getTime() - d.getTime();
-  const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365));
-  const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30));
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-
-  if (years > 0) {
-    return `${years}年前`;
-  } else if (months > 0) {
-    return `${months}ヶ月前`;
-  } else if (days > 0) {
-    return `${days}日前`;
-  } else {
-    return "今日";
-  }
-}
-
-async function getNewsAllData(): Promise<NewsAllData[]> {
-  return await Promise.all(
-    getAllNewsIds().map(async (slug) => {
-      const data = await getNewsData(slug);
-      const title = data.title;
-      const timesAgo = getTimesAgo(data.date);
-
-      return { slug, title, timesAgo };
-    }),
-  );
-}
+import styles from "./page.module.css";
 
 export default async function Home() {
-  const news = await getNewsAllData();
+  const news = await getAllNewsData();
 
   return (
     <main className={styles.main}>
