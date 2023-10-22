@@ -4,13 +4,13 @@ import Link from "next/link";
 import iconPng from "./icon.png";
 
 import { getAllNewsData } from "./news/lib";
-import { gameList } from "./games/lib";
+import { getAllGameData } from "./games/lib";
 
 import styles from "./page.module.css";
 
 export default async function Home() {
-  const news = await getNewsAllData();
-  const games = await getGameAllData();
+  const news = await getAllNewsData();
+  const games = await getAllGameData();
 
   return (
     <main className={styles.main}>

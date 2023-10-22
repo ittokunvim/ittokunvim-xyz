@@ -7,7 +7,7 @@ export type GameData = {
   height: number;
 };
 
-export async function getGameAllData(): Promise<GameData[]> {
+export async function getAllGameData(): Promise<GameData[]> {
   try {
     const response = await fetch(gamesJsonUrl);
     const data = await response.json();
@@ -19,7 +19,7 @@ export async function getGameAllData(): Promise<GameData[]> {
 };
 
 export async function getGameData(slug: string): Promise<GameData> {
-  const games = await getGameAllData();
+  const games = await getAllGameData();
   const game = games.find((game: GameData) => game.slug === slug);
 
   if (game === undefined) {
