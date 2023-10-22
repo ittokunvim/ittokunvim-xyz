@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { notFound } from 'next/navigation'
+import { notFound } from "next/navigation";
 
 import { GameData, getGameData } from "../lib";
 
-import styles from './page.module.css';
-import Game from './game';
+import styles from "./page.module.css";
+import Game from "./game";
 
 type Props = {
   params: { slug: string };

@@ -28,10 +28,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
       <article className={styles.news}>
         <div className={styles.title}>{newsData.title}</div>
         <div className={styles.date}>{newsData.date}</div>
-        <div
-          className={styles.content_html}
-          dangerouslySetInnerHTML={{ __html: newsData.contentHtml }}
-        />
+        <div className={styles.content_html} dangerouslySetInnerHTML={{ __html: newsData.contentHtml }} />
       </article>
     </main>
   );

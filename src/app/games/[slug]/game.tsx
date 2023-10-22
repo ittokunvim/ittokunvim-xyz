@@ -7,9 +7,9 @@ import { faCirclePlay } from "@fortawesome/free-regular-svg-icons";
 
 import { GameData } from "../lib";
 
-import styles from './page.module.css';
+import styles from "./page.module.css";
 
-function Button({ gameData, onButtonClick }: { gameData: GameData, onButtonClick: () => void }) {
+function Button({ gameData, onButtonClick }: { gameData: GameData; onButtonClick: () => void }) {
   const { width, height } = gameData;
 
   return (
@@ -29,7 +29,6 @@ function Iframe({ gameData }: { gameData: GameData }) {
 
   return <iframe src={iframeURL} width={width} height={height}></iframe>;
 }
-
 
 export default function Game({ gameData }: { gameData: GameData }) {
   const [isClicked, setIsClicked] = useState(false);

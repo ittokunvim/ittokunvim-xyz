@@ -36,9 +36,7 @@ export async function getNewsData(slug: string): Promise<NewsData> {
   const title = matterResult.data.title;
   const date = matterResult.data.date;
 
-  const processedContent = await remark()
-    .use(remarkHtml)
-    .process(matterResult.content);
+  const processedContent = await remark().use(remarkHtml).process(matterResult.content);
   const contentHtml = processedContent.toString();
 
   return {

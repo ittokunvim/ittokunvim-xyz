@@ -11,11 +11,7 @@ const noto_sans_jp = Noto_Sans_JP({ subsets: ["latin"] });
 import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faGithub,
-  faTwitter,
-  faItchIo,
-} from "@fortawesome/free-brands-svg-icons";
+import { faGithub, faTwitter, faItchIo } from "@fortawesome/free-brands-svg-icons";
 import { faCopyright } from "@fortawesome/free-regular-svg-icons";
 
 const site_name = "ittokunvim-net";
@@ -52,11 +48,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   const github_url = "https://github.com/ittokunvim";
   const twitter_url = "https://twitter.com/ittokunvim";
   const zenn_url = "https://zenn.dev/ittoku_ky73";
@@ -72,28 +64,16 @@ export default function RootLayout({
           </Link>
           <div>
             <a href={github_url} target="_blank" rel="noopener noreferrer">
-              <FontAwesomeIcon
-                icon={faGithub}
-                size="2xl"
-                style={{ color: "#202328" }}
-              />
+              <FontAwesomeIcon icon={faGithub} size="2xl" style={{ color: "#202328" }} />
             </a>
             <a href={twitter_url} target="_blank" rel="noopener noreferrer">
-              <FontAwesomeIcon
-                icon={faTwitter}
-                size="2xl"
-                style={{ color: "#1DA1F2" }}
-              />
+              <FontAwesomeIcon icon={faTwitter} size="2xl" style={{ color: "#1DA1F2" }} />
             </a>
             <a href={zenn_url} target="_blank" rel="noopener noreferrer">
               <Image src="/zenn.svg" width={32} height={32} alt="zenn logo" />
             </a>
             <a href={itch_url} target="_blank" rel="noopener noreferrer">
-              <FontAwesomeIcon
-                icon={faItchIo}
-                size="2xl"
-                style={{ color: "#FA5C5C" }}
-              />
+              <FontAwesomeIcon icon={faItchIo} size="2xl" style={{ color: "#FA5C5C" }} />
             </a>
           </div>
         </header>
@@ -101,56 +81,28 @@ export default function RootLayout({
         <footer className={styles.page_footer}>
           <div className={styles.external}>
             <a href={repo_url} target="_blank" rel="noopener noreferrer">
-              <FontAwesomeIcon
-                icon={faGithub}
-                size="sm"
-                style={{ marginRight: "0.5em" }}
-              />
+              <FontAwesomeIcon icon={faGithub} size="sm" style={{ marginRight: "0.5em" }} />
               Source Code
             </a>
-            <a
-              href="https://nextjs.org/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href="https://nextjs.org/" target="_blank" rel="noopener noreferrer">
               Next.js
             </a>
-            <a
-              href="https://vercel.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href="https://vercel.com/" target="_blank" rel="noopener noreferrer">
               Vercel
             </a>
-            <a
-              href="https://pixlr.com/jp/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href="https://pixlr.com/jp/" target="_blank" rel="noopener noreferrer">
               Pixlr
             </a>
-            <a
-              href="https://fontawesome.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href="https://fontawesome.com/" target="_blank" rel="noopener noreferrer">
               Font Awesome
             </a>
-            <a
-              href="https://github.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href="https://github.com/" target="_blank" rel="noopener noreferrer">
               Github
             </a>
           </div>
           <div className={styles.copyright}>
             <p>
-              <FontAwesomeIcon
-                icon={faCopyright}
-                size="sm"
-                style={{ marginRight: "0.5em" }}
-              />
+              <FontAwesomeIcon icon={faCopyright} size="sm" style={{ marginRight: "0.5em" }} />
               ittokunvim All Rights Reserved.
             </p>
           </div>
