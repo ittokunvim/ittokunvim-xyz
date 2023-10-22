@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { NewsData, getNewsData } from "../lib";
+
+import { getNewsData } from "../lib";
 
 import styles from "./page.module.css";
 
@@ -10,7 +11,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const slug = params.slug;
-  const newsData: NewsData = await getNewsData(slug);
+  const newsData = await getNewsData(slug);
 
   return {
     title: newsData.title,
@@ -19,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const slug = params.slug;
-  const newsData: NewsData = await getNewsData(slug);
+  const newsData = await getNewsData(slug);
 
   newsData.date = newsData.date.replace(/-/g, "/") + "に公開";
 
