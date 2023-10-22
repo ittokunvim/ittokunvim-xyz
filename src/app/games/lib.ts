@@ -1,4 +1,4 @@
-import data from "@/games.json" assert { type: "json" };
+const gamesJsonUrl = process.env.NEXT_PUBLIC_GAMESITE_URL + "/games.json";
 
 export type GameData = {
   slug: string;
@@ -7,12 +7,22 @@ export type GameData = {
   height: number;
 };
 
-export const gameList: GameData[] = data;
+export async function getAllGameData(): Promise<GameData[]> {
+  try {
+    const response = await fetch(gamesJsonUrl);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
 
-export function getGameData(slug: string): GameData {
-  const slug_game = data.find((game: GameData) => game.slug === slug);
+export async function getGameData(slug: string): Promise<GameData> {
+  const games = await getAllGameData();
+  const game = games.find((game: GameData) => game.slug === slug);
 
-  if (slug_game === undefined) {
+  if (game === undefined) {
     return {
       slug: "",
       name: "",
@@ -21,5 +31,5 @@ export function getGameData(slug: string): GameData {
     };
   }
 
-  return slug_game;
+  return game;
 }

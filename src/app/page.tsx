@@ -4,12 +4,13 @@ import Link from "next/link";
 import iconPng from "./icon.png";
 
 import { getAllNewsData } from "./news/lib";
-import { gameList } from "./games/lib";
+import { getAllGameData } from "./games/lib";
 
 import styles from "./page.module.css";
 
 export default async function Home() {
   const news = await getAllNewsData();
+  const games = await getAllGameData();
 
   return (
     <main className={styles.main}>
@@ -54,7 +55,7 @@ export default async function Home() {
       <article className={styles.games}>
         <h3>Games:</h3>
         <div className={styles.list}>
-          {gameList.map((game) => (
+          {games.map((game) => (
             <div className={styles.item} key={game.slug}>
               <div className={styles.name}>
                 <Link href={`/games/${game.slug}`}>{game.name}</Link>

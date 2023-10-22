@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { GameData, getGameData } from "../lib";
+import { getGameData } from "../lib";
 
 import styles from "./page.module.css";
 import Game from "./game";
@@ -20,16 +20,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
-  const gameData: GameData = getGameData(params.slug);
+  const game = await getGameData(params.slug);
 
-  if (gameData.name === "") {
+  if (game.name === "") {
     return notFound();
   }
 
   return (
     <main className={styles.main}>
       <div className={styles.game}>
-        <Game gameData={gameData} />
+        <Game gameData={game} />
       </div>
     </main>
   );
