@@ -3,6 +3,7 @@ const gamesJsonUrl = process.env.NEXT_PUBLIC_GAMESITE_URL + "/games.json";
 export type GameData = {
   slug: string;
   name: string;
+  description: string;
   width: number;
   height: number;
 };
@@ -26,6 +27,7 @@ export async function getGameData(slug: string): Promise<GameData> {
     return {
       slug: "",
       name: "",
+      description: "",
       width: 0,
       height: 0,
     };
