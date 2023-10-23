@@ -45,7 +45,7 @@ export async function getGameData(slug: string): Promise<GameData> {
   return game;
 }
 
-export async function getGameThumbnail(game: GameData): Promise<GameThumbnail> {
+export function getGameThumbnail(game: GameData): GameThumbnail {
   const gameSiteURL = process.env.NEXT_PUBLIC_GAMESITE_URL;
   const { slug, thumbnail } = game;
   const src = `${gameSiteURL}/${slug}/${thumbnail}`;

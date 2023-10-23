@@ -12,18 +12,6 @@ export default async function Home() {
   const news = await getAllNewsData();
   const games = await getAllGameData();
 
-  const ImageGameThumbnail = async (game: GameData) => {
-    const { src, alt, width, height } = await getGameThumbnail(game);
-    return (
-      <img
-        src={src}
-        alt={alt}
-        width={width}
-        height={height}
-      />
-    );
-  };
-
   return (
     <main className={styles.main}>
       <article className={styles.about}>
@@ -84,3 +72,8 @@ export default async function Home() {
     </main>
   );
 }
+
+function ImageGameThumbnail(game: GameData) {
+  const { src, alt, width, height } = getGameThumbnail(game);
+  return <img src={src} alt={alt} width={width} height={height} />
+};
