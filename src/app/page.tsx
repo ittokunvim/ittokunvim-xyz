@@ -60,6 +60,7 @@ export default async function Home() {
               <div className={styles.name}>
                 <Link href={`/games/${game.slug}`}>{game.name}</Link>
               </div>
+              <div className={styles.description}>{game.description}</div>
               <div className={styles.size}>{`Screen Size: ${game.width}x${game.height}`}</div>
             </div>
           ))}

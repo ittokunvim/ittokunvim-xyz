@@ -108,6 +108,10 @@
   cursor: pointer;
 }
 
+.games .list .item .description {
+  font-size: 0.8em;
+}
+
 .games .list .item .size {
   font-size: 0.8rem;
   color: var(--text-gray);
