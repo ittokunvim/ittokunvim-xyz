@@ -78,25 +78,33 @@
 }
 
 .games .list {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 1rem;
-}
-
-.games .list .item {
-  width: 100%;
-  border-bottom: 1px solid var(--border-color);
   padding: 1rem 0;
 }
 
-.games .list .item:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
+/* .games .list .item { */
+/* } */
+
+.games .list .item .thumbnail {
+  position: relative;
+  padding-bottom: 80%;
+}
+
+.games .list .item .thumbnail img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .games .list .item .name {
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: bold;
+  line-height: 1.6;
 }
 
 .games .list .item .name a {
@@ -106,14 +114,17 @@
 
 .games .list .item .name a:hover {
   cursor: pointer;
+  text-decoration: underline;
 }
 
 .games .list .item .description {
-  font-size: 0.8em;
+  font-size: 0.7em;
+  line-height: 1.4;
 }
 
 .games .list .item .size {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
+  line-height: 1.4;
   color: var(--text-gray);
 }
 
@@ -145,5 +156,15 @@
   .myprofile .text {
     border-left: 1px solid var(--border-color);
     padding-left: 1rem;
+  }
+
+  .games .list {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .games .list {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 }

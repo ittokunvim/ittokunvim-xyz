@@ -4,7 +4,7 @@ import Link from "next/link";
 import iconPng from "./icon.png";
 
 import { getAllNewsData } from "./news/lib";
-import { getAllGameData } from "./games/lib";
+import { GameData, getAllGameData, getGameThumbnail } from "./games/lib";
 
 import styles from "./page.module.css";
 
@@ -57,11 +57,14 @@ export default async function Home() {
         <div className={styles.list}>
           {games.map((game) => (
             <div className={styles.item} key={game.slug}>
+              <div className={styles.thumbnail}>
+                {ImageGameThumbnail(game)}
+              </div>
               <div className={styles.name}>
                 <Link href={`/games/${game.slug}`}>{game.name}</Link>
               </div>
-              <div className={styles.description}>{game.description}</div>
               <div className={styles.size}>{`Screen Size: ${game.width}x${game.height}`}</div>
+              <div className={styles.description}>{game.description}</div>
             </div>
           ))}
         </div>
@@ -69,3 +72,8 @@ export default async function Home() {
     </main>
   );
 }
+
+function ImageGameThumbnail(game: GameData) {
+  const { src, alt, width, height } = getGameThumbnail(game);
+  return <img src={src} alt={alt} width={width} height={height} />
+};
