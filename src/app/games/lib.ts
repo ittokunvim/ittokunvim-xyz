@@ -18,7 +18,7 @@ type GameThumbnail = {
 
 export async function getAllGameData(): Promise<GameData[]> {
   try {
-    const response = await fetch(gamesJsonUrl);
+    const response = await fetch(gamesJsonUrl, { cache: "no-store" });
     const data = await response.json();
     return data;
   } catch (error) {
@@ -61,7 +61,7 @@ export function getGameThumbnail(game: GameData): GameThumbnail {
 }
 
 function splitImageSize(image: string): string[] {
-	image = image.split('.').slice(0, -1).join('.') // Remove extension
+  image = image.split('.').slice(0, -1).join('.') // Remove extension
 
-	return image.split('x'); // split width and height
+  return image.split('x'); // split width and height
 }
