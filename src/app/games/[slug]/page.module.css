@@ -32,3 +32,52 @@
 .game iframe {
   border: none;
 }
+
+.description {
+  font-size: 0.9em;
+  padding: 1rem;
+}
+
+.info {
+  position: relative;
+  display: inline-block;
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.info::before, .info::after {
+  content: "";
+  position: absolute;
+  width: 30px;
+  height: 30px;
+}
+
+.info::before {
+  border-top: 2px solid var(--border-color);
+  border-left: 2px solid var(--border-color);
+  border-top-left-radius: 0.5em;
+  top: 0;
+  left: 0;
+}
+
+.info::after {
+  border-bottom: 2px solid var(--border-color);
+  border-right: 2px solid var(--border-color);
+  border-bottom-right-radius: 0.5em;
+  bottom: 0;
+  right: 0;
+}
+
+.info table {
+  font-size: 0.8rem;
+  line-height: 2;
+}
+
+.info table th {
+  text-align: right;
+}
+
+.info table td {
+  padding-left: 1em;
+}
