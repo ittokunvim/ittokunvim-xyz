@@ -57,9 +57,7 @@ export default async function Home() {
         <div className={styles.list}>
           {games.map((game) => (
             <div className={styles.item} key={game.slug}>
-              <div className={styles.thumbnail}>
-                {ImageGameThumbnail(game)}
-              </div>
+              <div className={styles.thumbnail}>{ImageGameThumbnail(game)}</div>
               <div className={styles.name}>
                 <Link href={`/games/${game.slug}`}>{game.name}</Link>
               </div>
@@ -75,5 +73,5 @@ export default async function Home() {
 
 function ImageGameThumbnail(game: GameData) {
   const { src, alt, width, height } = getGameThumbnail(game);
-  return <img src={src} alt={alt} width={width} height={height} />
-};
+  return <img src={src} alt={alt} width={width} height={height} />;
+}

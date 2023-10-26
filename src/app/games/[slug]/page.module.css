@@ -46,7 +46,8 @@
   border-radius: 0.5rem;
 }
 
-.info::before, .info::after {
+.info::before,
+.info::after {
   content: "";
   position: absolute;
   width: 30px;
