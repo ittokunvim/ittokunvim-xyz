@@ -21,6 +21,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const game = await getGameData(params.slug);
+  const { name, description, width, height } = game;
+  const size = `${width}x${height}`;
 
   if (game.name === "") {
     return notFound();
@@ -30,6 +32,21 @@ export default async function Page({ params }: { params: { slug: string } }) {
     <main className={styles.main}>
       <div className={styles.game}>
         <Game gameData={game} />
+      </div>
+      <div className={styles.description}>{description}</div>
+      <div className={styles.info}>
+        <table>
+          <tbody>
+            <tr>
+              <th>Title</th>
+              <td>{name}</td>
+            </tr>
+            <tr>
+              <th>Size</th>
+              <td>{size}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </main>
   );

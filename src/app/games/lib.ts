@@ -25,7 +25,7 @@ export async function getAllGameData(): Promise<GameData[]> {
     console.error(error);
     return [];
   }
-};
+}
 
 export async function getGameData(slug: string): Promise<GameData> {
   const games = await getAllGameData();
@@ -57,11 +57,11 @@ export function getGameThumbnail(game: GameData): GameThumbnail {
     alt,
     width,
     height,
-  }
+  };
 }
 
 function splitImageSize(image: string): string[] {
-  image = image.split('.').slice(0, -1).join('.') // Remove extension
+  image = image.split(".").slice(0, -1).join("."); // Remove extension
 
-  return image.split('x'); // split width and height
+  return image.split("x"); // split width and height
 }
