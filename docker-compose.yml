@@ -1,8 +1,12 @@
 services:
   app:
-    build: .
-    environment:
-      - NEXT_PUBLIC_GAMESITE_URL=http://192.168.3.2:4000
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - wasmgames
+    env_file:
+      - .env.local
     volumes:
       - ./src:/app/src
       - ./public:/app/public
@@ -12,6 +16,15 @@ services:
       - "3000:3000"
     tty: true
     stdin_open: true
+
+  wasmgames:
+    build:
+      context: .
+      dockerfile: Dockerfile.wasmgames
+    command: ["npx", "http-server", "-p", "4000", "wasm-games"]
+    ports:
+      - "4000:4000"
+    tty: true
 
 volumes:
   node_modules: {}
