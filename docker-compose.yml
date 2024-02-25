@@ -1,0 +1,17 @@
+services:
+  app:
+    build: .
+    environment:
+      - NEXT_PUBLIC_GAMESITE_URL=http://192.168.3.2:4000
+    volumes:
+      - ./src:/app/src
+      - ./public:/app/public
+      - node_modules:/app/node_modules
+    command: ["npm", "run", "dev"]
+    ports:
+      - "3000:3000"
+    tty: true
+    stdin_open: true
+
+volumes:
+  node_modules: {}
