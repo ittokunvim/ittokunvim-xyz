@@ -3,14 +3,14 @@ import Link from "next/link";
 
 import iconPng from "./icon.png";
 
-import { getAllArticleData } from "./articles/lib";
+import { fetchMarkdownJson } from "./articles/lib";
 import { getAllNewsData } from "./news/lib";
 import { GameData, getAllGameData, getGameThumbnail } from "./games/lib";
 
 import styles from "./page.module.css";
 
 export default async function Home() {
-  let articles = await getAllArticleData();
+  const articles = await fetchMarkdownJson();
   const news = await getAllNewsData();
   const games = await getAllGameData();
 
