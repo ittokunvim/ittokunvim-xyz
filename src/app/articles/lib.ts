@@ -51,6 +51,7 @@ async function getArticleContent(path: string): Promise<string> {
   const absoluteUrl = new URL(path, markdownSiteUrl);
   const content = await fetch(absoluteUrl.href)
     .then((res) => res.text())
+    .then((text) => convertRelativePathToAbsolutePath(path, text))
     .catch((error) => {
       console.error(error);
       return "";
@@ -60,4 +61,19 @@ async function getArticleContent(path: string): Promise<string> {
   const contentHtml = processedContent.toString();
 
   return contentHtml;
+}
+
+function convertRelativePathToAbsolutePath(path: string, content: string): string {
+  const splitPath = path.split("/");
+  const relativePath = splitPath.slice(0, splitPath.length - 1).join("/");
+  const absoluteUrl = new URL(relativePath, markdownSiteUrl);
+  const relativeImageRegex = /!?\[[^\]]+\]\((?!https|ftp:\/\/)[^\)]+\)/g
+  const imageUrlRegex = /\]\(([^)]+)\)/
+  content.match(relativeImageRegex)?.forEach((imageLink) => {
+    if (imageUrlRegex.test(imageLink)) {
+      let url = imageUrlRegex.exec(imageLink)![1];
+      content = content.replace(url, `${absoluteUrl.href}/${url.replace(/^\.\//, "")}`)
+    }
+  })
+  return content;
 }
