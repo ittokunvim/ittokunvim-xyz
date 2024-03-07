@@ -14,11 +14,6 @@ export default async function Home() {
   const news = await getAllNewsData();
   const games = await getAllGameData();
 
-  articles = articles.map((article) => {
-    article.path = article.path.replace("/", "-")!;
-    return article
-  });
-
   return (
     <main className={styles.main}>
       <article className={styles.about}>
@@ -78,9 +73,9 @@ export default async function Home() {
         <h3>Articles:</h3>
         <div className={styles.list}>
           {articles.map((article) => (
-            <div className={styles.item} key={article.path}>
+            <div className={styles.item} key={article.slug}>
               <div className={styles.title}>
-                <Link href={`/articles/${article.path}`}>{article.title}</Link>
+                <Link href={`/articles/${article.slug}`}>{article.title}</Link>
               </div>
             </div>
           ))}
