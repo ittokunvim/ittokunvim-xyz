@@ -163,6 +163,40 @@
   }
 }
 
+.articles {
+  padding: 1rem;
+}
+
+.articles .list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.articles .list .item {
+  width: 100%;
+  border-bottom: 1px solid var(--border-color);
+  padding: 1rem 0;
+}
+
+.articles .list .item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.articles .list .item .title {
+  font-size: 1rem;
+}
+
+.articles .list .item .title a {
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+}
+
+.articles .list .item .title a:hover {
+  cursor: pointer;
+}
+
 @media (min-width: 1024px) {
   .games .list {
     grid-template-columns: 1fr 1fr 1fr 1fr;
