@@ -12,7 +12,7 @@ type JsonData = {
 
 type ArticleData = {
   title: string;
-  content: string;
+  contentHtml: string;
 };
 
 export async function fetchMarkdownJson(): Promise<JsonData[]> {
@@ -35,23 +35,23 @@ export async function getArticleData(slug: string): Promise<ArticleData | undefi
   }
 
   const title = article.title;
-  const content = await getArticleContent(article.path);
+  const contentHtml = await getArticleContentHtml(article.path);
 
-  if (content === "") {
+  if (contentHtml === "") {
     return undefined;
   }
 
   return {
     title: title,
-    content: content,
+    contentHtml: contentHtml,
   };
 }
 
-async function getArticleContent(path: string): Promise<string> {
+async function getArticleContentHtml(path: string): Promise<string> {
   const absoluteUrl = new URL(path, markdownSiteUrl);
   const content = await fetch(absoluteUrl.href)
     .then((res) => res.text())
-    .then((text) => convertRelativePathToAbsolutePath(path, text))
+    .then((text) => replaceRelativeUrlToAbsoluteUrl(path, text))
     .catch((error) => {
       console.error(error);
       return "";
@@ -63,17 +63,19 @@ async function getArticleContent(path: string): Promise<string> {
   return contentHtml;
 }
 
-function convertRelativePathToAbsolutePath(path: string, content: string): string {
+function replaceRelativeUrlToAbsoluteUrl(path: string, content: string): string {
   const splitPath = path.split("/");
-  const relativePath = splitPath.slice(0, splitPath.length - 1).join("/");
-  const absoluteUrl = new URL(relativePath, markdownSiteUrl);
+  const excludeFilenamePath = splitPath.slice(0, splitPath.length - 1).join("/");
+  const absoluteUrl = new URL(excludeFilenamePath, markdownSiteUrl);
   const relativeImageRegex = /!?\[[^\]]+\]\((?!https|ftp:\/\/)[^\)]+\)/g
   const imageUrlRegex = /\]\(([^)]+)\)/
-  content.match(relativeImageRegex)?.forEach((imageLink) => {
-    if (imageUrlRegex.test(imageLink)) {
-      let url = imageUrlRegex.exec(imageLink)![1];
-      content = content.replace(url, `${absoluteUrl.href}/${url.replace(/^\.\//, "")}`)
+
+  content.match(relativeImageRegex)?.forEach((relativeImage) => {
+    if (imageUrlRegex.test(relativeImage)) {
+      const url = imageUrlRegex.exec(relativeImage)![1].replace(/^\.\//, "");
+      content = content.replace(url, `${absoluteUrl.href}/${url}`)
     }
   })
+
   return content;
 }

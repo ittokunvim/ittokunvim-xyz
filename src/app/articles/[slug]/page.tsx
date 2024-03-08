@@ -35,7 +35,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
     <main className={styles.main}>
       <article className={styles.articles}>
         <div className={styles.title}>{articleData.title}</div>
-        <div className={styles.content_html} dangerouslySetInnerHTML={{ __html: articleData.content }} />
+        <div className={styles.content_html} dangerouslySetInnerHTML={{ __html: articleData.contentHtml }} />
       </article>
     </main>
   );
