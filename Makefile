@@ -1,5 +1,5 @@
 build:
-	docker compose build
+	docker compose build --ssh default
 
 up:
 	docker compose up

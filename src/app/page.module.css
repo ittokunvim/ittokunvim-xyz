@@ -34,43 +34,38 @@
   text-align: left;
 }
 
-.news {
+.articles {
   padding: 1rem;
 }
 
-.news .list {
+.articles .list {
   display: flex;
   flex-wrap: wrap;
 }
 
-.news .list .item {
+.articles .list .item {
   width: 100%;
   border-bottom: 1px solid var(--border-color);
   padding: 1rem 0;
 }
 
-.news .list .item:last-child {
+.articles .list .item:last-child {
   border-bottom: none;
   padding-bottom: 0;
 }
 
-.news .list .item .title {
+.articles .list .item .title {
   font-size: 1rem;
 }
 
-.news .list .item .title a {
+.articles .list .item .title a {
   text-decoration: none;
   font-weight: bold;
   color: black;
 }
 
-.news .list .item .title a:hover {
+.articles .list .item .title a:hover {
   cursor: pointer;
-}
-
-.news .list .item .date {
-  font-size: 0.7rem;
-  color: var(--text-gray);
 }
 
 .games {

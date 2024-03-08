@@ -3,13 +3,13 @@ import Link from "next/link";
 
 import iconPng from "./icon.png";
 
-import { getAllNewsData } from "./news/lib";
+import { fetchMarkdownJson } from "./articles/lib";
 import { GameData, getAllGameData, getGameThumbnail } from "./games/lib";
 
 import styles from "./page.module.css";
 
 export default async function Home() {
-  const news = await getAllNewsData();
+  const articles = await fetchMarkdownJson();
   const games = await getAllGameData();
 
   return (
@@ -39,15 +39,14 @@ export default async function Home() {
           </div>
         </div>
       </article>
-      <article className={styles.news}>
-        <h3>News:</h3>
+      <article className={styles.articles}>
+        <h3>Articles:</h3>
         <div className={styles.list}>
-          {news.map((news) => (
-            <div className={styles.item} key={news.slug}>
+          {articles.map((article) => (
+            <div className={styles.item} key={article.slug}>
               <div className={styles.title}>
-                <Link href={`/news/${news.slug}`}>{news.title}</Link>
+                <Link href={`/articles/${article.slug}`}>{article.title}</Link>
               </div>
-              <div className={styles.date}>{news.timesAgo}</div>
             </div>
           ))}
         </div>

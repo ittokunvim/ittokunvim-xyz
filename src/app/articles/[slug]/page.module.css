@@ -5,7 +5,7 @@
   padding: 0rem 1rem;
 }
 
-.news {
+.articles {
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
@@ -36,6 +36,12 @@
 .content_html p {
   font-size: 0.9rem;
   line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.content_html img {
+  max-width: 100%;
+  height: auto;
   margin-bottom: 1rem;
 }
 
