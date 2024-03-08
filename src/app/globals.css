@@ -1,15 +1,18 @@
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-color: #f8f8f8;
-  --background-color-dark: #f6f6f8;
-  --background-color-game: #e6e6e6;
-  --background-color-game-button: #d3d3d3;
-  --background-color-game-button-hover: #d8d8d8;
-  --border-color: #d8d8d8;
+  --color-text-primary: #333333;
+  --color-text-secondary: #666666;
+  --color-text-link: #1e90ff;
 
-  --header-height: 64px;
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #f5f5f5;
+  --color-background-tertiary: #f0f0f0;
+  --color-background-lightgray: #d3d3d3;
 
-  --text-gray: #777;
+  --color-border-primary: #d8d8d8;
+
+  --px-pc-main-max-width: 800px;
+  --px-phone-main-max-width: 600px;
+  --px-header-height: 64px;
 }
 
 html {
@@ -25,8 +28,8 @@ html {
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background-color: var(--background-color);
+  color: var(--color-text-primary);
+  background-color: var(--color-background-primary);
 }
 
 main {
@@ -36,7 +39,7 @@ main {
 hr {
   width: 90%;
   margin: 2rem auto;
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid var(--color-border-primary);
 }
 
 @media (min-width: 600px) {

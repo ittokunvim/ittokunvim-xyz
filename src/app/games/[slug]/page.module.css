@@ -7,22 +7,22 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--background-color-game);
+  background-color: var(--color-background-tertiary);
   margin: 0 auto;
 }
 
 .game .button button {
   font-size: 1.2rem;
   font-weight: bold;
-  color: var(--text-gray);
-  background-color: var(--background-color-game-button);
+  color: var(--color-text-secondary);
+  background-color: var(--color-background-lightgray);
   padding: 1rem;
   border: none;
   border-radius: 0.5rem;
 }
 
 .game .button button:hover {
-  background-color: var(--background-color-game-button-hover);
+  opacity: 0.8;
 }
 
 .game .button svg {
@@ -55,16 +55,16 @@
 }
 
 .info::before {
-  border-top: 2px solid var(--border-color);
-  border-left: 2px solid var(--border-color);
+  border-top: 2px solid var(--color-border-primary);
+  border-left: 2px solid var(--color-border-primary);
   border-top-left-radius: 0.5em;
   top: 0;
   left: 0;
 }
 
 .info::after {
-  border-bottom: 2px solid var(--border-color);
-  border-right: 2px solid var(--border-color);
+  border-bottom: 2px solid var(--color-border-primary);
+  border-right: 2px solid var(--color-border-primary);
   border-bottom-right-radius: 0.5em;
   bottom: 0;
   right: 0;

@@ -1,15 +1,13 @@
 .main {
-  background-color: var(--background-color-dark);
+  background-color: var(--color-background-secondary);
   margin: 0 auto;
-  margin-top: 2rem;
-  padding: 0rem 1rem;
 }
 
 .articles {
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
-  margin-top: 2rem;
+  padding: 1rem;
 }
 
 .title {
@@ -21,16 +19,16 @@
 
 .date {
   font-size: 0.8rem;
-  color: var(--text-gray);
+  color: var(--color-background-secondary);
   text-align: center;
   letter-spacing: 1px;
 }
 
 .content_html {
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--color-border-primary);
   border-radius: 0.5rem;
   padding: 1rem;
-  background-color: var(--background-color);
+  background-color: var(--color-background-primary);
 }
 
 .content_html p {
@@ -47,6 +45,6 @@
 
 @media (min-width: 600px) {
   .main {
-    max-width: 700px;
+    max-width: var(--px-pc-main-max-width);
   }
 }
