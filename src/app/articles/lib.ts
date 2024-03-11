@@ -1,5 +1,6 @@
 import { remark } from "remark";
 import remarkHtml from "remark-html";
+import remarkGfm from "remark-gfm";
 
 const markdownSiteUrl = process.env.NEXT_PUBLIC_MARKDOWNSITE_URL;
 const publishedJsonUrl = markdownSiteUrl + "/published.json";
@@ -57,7 +58,10 @@ async function getArticleContentHtml(path: string): Promise<string> {
       return "";
     });
 
-  const processedContent = await remark().use(remarkHtml).process(content);
+  const processedContent = await remark()
+    .use(remarkGfm)
+    .use(remarkHtml)
+    .process(content);
   const contentHtml = processedContent.toString();
 
   return contentHtml;
