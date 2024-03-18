@@ -99,9 +99,10 @@
 }
 
 .content_html pre {
+  color: var(--color-text-code);
+  background-color: var(--color-background-code);
   padding: 1rem;
   overflow-x: auto;
-  background-color: var(--color-background-secondary);
   border-radius: 0.5rem;
   margin-bottom: 1rem;
 }
@@ -111,6 +112,11 @@
   background-color: var(--color-background-tertiary);
   padding: 0.1rem 0.25rem;
   border-radius: 0.25rem;
+}
+
+.content_html pre code {
+  color: var(--color-text-code);
+  background-color: var(--color-background-code);
 }
 
 .content_html table {
