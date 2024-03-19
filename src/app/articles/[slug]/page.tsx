@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getArticleData } from "../lib";
 
 import styles from "./page.module.css";
+import "./hljs.css";
 
 type Props = {
   params: { slug: string };

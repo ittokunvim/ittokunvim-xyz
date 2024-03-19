@@ -1,6 +1,8 @@
 import { remark } from "remark";
 import remarkHtml from "remark-html";
 import remarkGfm from "remark-gfm";
+import { rehype } from "rehype";
+import rehypeHighlight from "rehype-highlight";
 
 const markdownSiteUrl = process.env.NEXT_PUBLIC_MARKDOWNSITE_URL;
 const publishedJsonUrl = markdownSiteUrl + "/published.json";
@@ -58,11 +60,14 @@ async function getArticleContentHtml(path: string): Promise<string> {
       return "";
     });
 
-  const processedContent = await remark()
+  const remarkContent = await remark()
     .use(remarkGfm)
     .use(remarkHtml)
     .process(content);
-  const contentHtml = processedContent.toString();
+  const rehypeContent = await rehype()
+    .use(rehypeHighlight)
+    .process(remarkContent);
+  const contentHtml = rehypeContent.toString();
 
   return contentHtml;
 }
