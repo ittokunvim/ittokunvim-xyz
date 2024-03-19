@@ -14,10 +14,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faTwitter, faItchIo } from "@fortawesome/free-brands-svg-icons";
 import { faCopyright } from "@fortawesome/free-regular-svg-icons";
 
-const site_name = "ittokunvim-net";
-const description = "Here is ittokunvim portfolio site";
+const site_name = "ittokunvimのポートフォリオサイト";
+const description = "日々の出来事や成果をサイトに記録しています。ごゆっくりどうぞ。";
 const url = "https://ittokunvim.net";
-const ogp_title = `${site_name} | ittokunvim portfolio site`;
 
 export const metadata: Metadata = {
   title: {
@@ -26,7 +25,7 @@ export const metadata: Metadata = {
   },
   description,
   openGraph: {
-    title: ogp_title,
+    title: site_name,
     description,
     url,
     siteName: site_name,
@@ -35,7 +34,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: ogp_title,
+    title: site_name,
     description,
     site: "@ittokunvim",
     creator: "@ittokunvim",
