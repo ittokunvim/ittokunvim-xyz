@@ -2,7 +2,7 @@ import "./globals.css";
 import "@/config/fontawesome";
 
 import styles from "./layout.module.css";
-import { GoogleAdCodeSnipet } from "./googleads";
+import { GoogleAdCodeSnipet, GoogleAdMetatag } from "./googleads";
 
 import type { Metadata } from "next";
 
@@ -58,6 +58,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ja">
       <GoogleAdCodeSnipet />
+      <GoogleAdMetatag />
       <body className={noto_sans_jp.className}>
         <header className={styles.page_header}>
           <Link href="/">

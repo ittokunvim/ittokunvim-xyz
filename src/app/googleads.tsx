@@ -14,3 +14,11 @@ export function GoogleAdCodeSnipet() {
     );
   }
 }
+
+export function GoogleAdMetatag() {
+  if (process.env.NODE_ENV === "production") {
+    return (
+      <meta name="google-adsense-account" content={GOOGLEADS_ID} />
+    );
+  }
+}
