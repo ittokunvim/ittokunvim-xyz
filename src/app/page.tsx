@@ -8,6 +8,9 @@ import { GameData, getAllGameData, getGameThumbnail } from "./games/lib";
 
 import styles from "./page.module.css";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInfoCircle, faAddressCard, faNewspaper, faGamepad } from "@fortawesome/free-solid-svg-icons";
+
 export default async function Home() {
   const articles = await fetchMarkdownJson();
   const games = await getAllGameData();
@@ -15,7 +18,10 @@ export default async function Home() {
   return (
     <main className={styles.main}>
       <article className={styles.about}>
-        <h3>About:</h3>
+        <h3>
+          <FontAwesomeIcon icon={faInfoCircle} />
+          このサイトについて
+        </h3>
         <p>
           このサイトは<b>ittokunvim</b>
           のポートフォリオサイトです。ここには自身の活動内容を書いたりしていこうと思っています。
@@ -25,7 +31,10 @@ export default async function Home() {
       </article>
       <hr />
       <article className={styles.myprofile}>
-        <h3>Profile:</h3>
+        <h3>
+          <FontAwesomeIcon icon={faAddressCard} />
+          自己紹介
+        </h3>
         <div className={styles.profile}>
           <Image src={iconPng} alt="My icon" />
           <div className={styles.text}>
@@ -40,7 +49,10 @@ export default async function Home() {
         </div>
       </article>
       <article className={styles.articles}>
-        <h3>Articles:</h3>
+        <h3>
+          <FontAwesomeIcon icon={faNewspaper} />
+          記事一覧
+        </h3>
         <div className={styles.list}>
           {articles.map((article) => (
             <div className={styles.item} key={article.slug}>
@@ -52,7 +64,10 @@ export default async function Home() {
         </div>
       </article>
       <article className={styles.games}>
-        <h3>Games:</h3>
+        <h3>
+          <FontAwesomeIcon icon={faGamepad} />
+          ゲーム一覧
+        </h3>
         <div className={styles.list}>
           {games.map((game) => (
             <div className={styles.item} key={game.slug}>
