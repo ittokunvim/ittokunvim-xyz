@@ -120,9 +120,10 @@
 }
 
 .content_html table {
-  width: 100%;
+  display: block;
+  overflow-x: scroll;
+  white-space: nowrap;
   border-collapse: collapse;
-  border: 2px solid var(--color-border-primary);
   margin-bottom: 1rem;
 }
 
