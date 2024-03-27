@@ -140,6 +140,7 @@
 .content_html a {
   color: var(--color-text-link);
   text-decoration: none;
+  overflow-wrap: break-word;
 }
 
 .content_html a:hover {
