@@ -81,7 +81,7 @@ function replaceRelativeUrlToAbsoluteUrl(path: string, content: string): string 
 
   content.match(relativeImageRegex)?.forEach((relativeImage) => {
     if (imageUrlRegex.test(relativeImage)) {
-      const url = imageUrlRegex.exec(relativeImage)![1].replace(/^\.\//, "");
+      const url = imageUrlRegex.exec(relativeImage)![1]
       content = content.replace(url, `${absoluteUrl.href}/${url}`)
     }
   })
