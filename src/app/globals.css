@@ -3,12 +3,14 @@
   --color-text-secondary: #666666;
   --color-text-link: #1e90ff;
   --color-text-code: #9aa5ce;
+  --color-text-code-filename: #bac5ee;
 
   --color-background-primary: #ffffff;
   --color-background-secondary: #f5f5f5;
   --color-background-tertiary: #f0f0f0;
   --color-background-lightgray: #d3d3d3;
   --color-background-code: #1a1b26;
+  --color-background-code-filename: #3a3b4b;
 
   --color-border-primary: #d8d8d8;
 

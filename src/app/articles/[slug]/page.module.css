@@ -117,6 +117,7 @@
 .content_html pre code {
   color: var(--color-text-code);
   background-color: var(--color-background-code);
+  padding: 0;
 }
 
 .content_html table {
@@ -152,6 +153,21 @@
   max-width: 100%;
   height: auto;
   margin-bottom: 1rem;
+}
+
+.content_html div[data-remark-code-title] {
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  color: var(--color-text-code-filename);
+  background-color: var(--color-background-code-filename);
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+
+.content_html div[data-remark-code-title] + pre  {
+  border-top-left-radius: 0;
 }
 
 @media (min-width: 600px) {
