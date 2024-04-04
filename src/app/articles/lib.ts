@@ -1,6 +1,7 @@
 import { remark } from "remark";
 import remarkHtml from "remark-html";
 import remarkGfm from "remark-gfm";
+import codeTitle from "remark-code-title";
 import { rehype } from "rehype";
 import rehypeHighlight from "rehype-highlight";
 
@@ -55,6 +56,7 @@ async function getArticleContentHtml(path: string): Promise<string> {
   const content = await fetch(absoluteUrl.href)
     .then((res) => res.text())
     .then((text) => replaceRelativeUrlToAbsoluteUrl(path, text))
+    .then((text) => replaceCodeBlockTitle(text))
     .catch((error) => {
       console.error(error);
       return "";
@@ -62,7 +64,8 @@ async function getArticleContentHtml(path: string): Promise<string> {
 
   const remarkContent = await remark()
     .use(remarkGfm)
-    .use(remarkHtml)
+    .use(codeTitle)
+    .use(remarkHtml, { sanitize: false })
     .process(content);
   const rehypeContent = await rehype()
     .use(rehypeHighlight)
@@ -87,4 +90,15 @@ function replaceRelativeUrlToAbsoluteUrl(path: string, content: string): string 
   })
 
   return content;
+}
+
+function replaceCodeBlockTitle(content: string): string {
+  const codeBlockTitleRegex = /```[a-zA-Z]+:[\w\.]+/g;
+  const filenameRegex = /:[\w\.]+/;
+  content.match(codeBlockTitleRegex)?.forEach((codeBlock) => {
+    const filename = filenameRegex.exec(codeBlock)![0]
+    content = content.replace(filename, ` title="${filename.slice(1)}"`);
+    // console.log(content)
+  });
+  return content
 }
