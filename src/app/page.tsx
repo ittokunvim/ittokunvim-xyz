@@ -10,6 +10,7 @@ import styles from "./page.module.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle, faAddressCard, faNewspaper, faGamepad } from "@fortawesome/free-solid-svg-icons";
+import { faClock } from "@fortawesome/free-regular-svg-icons";
 
 export default async function Home() {
   const articles = await fetchMarkdownJson();
@@ -58,6 +59,10 @@ export default async function Home() {
             <div className={styles.item} key={article.slug}>
               <div className={styles.title}>
                 <Link href={`/articles/${article.slug}`}>{article.title}</Link>
+              </div>
+              <div className={styles.createdAt}>
+                <FontAwesomeIcon icon={faClock} />
+                {article.createdAt}
               </div>
             </div>
           ))}

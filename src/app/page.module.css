@@ -73,6 +73,15 @@
   text-decoration: underline;
 }
 
+.articles .list .item .createdAt {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+.articles .list .item .createdAt svg {
+  margin-right: 0.25rem;
+}
+
 .games {
   padding: 1rem;
 }

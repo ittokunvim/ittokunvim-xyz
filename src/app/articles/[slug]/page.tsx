@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClock } from "@fortawesome/free-regular-svg-icons";
+
 import { getArticleData } from "../lib";
 
 import styles from "./page.module.css";
@@ -36,6 +39,10 @@ export default async function Page({ params }: { params: { slug: string } }) {
     <main className={styles.main}>
       <article className={styles.articles}>
         <div className={styles.title}>{articleData.title}</div>
+        <div className={styles.createdAt}>
+          <FontAwesomeIcon icon={faClock} />
+          {articleData.createdAt}
+        </div>
         <div className={styles.content_html} dangerouslySetInnerHTML={{ __html: articleData.contentHtml }} />
       </article>
     </main>

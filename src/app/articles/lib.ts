@@ -12,17 +12,25 @@ type JsonData = {
   slug: string;
   title: string;
   path: string;
+  createdAt: string;
 };
 
 type ArticleData = {
   title: string;
   contentHtml: string;
+  createdAt: string;
 };
 
 export async function fetchMarkdownJson(): Promise<JsonData[]> {
   try {
     const response = await fetch(publishedJsonUrl, { cache: "no-store" });
     const data = await response.json();
+    data.sort((a: JsonData, b: JsonData) => {
+      return a.createdAt < b.createdAt ? 1 : -1;
+    });
+    data.forEach((article: JsonData) => {
+      article.createdAt = formatCreatedAt(article.createdAt);
+    });
     return data;
   } catch (error) {
     console.error(error);
@@ -40,6 +48,7 @@ export async function getArticleData(slug: string): Promise<ArticleData | undefi
 
   const title = article.title;
   const contentHtml = await getArticleContentHtml(article.path);
+  const createdAt = article.createdAt;
 
   if (contentHtml === "") {
     return undefined;
@@ -48,6 +57,7 @@ export async function getArticleData(slug: string): Promise<ArticleData | undefi
   return {
     title: title,
     contentHtml: contentHtml,
+    createdAt: createdAt,
   };
 }
 
@@ -101,4 +111,12 @@ function replaceCodeBlockTitle(content: string): string {
     // console.log(content)
   });
   return content
+}
+
+function formatCreatedAt(createdAt: string): string {
+  const date = new Date(createdAt);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  return `${year}年${month}月${day}日`;
 }
