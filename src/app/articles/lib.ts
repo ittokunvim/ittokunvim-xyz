@@ -118,5 +118,5 @@ function formatCreatedAt(createdAt: string): string {
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
   const day = date.getDate();
-  return `${year}年${month}月${day}日に作成`;
+  return `${year}年${month}月${day}日`;
 }
