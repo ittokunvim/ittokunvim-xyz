@@ -89,6 +89,7 @@ function replaceRelativeUrlToAbsoluteUrl(path: string, content: string): string 
   const splitPath = path.split("/");
   const excludeFilenamePath = splitPath.slice(0, splitPath.length - 1).join("/");
   const absoluteUrl = new URL(excludeFilenamePath, markdownSiteUrl);
+
   const relativeImageRegex = /!?\[[^\]]+\]\((?!https|ftp:\/\/)[^\)]+\)/g
   const imageUrlRegex = /\]\(([^)]+)\)/
 
@@ -98,6 +99,16 @@ function replaceRelativeUrlToAbsoluteUrl(path: string, content: string): string 
       content = content.replace(url, `${absoluteUrl.href}/${url}`)
     }
   })
+
+  const relativeImageTagRegex = /<img src="(?!https|ftp:\/\/)[^"]+"/g
+  const imageSrcRegex = /src="([^"]+)"/
+
+  content.match(relativeImageTagRegex)?.forEach((relativeImageTag) => {
+    if (imageSrcRegex.test(relativeImageTag)) {
+      const src = imageSrcRegex.exec(relativeImageTag)![1]
+      content = content.replace(src, `${absoluteUrl.href}/${src}`)
+    }
+  });
 
   return content;
 }
