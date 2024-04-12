@@ -1,5 +1,5 @@
 build:
-	docker compose build --ssh default
+	docker compose build --no-cache --ssh default
 
 up:
 	docker compose up
