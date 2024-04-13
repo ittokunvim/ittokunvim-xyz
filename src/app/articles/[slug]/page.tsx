@@ -8,6 +8,7 @@ import { getArticleData } from "../lib";
 
 import styles from "./page.module.css";
 import "./hljs.css";
+import "./rlc.css";
 
 type Props = {
   params: { slug: string };
