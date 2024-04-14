@@ -2,6 +2,7 @@ import { remark } from "remark";
 import remarkHtml from "remark-html";
 import remarkGfm from "remark-gfm";
 import codeTitle from "remark-code-title";
+import remarkLinkCard from "remark-link-card";
 import { rehype } from "rehype";
 import rehypeHighlight from "rehype-highlight";
 
@@ -75,6 +76,7 @@ async function getArticleContentHtml(path: string): Promise<string> {
   const remarkContent = await remark()
     .use(remarkGfm)
     .use(codeTitle)
+    .use(remarkLinkCard)
     .use(remarkHtml, { sanitize: false })
     .process(content);
   const rehypeContent = await rehype()

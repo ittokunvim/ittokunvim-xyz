@@ -1,0 +1,83 @@
+a.rlc-container {
+  display: flex;
+  width: 100%;
+  max-width: 800px;
+  max-height: 120px;
+  border: 1px solid var(--color-border-primary);
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  text-decoration: none;
+  transition: .2s;
+}
+
+a.rlc-container:hover{
+  background-color: var(--color-background-secondary);
+  text-decoration: none;
+}
+
+.rlc-info {
+  flex: 1 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5em;
+  padding: 0.9em 1em;
+}
+
+.rlc-title {
+  font-size: 0.9em;
+  color: var(--color-text-primary);
+  font-weight: bold;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  max-height: 3.2em;
+}
+
+.rlc-description {
+  font-size: 0.8em;
+  color: var(--color-text-secondary);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.rlc-url-container {
+  font-size: 0.7em;
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+}
+
+img.rlc-favicon {
+  width: 1em;
+  height: 1em;
+  margin-right: 0.4em;
+  margin-bottom: 0;
+}
+
+.rlc-url {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.rlc-image-container {
+  width: 100px;
+}
+
+img.rlc-image {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-bottom-right-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+@media (min-width: 600px) {
+  .rlc-image-container {
+    width: 200px;
+  }
+}

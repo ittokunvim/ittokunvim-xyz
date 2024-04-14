@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "remark-link-card": ["./src/types/rlc"]
+    }
+  }
+}
