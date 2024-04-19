@@ -172,6 +172,53 @@
   }
 }
 
+.tools {
+  padding: 1rem;
+}
+
+.tools .list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.tools .list .item {
+  width: 100%;
+  max-width: 800px;
+  padding: 1rem;
+  border: 1px solid var(--color-border-primary);
+  border-radius: 0.5rem;
+}
+
+.tools .list .item .name a {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--color-text-link);
+  text-decoration: none;
+}
+
+.tools .list .item .name a:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.tools .list .item .description {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tools .list .item .createdAt {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+
+.tools .list .item .createdAt svg {
+  margin-right: 0.25rem;
+}
+
 @media (min-width: 800px) {
   .games .list {
     grid-template-columns: 1fr 1fr 1fr 1fr;

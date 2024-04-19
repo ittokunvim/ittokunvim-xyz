@@ -5,11 +5,13 @@ import iconPng from "./icon.png";
 
 import { fetchMarkdownJson } from "./articles/lib";
 import { GameData, getAllGameData, getGameThumbnail } from "./games/lib";
+import toolsData from "./tools/data.json";
 
 import styles from "./page.module.css";
+import { formatDate } from "./lib";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInfoCircle, faAddressCard, faNewspaper, faGamepad } from "@fortawesome/free-solid-svg-icons";
+import { faInfoCircle, faAddressCard, faNewspaper, faGamepad, faToolbox } from "@fortawesome/free-solid-svg-icons";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 
 export default async function Home() {
@@ -82,6 +84,26 @@ export default async function Home() {
               </div>
               <div className={styles.size}>{`Screen Size: ${game.width}x${game.height}`}</div>
               <div className={styles.description}>{game.description}</div>
+            </div>
+          ))}
+        </div>
+      </article>
+      <article className={styles.tools}>
+        <h3>
+          <FontAwesomeIcon icon={faToolbox} />
+          ツール一覧
+        </h3>
+        <div className={styles.list}>
+          {toolsData.map((tool) => (
+            <div className={styles.item} key={tool.slug}>
+              <div className={styles.name}>
+                <Link href={`tools/${tool.slug}`}>{tool.name}</Link>
+              </div>
+              <div className={styles.description}>{tool.description}</div>
+              <div className={styles.createdAt}>
+                <FontAwesomeIcon icon={faClock} />
+                {formatDate(tool.createdAt)}
+              </div>
             </div>
           ))}
         </div>
