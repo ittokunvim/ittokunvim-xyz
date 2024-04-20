@@ -6,6 +6,8 @@ import remarkLinkCard from "remark-link-card";
 import { rehype } from "rehype";
 import rehypeHighlight from "rehype-highlight";
 
+import { formatDate } from "@/app/lib"
+
 const markdownSiteUrl = process.env.NEXT_PUBLIC_MARKDOWNSITE_URL;
 const publishedJsonUrl = markdownSiteUrl + "/published.json";
 
@@ -30,7 +32,7 @@ export async function fetchMarkdownJson(): Promise<JsonData[]> {
       return a.createdAt < b.createdAt ? 1 : -1;
     });
     data.forEach((article: JsonData) => {
-      article.createdAt = formatCreatedAt(article.createdAt);
+      article.createdAt = formatDate(article.createdAt);
     });
     return data;
   } catch (error) {
@@ -124,12 +126,4 @@ function replaceCodeBlockTitle(content: string): string {
     // console.log(content)
   });
   return content
-}
-
-function formatCreatedAt(createdAt: string): string {
-  const date = new Date(createdAt);
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  return `${year}年${month}月${day}日`;
 }
