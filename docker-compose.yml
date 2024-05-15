@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     depends_on:
-      - wasmgames
+      - games
       - markdown
     env_file:
       - .env.local
@@ -18,11 +18,11 @@ services:
     tty: true
     stdin_open: true
 
-  wasmgames:
+  games:
     build:
       context: .
-      dockerfile: Dockerfile.wasmgames
-    command: ["npx", "http-server", "-p", "4000", "wasm-games"]
+      dockerfile: Dockerfile.games
+    command: ["npx", "http-server", "-p", "4000", "portfolio-games"]
     ports:
       - "4000:4000"
     tty: true

@@ -1,4 +1,4 @@
-const gamesJsonUrl = process.env.NEXT_PUBLIC_GAMESITE_URL + "/games.json";
+const gamesJsonUrl = process.env.NEXT_PUBLIC_GAMESITE_URL + "/data.json";
 
 export type GameData = {
   slug: string;
