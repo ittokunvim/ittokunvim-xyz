@@ -10,4 +10,4 @@ RUN mkdir -p -m 0700 ~/.ssh && \
   git config --global url.git@github.com:.insteadOf https://github.com/
 
 RUN --mount=type=ssh,uid=1000 \
-  git clone git@github.com:ittokunvim/markdown.git
+  git clone git@github.com:ittokunvim/portfolio-docs.git

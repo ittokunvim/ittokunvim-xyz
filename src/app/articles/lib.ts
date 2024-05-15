@@ -8,8 +8,8 @@ import rehypeHighlight from "rehype-highlight";
 
 import { formatDate } from "@/app/lib"
 
-const markdownSiteUrl = process.env.NEXT_PUBLIC_MARKDOWNSITE_URL;
-const publishedJsonUrl = markdownSiteUrl + "/published.json";
+const markdownSiteUrl = process.env.NEXT_PUBLIC_DOCSSITE_URL;
+const publishedJsonUrl = markdownSiteUrl + "/data.json";
 
 type JsonData = {
   slug: string;

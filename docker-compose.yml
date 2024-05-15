@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - games
-      - markdown
+      - docs
     env_file:
       - .env.local
     volumes:
@@ -27,11 +27,11 @@ services:
       - "4000:4000"
     tty: true
 
-  markdown:
+  docs:
     build:
       context: .
-      dockerfile: Dockerfile.markdowns
-    command: ["npx", "http-server", "-p", "4001", "markdown"]
+      dockerfile: Dockerfile.docs
+    command: ["npx", "http-server", "-p", "4001", "portfolio-docs"]
     ports:
       - "4001:4001"
     tty: true
