@@ -15,8 +15,10 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Page() {
   return (
     <main className={styles.main}>
-      <h1>{title}</h1>
-      <PachiBorder />
+      <div className={styles.wrap}>
+        <h1>{title}</h1>
+        <PachiBorder />
+      </div>
     </main>
   );
 }

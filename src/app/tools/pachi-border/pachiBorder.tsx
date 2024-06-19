@@ -21,11 +21,10 @@ export default function PachiBorder() {
   };
 
   return (
-    <div className={styles.calculation}>
+    <div className={styles.pachi_border}>
       <div>
         <label>玉数:</label>
         <input
-          className={styles.ball_count}
           type="number"
           value={ballCount}
           placeholder="玉数"
@@ -35,7 +34,6 @@ export default function PachiBorder() {
       <div>
         <label>回転数:</label>
         <input
-          className={styles.spin_count}
           type="number"
           value={spinCount}
           placeholder="回転数"
@@ -43,8 +41,8 @@ export default function PachiBorder() {
         />
       </div>
       <div>
-        <span>結果:</span>
-        <div className={styles.result}>{calculatePachiBorder()}</div>
+        <label>結果:</label>
+        <span>{calculatePachiBorder()}</span>
       </div>
     </div>
   );
