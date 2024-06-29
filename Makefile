@@ -7,8 +7,5 @@ up:
 down:
 	docker compose down
 
-web_bash:
-	docker compose exec web bash
-
-ip_pri:
+echo_ip:
 	networksetup -getinfo Wi-Fi
