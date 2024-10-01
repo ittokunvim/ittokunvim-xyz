@@ -17,7 +17,7 @@ import { faCopyright } from "@fortawesome/free-regular-svg-icons";
 
 const site_name = "ittokunvimのポートフォリオサイト";
 const description = "日々の出来事や成果をサイトに記録しています。ごゆっくりどうぞ。";
-const url = "https://ittokunvim.net";
+const url = "https://ittokunvim.xyz";
 
 export const metadata: Metadata = {
   title: {
@@ -52,7 +52,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const github_url = "https://github.com/ittokunvim";
   const twitter_url = "https://twitter.com/ittokunvim";
   const zenn_url = "https://zenn.dev/ittoku_ky73";
-  const repo_url = "https://github.com/ittokunvim/ittokunvim-net";
+  const repo_url = "https://github.com/ittokunvim/ittokunvim-xyz";
   const itch_url = "https://ittokunvim.itch.io";
 
   return (

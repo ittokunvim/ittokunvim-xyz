@@ -4,7 +4,6 @@ export type GameData = {
   slug: string;
   name: string;
   description: string;
-  thumbnail: string;
   width: number;
   height: number;
 };
@@ -36,7 +35,6 @@ export async function getGameData(slug: string): Promise<GameData> {
       slug: "",
       name: "",
       description: "",
-      thumbnail: "",
       width: 0,
       height: 0,
     };
@@ -47,10 +45,10 @@ export async function getGameData(slug: string): Promise<GameData> {
 
 export function getGameThumbnail(game: GameData): GameThumbnail {
   const gameSiteURL = process.env.NEXT_PUBLIC_GAMESITE_URL;
-  const { slug, thumbnail } = game;
-  const src = `${gameSiteURL}/${slug}/${thumbnail}`;
+  const { slug } = game;
+  const src = `${gameSiteURL}/images/${slug}.png`;
   const alt = `${game.slug} thumbnail`;
-  const [width, height] = splitImageSize(thumbnail);
+  const [width, height] = ["300", "240"];
 
   return {
     src,
@@ -58,10 +56,4 @@ export function getGameThumbnail(game: GameData): GameThumbnail {
     width,
     height,
   };
-}
-
-function splitImageSize(image: string): string[] {
-  image = image.split(".").slice(0, -1).join("."); // Remove extension
-
-  return image.split("x"); // split width and height
 }

@@ -22,7 +22,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.games
-    command: ["npx", "http-server", "-p", "4000", "games"]
+    command: ["npx", "http-server", "-p", "4000", "games/docs"]
     ports:
       - "4000:4000"
     tty: true
