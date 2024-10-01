@@ -1,17 +1,18 @@
-# ittokunvim net
+# ittokunvim xyz
 
-ここは私のサイトのソースコードが置かれているリポジトリです。
+`ittokunvim-xyz`はittokunvimが公開しているWebサイトです
 
-## 始める前に
+## 準備
 
-以下のアプリケーションをインストールしておく必要があります。
+このプロジェクトを立ち上げるためには`Docker`が必要になります。
+以下のURLにアクセスしてインストールしましょう。
 
-- [Docker](https://www.docker.com/)
+[Docker](https://www.docker.com/)
 
-`.env.local`ファイルを作成して環境変数を設定する必要があります。
-`.env.example`ファイルを参照しながら`.env.local`ファイルを作成してください。
+次に環境変数を設定するために、`.env.local`ファイルを作成します。
+見本として`.env.example`ファイルを作成しているので、これを参考に変数を設定します。
 
-以下のリストを役に立てつつ環境を整えてみてください。
+以下のコマンドを実行するとスムーズに設定することが可能です。
 
 ```bash
 # .env.exampleファイルをコピーし、.env.localファイルを作成
@@ -20,18 +21,28 @@ cp .env.example .env.local
 make echo_ip
 ```
 
-## 始める
+最後に`Docker`でビルドする際に、リポジトリをクローンする処理の時にGitHubのSSHキーが必要になります。
 
-前準備が終えたら次に`Docker`を使用してビルドを行います。
+以下にGitHubにSSHキーを設定する方法について書かれているドキュメントのURLを載せていますので、
+そちらを参考にしてキーの設定を行うと良いでしょう。
+
+https://zenn.dev/schnell/articles/0e1c2e9db5c08d
+
+https://zenn.dev/ryo_f/articles/27f223203481ef
+
+これで準備は整いました！お疲れ様です！
+
+## プロジェクトを立ち上げる
+
+では`Docker`を使用してビルドをして、サーバーを立ち上げてみましょう！
 
 ```bash
+# ビルド
 make build
-```
-
-次にサーバーを立ち上げます。
-
-```bash
+# 立ち上げ
 make up
 ```
 
-最後に[localhost:3000](http://localhost:3000)にアクセスしてみましょう！
+これでプロジェクトが動作するはずです。以下のURLにアクセスして確認してみましょう！
+
+http://localhost:3000
