@@ -1,41 +1,40 @@
-import "./globals.css";
-import "@/config/fontawesome";
-
-import styles from "./layout.module.css";
-import { GoogleAdCodeSnipet, GoogleAdMetatag } from "./googleads";
-
 import type { Metadata } from "next";
-
 import { Noto_Sans_JP } from "next/font/google";
-const noto_sans_jp = Noto_Sans_JP({ subsets: ["latin"] });
-
 import Link from "next/link";
 import Image from "next/image";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faTwitter, faItchIo } from "@fortawesome/free-brands-svg-icons";
 import { faCopyright } from "@fortawesome/free-regular-svg-icons";
 
-const site_name = "ittokunvimのポートフォリオサイト";
-const description = "日々の出来事や成果をサイトに記録しています。ごゆっくりどうぞ。";
+import "./globals.css";
+import "@/config/fontawesome";
+import styles from "./layout.module.css";
+import { GoogleAdCodeSnipet, GoogleAdMetatag } from "./googleads";
+
+const noto_sans_jp = Noto_Sans_JP({ subsets: ["latin"] });
+
+const sitename = "ittokunvimのポートフォリオサイト";
+const description = "ittokunvim.xyzでは、ittokunvimが開発した様々な成果物を公開するサイトとなっています";
 const url = "https://ittokunvim.xyz";
 
 export const metadata: Metadata = {
   title: {
-    default: site_name,
-    template: `%s | ${site_name}`,
+    default: sitename,
+    template: `%s | ${sitename}`,
   },
   description,
   openGraph: {
-    title: site_name,
+    title: sitename,
     description,
     url,
-    siteName: site_name,
+    siteName: sitename,
     locale: "ja_JP",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: site_name,
+    title: sitename,
     description,
     site: "@ittokunvim",
     creator: "@ittokunvim",
@@ -52,7 +51,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const github_url = "https://github.com/ittokunvim";
   const twitter_url = "https://twitter.com/ittokunvim";
   const zenn_url = "https://zenn.dev/ittoku_ky73";
-  const repo_url = "https://github.com/ittokunvim/ittokunvim-xyz";
   const itch_url = "https://ittokunvim.itch.io";
 
   return (
@@ -82,8 +80,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {children}
         <footer className={styles.page_footer}>
           <div className={styles.external}>
-            <a href={repo_url} target="_blank" rel="noopener noreferrer">
-              <FontAwesomeIcon icon={faGithub} size="sm" style={{ marginRight: "0.5em" }} />
+            <a href="https://github.com/ittokunvim/ittokunvim.xyz" target="_blank" rel="noopener noreferrer">
               Source Code
             </a>
             <a href="https://nextjs.org/" target="_blank" rel="noopener noreferrer">

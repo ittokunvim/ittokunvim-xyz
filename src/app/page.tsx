@@ -1,18 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import iconPng from "./icon.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faInfoCircle,
+  faAddressCard,
+  faNewspaper,
+  faGamepad,
+  faToolbox,
+} from "@fortawesome/free-solid-svg-icons";
+import { faClock } from "@fortawesome/free-regular-svg-icons";
 
+import iconPng from "./icon.png";
+import styles from "./page.module.css";
+import { formatDate } from "./lib";
 import { fetchMarkdownJson } from "./articles/lib";
 import { GameData, getAllGameData, getGameThumbnail } from "./games/lib";
 import toolsData from "./tools/data.json";
-
-import styles from "./page.module.css";
-import { formatDate } from "./lib";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInfoCircle, faAddressCard, faNewspaper, faGamepad, faToolbox } from "@fortawesome/free-solid-svg-icons";
-import { faClock } from "@fortawesome/free-regular-svg-icons";
 
 export default async function Home() {
   const articles = await fetchMarkdownJson();
@@ -26,11 +30,10 @@ export default async function Home() {
           このサイトについて
         </h3>
         <p>
-          このサイトは<b>ittokunvim</b>
-          のポートフォリオサイトです。ここには自身の活動内容を書いたりしていこうと思っています。
+          ittokunvim.xyzでは、ittokunvimが開発した様々な成果物を公開するサイトとなっています
         </p>
         <br />
-        <p>まだ何もないけどゆっくりしていってね😄</p>
+        <p>ゆっくりしていってね😄</p>
       </article>
       <hr />
       <article className={styles.myprofile}>
@@ -42,12 +45,15 @@ export default async function Home() {
           <Image src={iconPng} alt="My icon" />
           <div className={styles.text}>
             <p>
-              ittokunvimです。趣味でプログラムを書いています。最近はBevyというRust🦀で書かれたゲームエンジンを使ったゲーム開発をしています。
+              ittokunvimです。
+              ゲーム開発をしたりTech系の記事を書いたりしています。
             </p>
             <br />
-            <p>このサイトや、他のサイトに公開する予定なので、その際には是非ともプレイしてみてください。</p>
+            <p>
+              最近はゲームエンジンBevyを使ったゲーム開発にハマってます。
+            </p>
+            <p>記事やゲームはこのサイトに公開しているのでよければ覗いていってね。</p>
             <br />
-            <p>あとはIT系の仕事も募集中です。ウェブ開発が得意分野なのでそのあたりの仕事ができたらなと思っています。</p>
           </div>
         </div>
       </article>
