@@ -15,12 +15,12 @@ import iconPng from "./icon.png";
 import styles from "./page.module.css";
 import { formatDate } from "./lib";
 import { fetchDocsJson } from "./docs/lib";
-import { GameData, getAllGameData, getGameThumbnail } from "./games/lib";
+import { JsonData, fetchGamesJson, getGameThumbnail } from "./games/lib";
 import toolsData from "./tools/data.json";
 
 export default async function Home() {
   const docs = await fetchDocsJson();
-  const games = await getAllGameData();
+  const games = await fetchGamesJson();
 
   return (
     <main className={styles.main}>
@@ -118,7 +118,7 @@ export default async function Home() {
   );
 }
 
-function ImageGameThumbnail(game: GameData) {
+function ImageGameThumbnail(game: JsonData) {
   const { src, alt, width, height } = getGameThumbnail(game);
   return <img src={src} alt={alt} width={width} height={height} />;
 }

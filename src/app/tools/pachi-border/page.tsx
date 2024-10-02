@@ -1,8 +1,7 @@
 import { Metadata } from "next";
 
-import PachiBorder from "./pachiBorder";
-
 import styles from "./page.module.css";
+import PachiBorder from "./pachiBorder";
 
 const title = "パチンコボーダー計算ツール";
 

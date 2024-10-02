@@ -1,6 +1,7 @@
-const gamesJsonUrl = process.env.NEXT_PUBLIC_GAMESITE_URL + "/data.json";
+const gameSiteUrl = process.env.NEXT_PUBLIC_GAMESITE_URL;
+const dataJsonUrl = gameSiteUrl + "/data.json";
 
-export type GameData = {
+export type JsonData = {
   slug: string;
   name: string;
   description: string;
@@ -15,9 +16,9 @@ type GameThumbnail = {
   height: string;
 };
 
-export async function getAllGameData(): Promise<GameData[]> {
+export async function fetchGamesJson(): Promise<JsonData[]> {
   try {
-    const response = await fetch(gamesJsonUrl, { cache: "no-store" });
+    const response = await fetch(dataJsonUrl, { cache: "no-store" });
     const data = await response.json();
     return data;
   } catch (error) {
@@ -26,9 +27,9 @@ export async function getAllGameData(): Promise<GameData[]> {
   }
 }
 
-export async function getGameData(slug: string): Promise<GameData> {
-  const games = await getAllGameData();
-  const game = games.find((game: GameData) => game.slug === slug);
+export async function getGameData(slug: string): Promise<JsonData> {
+  const games = await fetchGamesJson();
+  const game = games.find((game: JsonData) => game.slug === slug);
 
   if (game === undefined) {
     return {
@@ -43,10 +44,9 @@ export async function getGameData(slug: string): Promise<GameData> {
   return game;
 }
 
-export function getGameThumbnail(game: GameData): GameThumbnail {
-  const gameSiteURL = process.env.NEXT_PUBLIC_GAMESITE_URL;
+export function getGameThumbnail(game: JsonData): GameThumbnail {
   const { slug } = game;
-  const src = `${gameSiteURL}/images/${slug}.png`;
+  const src = `${gameSiteUrl}/images/${slug}.png`;
   const alt = `${game.slug} thumbnail`;
   const [width, height] = ["300", "240"];
 
