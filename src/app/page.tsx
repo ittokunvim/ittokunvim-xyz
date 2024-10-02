@@ -14,7 +14,7 @@ import { faClock } from "@fortawesome/free-regular-svg-icons";
 import iconPng from "./icon.png";
 import styles from "./page.module.css";
 import { formatDate } from "./lib";
-import { fetchDocsJson } from "./articles/lib";
+import { fetchDocsJson } from "./docs/lib";
 import { GameData, getAllGameData, getGameThumbnail } from "./games/lib";
 import toolsData from "./tools/data.json";
 
@@ -57,20 +57,20 @@ export default async function Home() {
           </div>
         </div>
       </article>
-      <article className={styles.articles}>
+      <article className={styles.docs}>
         <h3>
           <FontAwesomeIcon icon={faNewspaper} />
           記事一覧
         </h3>
         <div className={styles.list}>
-          {docs.map((article) => (
-            <div className={styles.item} key={article.slug}>
+          {docs.map((doc) => (
+            <div className={styles.item} key={doc.slug}>
               <div className={styles.title}>
-                <Link href={`/articles/${article.slug}`}>{article.title}</Link>
+                <Link href={`/docs/${doc.slug}`}>{doc.title}</Link>
               </div>
               <div className={styles.createdAt}>
                 <FontAwesomeIcon icon={faClock} />
-                {article.createdAt}
+                {doc.createdAt}
               </div>
             </div>
           ))}
