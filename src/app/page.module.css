@@ -38,47 +38,47 @@
   text-align: left;
 }
 
-.articles {
+.docs {
   padding: 1rem;
 }
 
-.articles .list {
+.docs .list {
   display: flex;
   flex-wrap: wrap;
 }
 
-.articles .list .item {
+.docs .list .item {
   width: 100%;
   border-bottom: 1px solid var(--color-border-primary);
   padding: 1rem 0;
 }
 
-.articles .list .item:last-child {
+.docs .list .item:last-child {
   border-bottom: none;
   padding-bottom: 0;
 }
 
-.articles .list .item .title {
+.docs .list .item .title {
   font-size: 1rem;
 }
 
-.articles .list .item .title a {
+.docs .list .item .title a {
   text-decoration: none;
   font-weight: bold;
   color: var(--color-text-primary);
 }
 
-.articles .list .item .title a:hover {
+.docs .list .item .title a:hover {
   cursor: pointer;
   text-decoration: underline;
 }
 
-.articles .list .item .createdAt {
+.docs .list .item .createdAt {
   font-size: 0.75rem;
   color: var(--color-text-secondary);
 }
 
-.articles .list .item .createdAt svg {
+.docs .list .item .createdAt svg {
   margin-right: 0.25rem;
 }
 
@@ -93,8 +93,7 @@
   padding: 1rem 0;
 }
 
-/* .games .list .item { */
-/* } */
+/* .games .list .item {} */
 
 .games .list .item .thumbnail {
   position: relative;

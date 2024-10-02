@@ -46,3 +46,26 @@ make up
 これでプロジェクトが動作するはずです。以下のURLにアクセスして確認してみましょう！
 
 http://localhost:3000
+
+## 便利なコマンド
+
+このプロジェクトには`Makefile`に開発に便利なコマンドが書かれています。
+
+以下にコマンドの用途と使い方を記したので参考に
+
+```bash
+# プロジェクトをビルド
+make build
+# プロジェクト立ち上げ
+make up
+# プロジェクトを終了
+make down
+# IPアドレスの確認
+make echo_ip
+# プロジェクトのappコンテナにアクセス
+make app_init
+# プロジェクトのdocsコンテナにアクセス
+make docs_init
+# プロジェクトのgamesコンテナにアクセス
+make games_init
+```

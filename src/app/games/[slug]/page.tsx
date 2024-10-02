@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { getGameData } from "../lib";
-
 import styles from "./page.module.css";
 import Game from "./game";
 
@@ -24,7 +23,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
   const { name, description, width, height } = game;
   const size = `${width}x${height}`;
 
-  if (game.name === "") {
+  if (game.slug === "") {
     return notFound();
   }
 

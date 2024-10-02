@@ -1,22 +1,26 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import iconPng from "./icon.png";
-
-import { fetchMarkdownJson } from "./articles/lib";
-import { GameData, getAllGameData, getGameThumbnail } from "./games/lib";
-import toolsData from "./tools/data.json";
-
-import styles from "./page.module.css";
-import { formatDate } from "./lib";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInfoCircle, faAddressCard, faNewspaper, faGamepad, faToolbox } from "@fortawesome/free-solid-svg-icons";
+import {
+  faInfoCircle,
+  faAddressCard,
+  faNewspaper,
+  faGamepad,
+  faToolbox,
+} from "@fortawesome/free-solid-svg-icons";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 
+import iconPng from "./icon.png";
+import styles from "./page.module.css";
+import { formatDate } from "./lib";
+import { fetchDocsJson } from "./docs/lib";
+import { JsonData, fetchGamesJson, getGameThumbnail } from "./games/lib";
+import toolsData from "./tools/data.json";
+
 export default async function Home() {
-  const articles = await fetchMarkdownJson();
-  const games = await getAllGameData();
+  const docs = await fetchDocsJson();
+  const games = await fetchGamesJson();
 
   return (
     <main className={styles.main}>
@@ -26,11 +30,10 @@ export default async function Home() {
           このサイトについて
         </h3>
         <p>
-          このサイトは<b>ittokunvim</b>
-          のポートフォリオサイトです。ここには自身の活動内容を書いたりしていこうと思っています。
+          ittokunvim.xyzでは、ittokunvimが開発した様々な成果物を公開するサイトとなっています
         </p>
         <br />
-        <p>まだ何もないけどゆっくりしていってね😄</p>
+        <p>ゆっくりしていってね😄</p>
       </article>
       <hr />
       <article className={styles.myprofile}>
@@ -42,29 +45,32 @@ export default async function Home() {
           <Image src={iconPng} alt="My icon" />
           <div className={styles.text}>
             <p>
-              ittokunvimです。趣味でプログラムを書いています。最近はBevyというRust🦀で書かれたゲームエンジンを使ったゲーム開発をしています。
+              ittokunvimです。
+              ゲーム開発をしたりTech系の記事を書いたりしています。
             </p>
             <br />
-            <p>このサイトや、他のサイトに公開する予定なので、その際には是非ともプレイしてみてください。</p>
+            <p>
+              最近はゲームエンジンBevyを使ったゲーム開発にハマってます。
+            </p>
+            <p>記事やゲームはこのサイトに公開しているのでよければ覗いていってね。</p>
             <br />
-            <p>あとはIT系の仕事も募集中です。ウェブ開発が得意分野なのでそのあたりの仕事ができたらなと思っています。</p>
           </div>
         </div>
       </article>
-      <article className={styles.articles}>
+      <article className={styles.docs}>
         <h3>
           <FontAwesomeIcon icon={faNewspaper} />
           記事一覧
         </h3>
         <div className={styles.list}>
-          {articles.map((article) => (
-            <div className={styles.item} key={article.slug}>
+          {docs.map((doc) => (
+            <div className={styles.item} key={doc.slug}>
               <div className={styles.title}>
-                <Link href={`/articles/${article.slug}`}>{article.title}</Link>
+                <Link href={`/docs/${doc.slug}`}>{doc.title}</Link>
               </div>
               <div className={styles.createdAt}>
                 <FontAwesomeIcon icon={faClock} />
-                {article.createdAt}
+                {doc.createdAt}
               </div>
             </div>
           ))}
@@ -112,7 +118,7 @@ export default async function Home() {
   );
 }
 
-function ImageGameThumbnail(game: GameData) {
+function ImageGameThumbnail(game: JsonData) {
   const { src, alt, width, height } = getGameThumbnail(game);
   return <img src={src} alt={alt} width={width} height={height} />;
 }

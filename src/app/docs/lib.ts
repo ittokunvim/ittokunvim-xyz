@@ -8,8 +8,8 @@ import rehypeHighlight from "rehype-highlight";
 
 import { formatDate } from "@/app/lib"
 
-const markdownSiteUrl = process.env.NEXT_PUBLIC_DOCSSITE_URL;
-const publishedJsonUrl = markdownSiteUrl + "/data.json";
+const docsSiteUrl = process.env.NEXT_PUBLIC_DOCSSITE_URL;
+const dataJsonUrl = docsSiteUrl + "/data.json";
 
 type JsonData = {
   slug: string;
@@ -18,21 +18,21 @@ type JsonData = {
   createdAt: string;
 };
 
-type ArticleData = {
+type DocData = {
   title: string;
   contentHtml: string;
   createdAt: string;
 };
 
-export async function fetchMarkdownJson(): Promise<JsonData[]> {
+export async function fetchDocsJson(): Promise<JsonData[]> {
   try {
-    const response = await fetch(publishedJsonUrl, { cache: "no-store" });
+    const response = await fetch(dataJsonUrl, { cache: "no-store" });
     const data = await response.json();
     data.sort((a: JsonData, b: JsonData) => {
       return a.createdAt < b.createdAt ? 1 : -1;
     });
-    data.forEach((article: JsonData) => {
-      article.createdAt = formatDate(article.createdAt);
+    data.forEach((doc: JsonData) => {
+      doc.createdAt = formatDate(doc.createdAt);
     });
     return data;
   } catch (error) {
@@ -41,17 +41,17 @@ export async function fetchMarkdownJson(): Promise<JsonData[]> {
   }
 }
 
-export async function getArticleData(slug: string): Promise<ArticleData | undefined> {
-  const articles = await fetchMarkdownJson();
-  const article = articles.find((article: JsonData) => article.slug === slug);
+export async function getDocData(slug: string): Promise<DocData | undefined> {
+  const docs = await fetchDocsJson();
+  const doc = docs.find((doc: JsonData) => doc.slug === slug);
 
-  if (article === undefined) {
+  if (doc === undefined) {
     return undefined;
   }
 
-  const title = article.title;
-  const contentHtml = await getArticleContentHtml(article.path);
-  const createdAt = article.createdAt;
+  const title = doc.title;
+  const contentHtml = await getDocContentHtml(doc.path);
+  const createdAt = doc.createdAt;
 
   if (contentHtml === "") {
     return undefined;
@@ -64,8 +64,8 @@ export async function getArticleData(slug: string): Promise<ArticleData | undefi
   };
 }
 
-async function getArticleContentHtml(path: string): Promise<string> {
-  const absoluteUrl = new URL(path, markdownSiteUrl);
+async function getDocContentHtml(path: string): Promise<string> {
+  const absoluteUrl = new URL(path, docsSiteUrl);
   const content = await fetch(absoluteUrl.href)
     .then((res) => res.text())
     .then((text) => replaceRelativeUrlToAbsoluteUrl(path, text))
@@ -92,7 +92,7 @@ async function getArticleContentHtml(path: string): Promise<string> {
 function replaceRelativeUrlToAbsoluteUrl(path: string, content: string): string {
   const splitPath = path.split("/");
   const excludeFilenamePath = splitPath.slice(0, splitPath.length - 1).join("/");
-  const absoluteUrl = new URL(excludeFilenamePath, markdownSiteUrl);
+  const absoluteUrl = new URL(excludeFilenamePath, docsSiteUrl);
 
   const relativeImageRegex = /!?\[[^\]]+\]\((?!https|ftp:\/\/)[^\)]+\)/g
   const imageUrlRegex = /\]\(([^)]+)\)/
@@ -120,10 +120,11 @@ function replaceRelativeUrlToAbsoluteUrl(path: string, content: string): string 
 function replaceCodeBlockTitle(content: string): string {
   const codeBlockTitleRegex = /```[a-zA-Z]+:[\w\.]+/g;
   const filenameRegex = /:[\w\.]+/;
+
   content.match(codeBlockTitleRegex)?.forEach((codeBlock) => {
     const filename = filenameRegex.exec(codeBlock)![0]
     content = content.replace(filename, ` title="${filename.slice(1)}"`);
-    // console.log(content)
   });
+
   return content
 }
