@@ -14,12 +14,12 @@ import { faClock } from "@fortawesome/free-regular-svg-icons";
 import iconPng from "./icon.png";
 import styles from "./page.module.css";
 import { formatDate } from "./lib";
-import { fetchMarkdownJson } from "./articles/lib";
+import { fetchDocsJson } from "./articles/lib";
 import { GameData, getAllGameData, getGameThumbnail } from "./games/lib";
 import toolsData from "./tools/data.json";
 
 export default async function Home() {
-  const articles = await fetchMarkdownJson();
+  const docs = await fetchDocsJson();
   const games = await getAllGameData();
 
   return (
@@ -63,7 +63,7 @@ export default async function Home() {
           記事一覧
         </h3>
         <div className={styles.list}>
-          {articles.map((article) => (
+          {docs.map((article) => (
             <div className={styles.item} key={article.slug}>
               <div className={styles.title}>
                 <Link href={`/articles/${article.slug}`}>{article.title}</Link>
