@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { getGameData } from "../lib";
+import { fetchGamesJson, getGameData } from "../lib";
 import styles from "./page.module.css";
 import Game from "./game";
+
+export const dynamic = "auto";
+export const dynamicParams = false;
 
 type Props = {
   params: { slug: string };
@@ -16,6 +19,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: slug,
   };
+}
+
+export async function generateStaticParams() {
+  const games = await fetchGamesJson();
+
+  return games.map((game) => ({
+    slug: game.slug,
+  }));
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {

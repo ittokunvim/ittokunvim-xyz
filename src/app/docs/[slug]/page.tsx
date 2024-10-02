@@ -5,8 +5,11 @@ import { faClock } from "@fortawesome/free-regular-svg-icons";
 
 import "./hljs.css";
 import "./rlc.css";
-import { getDocData } from "../lib";
+import { fetchDocsJson, getDocData } from "../lib";
 import styles from "./page.module.css";
+
+export const dynamic = "auto";
+export const dynamicParams = false;
 
 type Props = {
   params: { slug: string };
@@ -24,6 +27,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: docData.title,
   };
+}
+
+export async function generateStaticParams() {
+  const docs = await fetchDocsJson();
+
+  return docs.map((doc) => ({
+    slug: doc.slug,
+  }));
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {

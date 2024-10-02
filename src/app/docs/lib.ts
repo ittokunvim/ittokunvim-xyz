@@ -26,7 +26,7 @@ type DocData = {
 
 export async function fetchDocsJson(): Promise<JsonData[]> {
   try {
-    const response = await fetch(dataJsonUrl, { cache: "no-store" });
+    const response = await fetch(dataJsonUrl, { cache: "force-cache" });
     const data = await response.json();
     data.sort((a: JsonData, b: JsonData) => {
       return a.createdAt < b.createdAt ? 1 : -1;
@@ -66,7 +66,7 @@ export async function getDocData(slug: string): Promise<DocData | undefined> {
 
 async function getDocContentHtml(path: string): Promise<string> {
   const absoluteUrl = new URL(path, docsSiteUrl);
-  const content = await fetch(absoluteUrl.href)
+  const content = await fetch(absoluteUrl.href, { cache: "force-cache" })
     .then((res) => res.text())
     .then((text) => replaceRelativeUrlToAbsoluteUrl(path, text))
     .then((text) => replaceCodeBlockTitle(text))

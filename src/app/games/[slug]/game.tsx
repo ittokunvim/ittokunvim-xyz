@@ -9,7 +9,7 @@ import styles from "./page.module.css";
 
 const gameSiteURL = process.env.NEXT_PUBLIC_GAMESITE_URL;
 
-function Button({ gameData, onButtonClick }: { gameData: JsonData; onButtonClick: () => void }) {
+function RunGameButton({ gameData, onButtonClick }: { gameData: JsonData; onButtonClick: () => void }) {
   const { width, height } = gameData;
 
   return (
@@ -22,7 +22,7 @@ function Button({ gameData, onButtonClick }: { gameData: JsonData; onButtonClick
   );
 }
 
-function Iframe({ gameData }: { gameData: JsonData }) {
+function GameIframe({ gameData }: { gameData: JsonData }) {
   const { slug, width, height } = gameData;
   const iframeURL = gameSiteURL + "/" + slug;
 
@@ -35,8 +35,8 @@ export default function Game({ gameData }: { gameData: JsonData }) {
 
   return (
     <>
-      {!isClicked && <Button gameData={gameData} onButtonClick={() => handleClick()} />}
-      {isClicked && <Iframe gameData={gameData} />}
+      {!isClicked && <RunGameButton gameData={gameData} onButtonClick={() => handleClick()} />}
+      <GameIframe gameData={gameData} />
     </>
   );
 }

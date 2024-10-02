@@ -18,7 +18,7 @@ type GameThumbnail = {
 
 export async function fetchGamesJson(): Promise<JsonData[]> {
   try {
-    const response = await fetch(dataJsonUrl, { cache: "no-store" });
+    const response = await fetch(dataJsonUrl, { cache: "force-cache" });
     const data = await response.json();
     return data;
   } catch (error) {
