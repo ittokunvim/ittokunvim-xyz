@@ -41,12 +41,16 @@ export async function fetchDocsJson(): Promise<JsonData[]> {
   }
 }
 
-export async function getDocData(slug: string): Promise<DocData | undefined> {
+export async function getDocData(slug: string): Promise<DocData> {
   const docs = await fetchDocsJson();
   const doc = docs.find((doc: JsonData) => doc.slug === slug);
 
   if (doc === undefined) {
-    return undefined;
+    return {
+      title: "",
+      contentHtml: "",
+      createdAt: "",
+    };
   }
 
   const title = doc.title;
@@ -54,7 +58,11 @@ export async function getDocData(slug: string): Promise<DocData | undefined> {
   const createdAt = doc.createdAt;
 
   if (contentHtml === "") {
-    return undefined;
+    return {
+      title: "",
+      contentHtml: "",
+      createdAt: "",
+    };
   }
 
   return {

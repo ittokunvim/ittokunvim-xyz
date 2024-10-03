@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { fetchGamesJson, getGameData } from "../lib";
 import styles from "./page.module.css";
 import Game from "./game";
+import { JsonLd, JsonLdScript } from "@/app/jsonld";
 
 export const dynamic = "auto";
 export const dynamicParams = false;
@@ -31,10 +32,11 @@ export async function generateStaticParams() {
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const game = await getGameData(params.slug);
-  const { name, description, width, height } = game;
+  const { slug, name, description, width, height } = game;
   const size = `${width}x${height}`;
+  const jsonLd: JsonLd = { name, description };
 
-  if (game.slug === "") {
+  if (slug === "") {
     return notFound();
   }
 
@@ -58,6 +60,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
           </tbody>
         </table>
       </div>
+      <JsonLdScript data={jsonLd} />
     </main>
   );
 }
