@@ -5,8 +5,8 @@ export type JsonLd = {
   description: string,
 };
 
-const host = process.env.HOST;
-const logo_url = `${host}/logo.png`;
+const base_url = process.env.BASE_URL;
+const logo_url = `${base_url}/logo.png`;
 
 export function JsonLdScript({ data }: { data: JsonLd}) {
   const { name, description } = data;
