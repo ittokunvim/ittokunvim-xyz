@@ -8,7 +8,7 @@ import rehypeHighlight from "rehype-highlight";
 
 import { formatDate } from "@/app/lib"
 
-const docsSiteUrl = process.env.NEXT_PUBLIC_DOCSSITE_URL;
+const docsSiteUrl = process.env.DOCSSITE_URL;
 const dataJsonUrl = docsSiteUrl + "/data.json";
 
 type JsonData = {
@@ -26,7 +26,7 @@ type DocData = {
 
 export async function fetchDocsJson(): Promise<JsonData[]> {
   try {
-    const response = await fetch(dataJsonUrl, { cache: "no-store" });
+    const response = await fetch(dataJsonUrl, { cache: "force-cache" });
     const data = await response.json();
     data.sort((a: JsonData, b: JsonData) => {
       return a.createdAt < b.createdAt ? 1 : -1;
@@ -41,12 +41,16 @@ export async function fetchDocsJson(): Promise<JsonData[]> {
   }
 }
 
-export async function getDocData(slug: string): Promise<DocData | undefined> {
+export async function getDocData(slug: string): Promise<DocData> {
   const docs = await fetchDocsJson();
   const doc = docs.find((doc: JsonData) => doc.slug === slug);
 
   if (doc === undefined) {
-    return undefined;
+    return {
+      title: "",
+      contentHtml: "",
+      createdAt: "",
+    };
   }
 
   const title = doc.title;
@@ -54,7 +58,11 @@ export async function getDocData(slug: string): Promise<DocData | undefined> {
   const createdAt = doc.createdAt;
 
   if (contentHtml === "") {
-    return undefined;
+    return {
+      title: "",
+      contentHtml: "",
+      createdAt: "",
+    };
   }
 
   return {
@@ -66,7 +74,7 @@ export async function getDocData(slug: string): Promise<DocData | undefined> {
 
 async function getDocContentHtml(path: string): Promise<string> {
   const absoluteUrl = new URL(path, docsSiteUrl);
-  const content = await fetch(absoluteUrl.href)
+  const content = await fetch(absoluteUrl.href, { cache: "force-cache" })
     .then((res) => res.text())
     .then((text) => replaceRelativeUrlToAbsoluteUrl(path, text))
     .then((text) => replaceCodeBlockTitle(text))

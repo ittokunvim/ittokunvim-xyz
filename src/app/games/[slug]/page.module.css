@@ -4,7 +4,8 @@
 }
 
 .game .button {
-  display: flex;
+  display: inline-flex;
+  position: absolute;
   justify-content: center;
   align-items: center;
   background-color: var(--color-background-tertiary);

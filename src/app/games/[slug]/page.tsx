@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { getGameData } from "../lib";
+import { fetchGamesJson, getGameData } from "../lib";
 import styles from "./page.module.css";
 import Game from "./game";
+import { JsonLd, JsonLdScript } from "@/app/jsonld";
+
+export const dynamic = "auto";
+export const dynamicParams = false;
+const base_url = process.env.BASE_URL;
+const sitename = "ittokunvimのポートフォリオサイト";
 
 type Props = {
   params: { slug: string };
@@ -12,18 +18,50 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const slug = params.slug;
+  const gameData = await getGameData(slug);
+  const { name, description } = gameData;
+  const title = name;
+  const url = `${base_url}/games/${slug}`;
 
   return {
-    title: slug,
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: sitename,
+      locale: "ja_JP",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      site: "@ittokunvim",
+      creator: "@ittokunvim",
+    },
+    alternates: {
+      canonical: url,
+    },
   };
+}
+
+export async function generateStaticParams() {
+  const games = await fetchGamesJson();
+
+  return games.map((game) => ({
+    slug: game.slug,
+  }));
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const game = await getGameData(params.slug);
-  const { name, description, width, height } = game;
+  const { slug, name, description, width, height } = game;
   const size = `${width}x${height}`;
+  const jsonLd: JsonLd = { name, description };
 
-  if (game.slug === "") {
+  if (slug === "") {
     return notFound();
   }
 
@@ -47,6 +85,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
           </tbody>
         </table>
       </div>
+      <JsonLdScript data={jsonLd} />
     </main>
   );
 }
