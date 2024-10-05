@@ -1,4 +1,4 @@
-const gameSiteUrl = process.env.NEXT_PUBLIC_GAMESITE_URL;
+const gameSiteUrl = process.env.GAMESITE_URL;
 const dataJsonUrl = gameSiteUrl + "/data.json";
 
 export type JsonData = {

@@ -8,7 +8,7 @@ import rehypeHighlight from "rehype-highlight";
 
 import { formatDate } from "@/app/lib"
 
-const docsSiteUrl = process.env.NEXT_PUBLIC_DOCSSITE_URL;
+const docsSiteUrl = process.env.DOCSSITE_URL;
 const dataJsonUrl = docsSiteUrl + "/data.json";
 
 type JsonData = {

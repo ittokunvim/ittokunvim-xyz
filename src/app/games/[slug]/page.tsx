@@ -8,6 +8,8 @@ import { JsonLd, JsonLdScript } from "@/app/jsonld";
 
 export const dynamic = "auto";
 export const dynamicParams = false;
+const base_url = process.env.BASE_URL;
+const sitename = "ittokunvimのポートフォリオサイト";
 
 type Props = {
   params: { slug: string };
@@ -16,9 +18,32 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const slug = params.slug;
+  const gameData = await getGameData(slug);
+  const { name, description } = gameData;
+  const title = name;
+  const url = `${base_url}/games/${slug}`;
 
   return {
-    title: slug,
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: sitename,
+      locale: "ja_JP",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      site: "@ittokunvim",
+      creator: "@ittokunvim",
+    },
+    alternates: {
+      canonical: url,
+    },
   };
 }
 
