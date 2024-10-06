@@ -7,7 +7,7 @@ import { faCirclePlay } from "@fortawesome/free-regular-svg-icons";
 import { JsonData } from "../lib";
 import styles from "./page.module.css";
 
-const gameSiteURL = process.env.GAMESITE_URL;
+const gameSiteURL = process.env.NEXT_PUBLIC_GAMESITE_URL;
 
 function RunGameButton({ gameData, onButtonClick }: { gameData: JsonData; onButtonClick: () => void }) {
   const { width, height } = gameData;
