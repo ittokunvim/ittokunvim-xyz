@@ -76,6 +76,7 @@ export default async function Home() {
               <div className={styles.title}>
                 <Link href={`/docs/${doc.slug}`}>{doc.title}</Link>
               </div>
+              <div className={styles.description}>{doc.description}</div>
               <div className={styles.createdAt}>
                 <FontAwesomeIcon icon={faClock} />
                 {doc.createdAt}

@@ -73,6 +73,14 @@
   text-decoration: underline;
 }
 
+.docs .list .item .description {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  overflow: hidden;
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+}
+
 .docs .list .item .createdAt {
   font-size: 0.75rem;
   color: var(--color-text-secondary);

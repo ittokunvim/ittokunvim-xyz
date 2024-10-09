@@ -14,6 +14,7 @@ const dataJsonUrl = docsSiteUrl + "/data.json";
 type JsonData = {
   slug: string;
   title: string;
+  description: string,
   path: string;
   createdAt: string;
 };
