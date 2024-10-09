@@ -21,8 +21,15 @@ a.rlc-container:hover{
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 0.5em;
-  padding: 0.9em 1em;
+  padding: 0.5em 1em;
+}
+
+.rlc-info > div {
+  padding-bottom: 0.5rem;
+}
+
+.rlc-info div:last-child {
+  padding-bottom: 0;
 }
 
 .rlc-title {
@@ -68,7 +75,7 @@ img.rlc-favicon {
   width: 100px;
 }
 
-img.rlc-image {
+.rlc-image-container .rlc-image {
   object-fit: cover;
   width: 100%;
   height: 100%;
