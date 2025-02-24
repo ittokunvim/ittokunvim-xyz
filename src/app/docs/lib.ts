@@ -8,8 +8,7 @@ import rehypeHighlight from "rehype-highlight";
 
 import { formatDate } from "@/app/lib"
 
-const docsSiteUrl = process.env.DOCSSITE_URL;
-const dataJsonUrl = docsSiteUrl + "/data.json";
+const DOCS_SITE_URL = process.env.DOCSSITE_URL || "";
 
 type JsonData = {
   slug: string;
@@ -26,8 +25,10 @@ type DocData = {
 };
 
 export async function fetchDocsJson(): Promise<JsonData[]> {
+  const jsonUrl = `${DOCS_SITE_URL}/data.json`;
+
   try {
-    const response = await fetch(dataJsonUrl, { cache: "force-cache" });
+    const response = await fetch(jsonUrl, { cache: "force-cache" });
     const data = await response.json();
     data.sort((a: JsonData, b: JsonData) => {
       return a.createdAt < b.createdAt ? 1 : -1;
@@ -74,7 +75,7 @@ export async function getDocData(slug: string): Promise<DocData> {
 }
 
 async function getDocContentHtml(path: string): Promise<string> {
-  const absoluteUrl = new URL(path, docsSiteUrl);
+  const absoluteUrl = new URL(path, DOCS_SITE_URL);
   const content = await fetch(absoluteUrl.href, { cache: "force-cache" })
     .then((res) => res.text())
     .then((text) => replaceRelativeUrlToAbsoluteUrl(path, text))
@@ -101,7 +102,7 @@ async function getDocContentHtml(path: string): Promise<string> {
 function replaceRelativeUrlToAbsoluteUrl(path: string, content: string): string {
   const splitPath = path.split("/");
   const excludeFilenamePath = splitPath.slice(0, splitPath.length - 1).join("/");
-  const absoluteUrl = new URL(excludeFilenamePath, docsSiteUrl);
+  const absoluteUrl = new URL(excludeFilenamePath, DOCS_SITE_URL);
 
   const relativeImageRegex = /!?\[[^\]]+\]\((?!https|ftp:\/\/)[^\)]+\)/g
   const imageUrlRegex = /\]\(([^)]+)\)/

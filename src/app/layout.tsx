@@ -14,28 +14,28 @@ import { GoogleAdCodeSnipet, GoogleAdMetatag } from "./googleads";
 
 const noto_sans_jp = Noto_Sans_JP({ subsets: ["latin"] });
 
-const sitename = "ittokunvimのポートフォリオサイト";
-const description = "ittokunvim.xyzでは、ittokunvimが開発した様々な成果物を公開するサイトとなっています";
-const url = "https://ittokunvim.xyz";
+const SITENAME    = process.env.NEXT_PUBLIC_SITENAME    || "";
+const DESCRIPTION = process.env.NEXT_PUBLIC_DESCRIPTION || "";
+const BASE_URL    = process.env.NEXT_PUBLIC_BASE_URL    || "";
 
 export const metadata: Metadata = {
   title: {
-    default: sitename,
-    template: `%s | ${sitename}`,
+    default: SITENAME,
+    template: `%s | ${SITENAME}`,
   },
-  description,
+  description: DESCRIPTION,
   openGraph: {
-    title: sitename,
-    description,
-    url,
-    siteName: sitename,
+    title: SITENAME,
+    description: DESCRIPTION,
+    url: BASE_URL,
+    siteName: SITENAME,
     locale: "ja_JP",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: sitename,
-    description,
+    title: SITENAME,
+    description: DESCRIPTION,
     site: "@ittokunvim",
     creator: "@ittokunvim",
   },
@@ -43,15 +43,24 @@ export const metadata: Metadata = {
     google: "",
   },
   alternates: {
-    canonical: url,
+    canonical: BASE_URL,
   },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const github_url = "https://github.com/ittokunvim";
+  const github_url  = "https://github.com/ittokunvim";
   const twitter_url = "https://twitter.com/ittokunvim";
-  const zenn_url = "https://zenn.dev/ittoku_ky73";
-  const itch_url = "https://ittokunvim.itch.io";
+  const zenn_url    = "https://zenn.dev/ittoku_ky73";
+  const itch_url    = "https://ittokunvim.itch.io";
+
+  const externals  = [
+    { name: "Source Code",  url: "https://github.com/ittokunvim/ittokunvim-xyz" },
+    { name: "Next.js",      url: "https://nextjs.org/" },
+    { name: "Vercel",       url: "https://vercel.com/" },
+    { name: "Pixlr",        url: "https://pixlr.com/jp/" },
+    { name: "Font Awesome", url: "https://fontawesome.com/" },
+    { name: "Github",       url: "https://github.com" },
+  ];
 
   return (
     <html lang="ja">
@@ -80,24 +89,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {children}
         <footer className={styles.page_footer}>
           <div className={styles.external}>
-            <a href="https://github.com/ittokunvim/ittokunvim.xyz" target="_blank" rel="noopener noreferrer">
-              Source Code
-            </a>
-            <a href="https://nextjs.org/" target="_blank" rel="noopener noreferrer">
-              Next.js
-            </a>
-            <a href="https://vercel.com/" target="_blank" rel="noopener noreferrer">
-              Vercel
-            </a>
-            <a href="https://pixlr.com/jp/" target="_blank" rel="noopener noreferrer">
-              Pixlr
-            </a>
-            <a href="https://fontawesome.com/" target="_blank" rel="noopener noreferrer">
-              Font Awesome
-            </a>
-            <a href="https://github.com/" target="_blank" rel="noopener noreferrer">
-              Github
-            </a>
+            {externals.map((external) => (
+              <a href={external.url} target="_blank" rel="noopener noreferrer">
+                {external.name}
+              </a>
+            ))}
           </div>
           <div className={styles.copyright}>
             <p>

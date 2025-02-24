@@ -8,8 +8,9 @@ import { JsonLd, JsonLdScript } from "@/app/jsonld";
 
 export const dynamic = "auto";
 export const dynamicParams = false;
-const base_url = process.env.BASE_URL;
-const sitename = "ittokunvimのポートフォリオサイト";
+
+const BASE_URL = process.env.BASE_URL             || "";
+const SITENAME = process.env.NEXT_PUBLIC_SITENAME || "";
 
 type Props = {
   params: { slug: string };
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const gameData = await getGameData(slug);
   const { name, description } = gameData;
   const title = name;
-  const url = `${base_url}/games/${slug}`;
+  const url = `${BASE_URL}/games/${slug}`;
 
   return {
     title,
@@ -30,7 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title,
       description,
       url,
-      siteName: sitename,
+      siteName: SITENAME,
       locale: "ja_JP",
       type: "website",
     },

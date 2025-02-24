@@ -1,6 +1,6 @@
 import Script from "next/script";
 
-const GOOGLEADS_ID = "ca-pub-3545976238398683";
+const GOOGLEADS_ID = process.env.NEXT_PUBLIC_GOOGLEADS_ID;
 
 export function GoogleAdCodeSnipet() {
   if (process.env.NODE_ENV === "production") {
