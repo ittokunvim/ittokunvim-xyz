@@ -11,8 +11,9 @@ import { JsonLd, JsonLdScript } from "@/app/jsonld";
 
 export const dynamic = "auto";
 export const dynamicParams = false;
-const base_url = process.env.BASE_URL;
-const sitename = "ittokunvimのポートフォリオサイト";
+
+const BASE_URL = process.env.BASE_URL             || "";
+const SITENAME = process.env.NEXT_PUBLIC_SITENAME || "";
 
 type Props = {
   params: { slug: string };
@@ -24,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const docData = await getDocData(slug);
   const { title } = docData;
   const description = "この記事は、ittokunvimによって書かれています";
-  const url = `${base_url}/docs/${slug}`;
+  const url = `${BASE_URL}/docs/${slug}`;
 
   return {
     title,
@@ -33,7 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title,
       description,
       url,
-      siteName: sitename,
+      siteName: SITENAME,
       locale: "ja_JP",
       type: "website",
     },

@@ -19,15 +19,15 @@ import { JsonData, fetchGamesJson, getGameThumbnail } from "./games/lib";
 import toolsData from "./tools/data.json";
 import { JsonLd, JsonLdScript } from "./jsonld";
 
-const sitename = "ittokunvimのポートフォリオサイト";
-const description = "ittokunvim.xyzでは、ittokunvimが開発した様々な成果物を公開するサイトとなっています";
+const SITENAME    = process.env.NEXT_PUBLIC_SITENAME    || "";
+const DESCRIPTION = process.env.NEXT_PUBLIC_DESCRIPTION || "";
 
 export default async function Home() {
   const docs = await fetchDocsJson();
   const games = await fetchGamesJson();
   const jsonLd: JsonLd = {
-    name: sitename,
-    description: description,
+    name: SITENAME,
+    description: DESCRIPTION,
   };
 
   return (
@@ -38,7 +38,7 @@ export default async function Home() {
           このサイトについて
         </h3>
         <p>
-          {description}
+          {DESCRIPTION}
         </p>
         <br />
         <p>ゆっくりしていってね😄</p>

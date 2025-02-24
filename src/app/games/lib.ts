@@ -1,5 +1,4 @@
-const gameSiteUrl = process.env.NEXT_PUBLIC_GAMESITE_URL;
-const dataJsonUrl = gameSiteUrl + "/data.json";
+const GAME_SITE_URL = process.env.GAMESITE_URL || "";
 
 export type JsonData = {
   slug: string;
@@ -17,8 +16,10 @@ type GameThumbnail = {
 };
 
 export async function fetchGamesJson(): Promise<JsonData[]> {
+  const jsonUrl = `${GAME_SITE_URL}/data.json`;
+
   try {
-    const response = await fetch(dataJsonUrl, { cache: "force-cache" });
+    const response = await fetch(jsonUrl, { cache: "force-cache" });
     const data = await response.json();
     return data;
   } catch (error) {
@@ -46,7 +47,7 @@ export async function getGameData(slug: string): Promise<JsonData> {
 
 export function getGameThumbnail(game: JsonData): GameThumbnail {
   const { slug } = game;
-  const src = `${gameSiteUrl}/images/${slug}.png`;
+  const src = `${GAME_SITE_URL}/images/${slug}.png`;
   const alt = `${game.slug} thumbnail`;
   const [width, height] = ["300", "240"];
 

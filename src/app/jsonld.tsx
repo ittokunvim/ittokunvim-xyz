@@ -5,11 +5,11 @@ export type JsonLd = {
   description: string,
 };
 
-const base_url = process.env.BASE_URL;
-const logo_url = `${base_url}/logo.png`;
+const BASE_URL = process.env.BASE_URL;
 
 export function JsonLdScript({ data }: { data: JsonLd}) {
   const { name, description } = data;
+  const logo_url = `${BASE_URL}/logo.png`;
 
   const jsonLd: WithContext<Product> = {
     "@context": "https://schema.org",

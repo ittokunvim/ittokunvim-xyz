@@ -7,7 +7,7 @@ import { faCirclePlay } from "@fortawesome/free-regular-svg-icons";
 import { JsonData } from "../lib";
 import styles from "./page.module.css";
 
-const gameSiteURL = process.env.NEXT_PUBLIC_GAMESITE_URL;
+const GAME_SITE_URL = process.env.NEXT_PUBLIC_GAMESITE_URL;
 
 function RunGameButton({ gameData, onButtonClick }: { gameData: JsonData; onButtonClick: () => void }) {
   const { width, height } = gameData;
@@ -24,7 +24,7 @@ function RunGameButton({ gameData, onButtonClick }: { gameData: JsonData; onButt
 
 function GameIframe({ gameData }: { gameData: JsonData }) {
   const { slug, width, height } = gameData;
-  const iframeURL = gameSiteURL + "/" + slug;
+  const iframeURL = GAME_SITE_URL + "/" + slug;
 
   return <iframe src={iframeURL} width={width} height={height}></iframe>;
 }
