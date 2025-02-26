@@ -8,6 +8,7 @@ import {
   faNewspaper,
   faGamepad,
   faToolbox,
+  faPencil,
 } from "@fortawesome/free-solid-svg-icons";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 
@@ -76,12 +77,12 @@ export default async function Home() {
             <div className={styles.item}>
               <div className={styles.contents}>
               {news.contents.map((content) => (
-                <p>{content}</p>
+                <div>{content}</div>
               ))}
               </div>
               <div className={styles.createdAt}>
                 <FontAwesomeIcon icon={faClock} />
-                {news.createdAt}
+                {formatDate(news.createdAt)}
               </div>
             </div>
           ))}
@@ -89,7 +90,7 @@ export default async function Home() {
       </article>
       <article className={styles.docs}>
         <h3>
-          <FontAwesomeIcon icon={faNewspaper} />
+          <FontAwesomeIcon icon={faPencil} />
           記事一覧
         </h3>
         <div className={styles.list}>
