@@ -38,6 +38,51 @@
   text-align: left;
 }
 
+.news {
+  padding: 1rem;
+}
+
+.news h3 {
+  padding-bottom: 0.5rem;
+}
+
+.news .list {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-border-primary);
+  width: 100%;
+  max-height: 128px;
+  overflow: scroll;
+}
+
+.news .list .item {
+  font-size: 0.8rem;
+  letter-spacing: 0px;
+  word-spacing: 2px;
+  line-height: 1.5;
+  white-space: nowrap;
+  padding: 0.2rem;
+  border-bottom: 1px solid var(--color-border-primary);
+}
+
+.news .list .item:last-child {
+  border-bottom: none;
+}
+
+.news .list .item .contents {
+  color: var(--color-text-primary);
+}
+
+.news .list .item .createdAt {
+  color: var(--color-text-secondary);
+  margin-left: 0.25rem;
+  line-height: 2;
+}
+
+.news .list .item .createdAt svg {
+  margin-right: 0.25rem;
+}
+
 .docs {
   padding: 1rem;
 }
