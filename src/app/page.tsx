@@ -13,7 +13,7 @@ import { faClock } from "@fortawesome/free-regular-svg-icons";
 
 import iconPng from "./icon.png";
 import styles from "./page.module.css";
-import { formatDate } from "./lib";
+import { fetchNewsJson, formatDate } from "./lib";
 import { fetchDocsJson } from "./docs/lib";
 import { JsonData, fetchGamesJson, getGameThumbnail } from "./games/lib";
 import toolsData from "./tools/data.json";
@@ -23,6 +23,7 @@ const SITENAME    = process.env.NEXT_PUBLIC_SITENAME    || "";
 const DESCRIPTION = process.env.NEXT_PUBLIC_DESCRIPTION || "";
 
 export default async function Home() {
+  const news = fetchNewsJson();
   const docs = await fetchDocsJson();
   const games = await fetchGamesJson();
   const jsonLd: JsonLd = {
@@ -63,6 +64,27 @@ export default async function Home() {
             <p>記事やゲームはこのサイトに公開しているのでよければ覗いていってね。</p>
             <br />
           </div>
+        </div>
+      </article>
+      <article className={styles.news}>
+        <h3>
+          <FontAwesomeIcon icon={faNewspaper} />
+          ニュース一覧
+        </h3>
+        <div className={styles.list}>
+          {news.map((news) => (
+            <div className={styles.item}>
+              <div className={styles.contents}>
+              {news.contents.map((content) => (
+                <p>{content}</p>
+              ))}
+              </div>
+              <div className={styles.createdAt}>
+                <FontAwesomeIcon icon={faClock} />
+                {news.createdAt}
+              </div>
+            </div>
+          ))}
         </div>
       </article>
       <article className={styles.docs}>
