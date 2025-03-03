@@ -14,10 +14,9 @@ import { faClock } from "@fortawesome/free-regular-svg-icons";
 
 import iconPng from "./icon.png";
 import styles from "./page.module.css";
-import { fetchNewsJson, formatDate } from "./lib";
+import { fetchNewsJson, fetchToolsJson, formatDate } from "./lib";
 import { fetchDocsJson } from "./docs/lib";
 import { JsonData, fetchGamesJson, getGameThumbnail } from "./games/lib";
-import toolsData from "./tools/data.json";
 import { JsonLd, JsonLdScript } from "./jsonld";
 
 const SITENAME    = process.env.NEXT_PUBLIC_SITENAME    || "";
@@ -27,6 +26,7 @@ export default async function Home() {
   const news = fetchNewsJson();
   const docs = await fetchDocsJson();
   const games = await fetchGamesJson();
+  const tools = fetchToolsJson();
   const jsonLd: JsonLd = {
     name: SITENAME,
     description: DESCRIPTION,
@@ -132,7 +132,7 @@ export default async function Home() {
           ツール一覧
         </h3>
         <div className={styles.list}>
-          {toolsData.map((tool) => (
+          {tools.map((tool) => (
             <div className={styles.item} key={tool.slug}>
               <div className={styles.name}>
                 <Link href={`tools/${tool.slug}`}>{tool.name}</Link>
