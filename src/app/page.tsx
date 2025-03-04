@@ -16,7 +16,11 @@ import iconPng from "./icon.png";
 import styles from "./page.module.css";
 import { fetchNewsJson, fetchToolsJson, formatDate } from "./lib";
 import { fetchDocsJson } from "./docs/lib";
-import { JsonData, fetchGamesJson, getGameThumbnail } from "./games/lib";
+import {
+  JsonData as GameData,
+  fetchGamesJson,
+  getGameThumbnail,
+} from "./games/lib";
 import { JsonLd, JsonLdScript } from "./jsonld";
 
 const SITENAME    = process.env.NEXT_PUBLIC_SITENAME    || "";
@@ -25,7 +29,7 @@ const DESCRIPTION = process.env.NEXT_PUBLIC_DESCRIPTION || "";
 export default async function Home() {
   const news = fetchNewsJson();
   const docs = await fetchDocsJson();
-  const games = await fetchGamesJson();
+  const games: GameData[] = await fetchGamesJson();
   const tools = fetchToolsJson();
   const jsonLd: JsonLd = {
     name: SITENAME,
@@ -120,7 +124,7 @@ export default async function Home() {
               <div className={styles.name}>
                 <Link href={`/games/${game.slug}`}>{game.name}</Link>
               </div>
-              <div className={styles.size}>{`Screen Size: ${game.width}x${game.height}`}</div>
+              <div className={styles.size}>{`Screen Size: ${game.size}`}</div>
               <div className={styles.description}>{game.description}</div>
             </div>
           ))}
@@ -151,7 +155,7 @@ export default async function Home() {
   );
 }
 
-function ImageGameThumbnail(game: JsonData) {
+function ImageGameThumbnail(game: GameData) {
   const { src, alt, width, height } = getGameThumbnail(game);
   return <img src={src} alt={alt} width={width} height={height} />;
 }

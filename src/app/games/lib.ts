@@ -4,8 +4,7 @@ export type JsonData = {
   slug: string;
   name: string;
   description: string;
-  width: number;
-  height: number;
+  size: string;
 };
 
 type GameThumbnail = {
@@ -37,8 +36,7 @@ export async function getGameData(slug: string): Promise<JsonData> {
       slug: "",
       name: "",
       description: "",
-      width: 0,
-      height: 0,
+      size: "",
     };
   }
 

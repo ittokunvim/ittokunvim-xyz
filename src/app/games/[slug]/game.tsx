@@ -10,7 +10,8 @@ import styles from "./page.module.css";
 const GAME_SITE_URL = process.env.NEXT_PUBLIC_GAMESITE_URL;
 
 function RunGameButton({ gameData, onButtonClick }: { gameData: JsonData; onButtonClick: () => void }) {
-  const { width, height } = gameData;
+  const { size } = gameData;
+  const [width, height] = size.split("x").map((n) => Number(n));
 
   return (
     <div className={styles.button} style={{ width, height }}>
@@ -23,7 +24,8 @@ function RunGameButton({ gameData, onButtonClick }: { gameData: JsonData; onButt
 }
 
 function GameIframe({ gameData }: { gameData: JsonData }) {
-  const { slug, width, height } = gameData;
+  const { slug, size, } = gameData;
+  const [width, height] = size.split("x");
   const iframeURL = GAME_SITE_URL + "/" + slug;
 
   return <iframe src={iframeURL} width={width} height={height}></iframe>;

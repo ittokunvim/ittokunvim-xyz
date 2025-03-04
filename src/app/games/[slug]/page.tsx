@@ -58,8 +58,7 @@ export async function generateStaticParams() {
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const game = await getGameData(params.slug);
-  const { slug, name, description, width, height } = game;
-  const size = `${width}x${height}`;
+  const { slug, name, description, size, } = game;
   const jsonLd: JsonLd = { name, description };
 
   if (slug === "") {
