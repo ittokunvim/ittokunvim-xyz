@@ -17,14 +17,15 @@
   letter-spacing: 1px;
 }
 
-.createdAt {
+.date {
   font-size: 0.8rem;
   color: var(--color-text-secondary);
   text-align: center;
   letter-spacing: 1px;
+  word-spacing: 8px;
 }
 
-.createdAt svg {
+.date svg {
   margin-right: 0.25rem;
 }
 

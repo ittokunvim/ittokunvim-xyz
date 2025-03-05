@@ -10,18 +10,20 @@ import { formatDate } from "@/app/lib"
 
 const DOCS_SITE_URL = process.env.DOCSSITE_URL || "";
 
-type JsonData = {
+export type JsonData = {
   slug: string;
   title: string;
   description: string,
   path: string;
   createdAt: string;
+  updatedAt: string;
 };
 
 type DocData = {
   title: string;
   contentHtml: string;
   createdAt: string;
+  updatedAt: string;
 };
 
 export async function fetchDocsJson(): Promise<JsonData[]> {
@@ -31,10 +33,15 @@ export async function fetchDocsJson(): Promise<JsonData[]> {
     const response = await fetch(jsonUrl, { cache: "force-cache" });
     const data = await response.json();
     data.sort((a: JsonData, b: JsonData) => {
-      return a.createdAt < b.createdAt ? 1 : -1;
+      if (a.updatedAt === b.updatedAt) {
+        return a.createdAt < b.createdAt ? 1 : -1;
+      } else {
+        return a.updatedAt < b.updatedAt ? 1 : -1;
+      }
     });
     data.forEach((doc: JsonData) => {
       doc.createdAt = formatDate(doc.createdAt);
+      doc.updatedAt = formatDate(doc.updatedAt);
     });
     return data;
   } catch (error) {
@@ -45,33 +52,28 @@ export async function fetchDocsJson(): Promise<JsonData[]> {
 
 export async function getDocData(slug: string): Promise<DocData> {
   const docs = await fetchDocsJson();
-  const doc = docs.find((doc: JsonData) => doc.slug === slug);
+  const jsonData = docs.find((doc: JsonData) => doc.slug === slug);
+  const emptyDoc: DocData = {
+    title: "",
+    contentHtml: "",
+    createdAt: "",
+    updatedAt: "",
+  };
 
-  if (doc === undefined) {
-    return {
-      title: "",
-      contentHtml: "",
-      createdAt: "",
-    };
+  if (jsonData === undefined) {
+    return emptyDoc;
   }
 
-  const title = doc.title;
-  const contentHtml = await getDocContentHtml(doc.path);
-  const createdAt = doc.createdAt;
+  const title = jsonData.title;
+  const contentHtml = await getDocContentHtml(jsonData.path);
+  const createdAt = jsonData.createdAt;
+  const updatedAt = jsonData.updatedAt;
 
   if (contentHtml === "") {
-    return {
-      title: "",
-      contentHtml: "",
-      createdAt: "",
-    };
+    return emptyDoc;
   }
 
-  return {
-    title: title,
-    contentHtml: contentHtml,
-    createdAt: createdAt,
-  };
+  return { title, contentHtml, createdAt, updatedAt, };
 }
 
 async function getDocContentHtml(path: string): Promise<string> {

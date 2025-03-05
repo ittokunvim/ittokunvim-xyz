@@ -15,7 +15,10 @@ import { faClock } from "@fortawesome/free-regular-svg-icons";
 import iconPng from "./icon.png";
 import styles from "./page.module.css";
 import { fetchNewsJson, fetchToolsJson, formatDate } from "./lib";
-import { fetchDocsJson } from "./docs/lib";
+import {
+  JsonData as DocJsonData,
+  fetchDocsJson,
+} from "./docs/lib";
 import {
   JsonData as GameData,
   fetchGamesJson,
@@ -28,7 +31,7 @@ const DESCRIPTION = process.env.NEXT_PUBLIC_DESCRIPTION || "";
 
 export default async function Home() {
   const news = fetchNewsJson();
-  const docs = await fetchDocsJson();
+  const docs: DocJsonData[] = await fetchDocsJson();
   const games: GameData[] = await fetchGamesJson();
   const tools = fetchToolsJson();
   const jsonLd: JsonLd = {
@@ -104,9 +107,9 @@ export default async function Home() {
                 <Link href={`/docs/${doc.slug}`}>{doc.title}</Link>
               </div>
               <div className={styles.description}>{doc.description}</div>
-              <div className={styles.createdAt}>
+              <div className={styles.date}>
                 <FontAwesomeIcon icon={faClock} />
-                {doc.createdAt}
+                {`${doc.createdAt}に作成 ${doc.updatedAt}に更新`}
               </div>
             </div>
           ))}

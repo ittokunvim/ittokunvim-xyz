@@ -61,11 +61,12 @@ export async function generateStaticParams() {
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const docData = await getDocData(params.slug);
-  const { title, createdAt, contentHtml } = docData;
+  const { title, createdAt, updatedAt, contentHtml } = docData;
   const jsonLd: JsonLd = {
     name: `${docData?.title}`,
     description: "この記事は、ittokunvimによって書かれています",
   };
+  const date = `${createdAt}に作成 ${updatedAt}に更新`;
 
   if (title === "") {
     return notFound();
@@ -75,9 +76,9 @@ export default async function Page({ params }: { params: { slug: string } }) {
     <main className={styles.main}>
       <article className={styles.docs}>
         <div className={styles.title}>{docData.title}</div>
-        <div className={styles.createdAt}>
+        <div className={styles.date}>
           <FontAwesomeIcon icon={faClock} />
-          {createdAt}
+          {date}
         </div>
         <div className={styles.content_html} dangerouslySetInnerHTML={{ __html: contentHtml }} />
       </article>

@@ -126,12 +126,13 @@
   text-overflow: ellipsis;
 }
 
-.docs .list .item .createdAt {
+.docs .list .item .date {
   font-size: 0.75rem;
   color: var(--color-text-secondary);
+  word-spacing: 8px;
 }
 
-.docs .list .item .createdAt svg {
+.docs .list .item .date svg {
   margin-right: 0.25rem;
 }
 
