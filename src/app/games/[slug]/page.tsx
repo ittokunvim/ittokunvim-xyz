@@ -58,7 +58,7 @@ export async function generateStaticParams() {
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const game = await getGameData(params.slug);
-  const { slug, name, description, size, } = game;
+  const { slug, name, description, size, createdAt, updatedAt } = game;
   const jsonLd: JsonLd = { name, description };
 
   if (slug === "") {
@@ -80,7 +80,15 @@ export default async function Page({ params }: { params: { slug: string } }) {
             </tr>
             <tr>
               <th>Size</th>
-              <td>{size}</td>
+              <td>{size.split("x").join(" x ")}</td>
+            </tr>
+            <tr>
+              <th>Created at</th>
+              <td>{createdAt}</td>
+            </tr>
+            <tr>
+              <th>Updated at</th>
+              <td>{updatedAt}</td>
             </tr>
           </tbody>
         </table>

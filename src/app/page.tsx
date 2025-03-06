@@ -20,7 +20,7 @@ import {
   fetchDocsJson,
 } from "./docs/lib";
 import {
-  JsonData as GameData,
+  JsonData as GameJsonData,
   fetchGamesJson,
   getGameThumbnail,
 } from "./games/lib";
@@ -32,7 +32,7 @@ const DESCRIPTION = process.env.NEXT_PUBLIC_DESCRIPTION || "";
 export default async function Home() {
   const news = fetchNewsJson();
   const docs: DocJsonData[] = await fetchDocsJson();
-  const games: GameData[] = await fetchGamesJson();
+  const games: GameJsonData[] = await fetchGamesJson();
   const tools = fetchToolsJson();
   const jsonLd: JsonLd = {
     name: SITENAME,
@@ -127,8 +127,18 @@ export default async function Home() {
               <div className={styles.name}>
                 <Link href={`/games/${game.slug}`}>{game.name}</Link>
               </div>
-              <div className={styles.size}>{`Screen Size: ${game.size}`}</div>
               <div className={styles.description}>{game.description}</div>
+              <div className={styles.size}>{`Screen Size: ${game.size}`}</div>
+              <div className={styles.date}>
+                <p>
+                  <FontAwesomeIcon icon={faClock} />
+                  {`${game.createdAt}に作成`}
+                </p>
+                <p>
+                  <FontAwesomeIcon icon={faClock} />
+                  {`${game.updatedAt}に更新`}
+                </p>
+              </div>
             </div>
           ))}
         </div>
@@ -158,7 +168,7 @@ export default async function Home() {
   );
 }
 
-function ImageGameThumbnail(game: GameData) {
+function ImageGameThumbnail(game: GameJsonData) {
   const { src, alt, width, height } = getGameThumbnail(game);
   return <img src={src} alt={alt} width={width} height={height} />;
 }
