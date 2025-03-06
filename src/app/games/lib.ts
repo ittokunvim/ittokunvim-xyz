@@ -1,3 +1,5 @@
+import { formatDate } from "@/app/lib"
+
 const GAME_SITE_URL = process.env.GAMESITE_URL || "";
 
 export type JsonData = {
@@ -5,6 +7,8 @@ export type JsonData = {
   name: string;
   description: string;
   size: string;
+  createdAt: string;
+  updatedAt: string;
 };
 
 type GameThumbnail = {
@@ -20,6 +24,17 @@ export async function fetchGamesJson(): Promise<JsonData[]> {
   try {
     const response = await fetch(jsonUrl, { cache: "force-cache" });
     const data = await response.json();
+    data.sort((a: JsonData, b: JsonData) => {
+      if (a.updatedAt === b.updatedAt) {
+        return a.createdAt < b.createdAt ? 1 : -1;
+      } else {
+        return a.updatedAt < b.updatedAt ? 1 : -1;
+      }
+    });
+    data.forEach((game: JsonData) => {
+      game.createdAt = formatDate(game.createdAt);
+      game.updatedAt = formatDate(game.updatedAt);
+    });
     return data;
   } catch (error) {
     console.error(error);
@@ -37,6 +52,8 @@ export async function getGameData(slug: string): Promise<JsonData> {
       name: "",
       description: "",
       size: "",
+      createdAt: "",
+      updatedAt: "",
     };
   }
 
