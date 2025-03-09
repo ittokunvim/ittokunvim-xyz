@@ -25,9 +25,9 @@ import {
   getGameThumbnail,
 } from "./games/lib";
 import { MusicData, getMusicDataAll } from "@/app/music/lib";
-import { JsonLd, JsonLdScript } from "./jsonld";
 
 import MusicList from "@/components/musicList";
+import { JsonLd, JsonLdScript } from "@/components/jsonLdScript";
 
 const SITENAME    = process.env.NEXT_PUBLIC_SITENAME    || "";
 const DESCRIPTION = process.env.NEXT_PUBLIC_DESCRIPTION || "";

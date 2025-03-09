@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { fetchGamesJson, getGameData } from "../lib";
 import styles from "./page.module.css";
 import Game from "./game";
-import { JsonLd, JsonLdScript } from "@/app/jsonld";
+import { JsonLd, JsonLdScript } from "@/components/jsonLdScript";
 
 export const dynamic = "auto";
 export const dynamicParams = false;

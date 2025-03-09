@@ -7,7 +7,7 @@ import "./hljs.css";
 import "./rlc.css";
 import { fetchDocsJson, getDocData } from "../lib";
 import styles from "./page.module.css";
-import { JsonLd, JsonLdScript } from "@/app/jsonld";
+import { JsonLd, JsonLdScript } from "@/components/jsonLdScript";
 
 export const dynamic = "auto";
 export const dynamicParams = false;
