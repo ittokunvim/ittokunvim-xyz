@@ -24,7 +24,10 @@ import {
   fetchGamesJson,
   getGameThumbnail,
 } from "./games/lib";
+import { MusicData, getMusicDataAll } from "@/app/music/lib";
 import { JsonLd, JsonLdScript } from "./jsonld";
+
+import MusicList from "@/components/musicList";
 
 const SITENAME    = process.env.NEXT_PUBLIC_SITENAME    || "";
 const DESCRIPTION = process.env.NEXT_PUBLIC_DESCRIPTION || "";
@@ -33,6 +36,7 @@ export default async function Home() {
   const news = fetchNewsJson();
   const docs: DocJsonData[] = await fetchDocsJson();
   const games: GameJsonData[] = await fetchGamesJson();
+  const music: MusicData[] = await getMusicDataAll();
   const tools = fetchToolsJson();
   const jsonLd: JsonLd = {
     name: SITENAME,
@@ -143,6 +147,7 @@ export default async function Home() {
           ))}
         </div>
       </article>
+      <MusicList music={music}/>
       <article className={styles.tools}>
         <h3>
           <FontAwesomeIcon icon={faToolbox} />

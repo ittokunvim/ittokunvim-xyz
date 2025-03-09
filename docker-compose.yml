@@ -4,8 +4,9 @@ services:
       context: .
       dockerfile: Dockerfile
     depends_on:
-      - games
       - docs
+      - games
+      - music
     env_file:
       - .env.local
     volumes:
@@ -18,22 +19,31 @@ services:
     tty: true
     stdin_open: true
 
-  games:
-    build:
-      context: .
-      dockerfile: Dockerfile.games
-    command: ["npx", "http-server", "-p", "4000", "games/docs"]
-    ports:
-      - "4000:4000"
-    tty: true
-
   docs:
     build:
       context: .
       dockerfile: Dockerfile.docs
-    command: ["npx", "http-server", "-p", "4001", "docs"]
+    command: ["npx", "http-server", "-p", "4000", "docs"]
+    ports:
+      - "4000:4000"
+    tty: true
+
+  games:
+    build:
+      context: .
+      dockerfile: Dockerfile.games
+    command: ["npx", "http-server", "-p", "4001", "games/docs"]
     ports:
       - "4001:4001"
+    tty: true
+
+  music:
+    build:
+      context: .
+      dockerfile: Dockerfile.music
+    command: ["npx", "http-server", "-p", "4002", "music"]
+    ports:
+      - "4002:4002"
     tty: true
 
 volumes:

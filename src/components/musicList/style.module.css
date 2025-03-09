@@ -1,0 +1,67 @@
+.music {
+  padding: 1rem;
+}
+
+.music .list {
+  display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(256px, 1fr));
+	gap: 0.5rem;
+  padding: 1rem 0;
+}
+
+.music .list .item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.5rem;
+  border: 1px solid var(--color-border-primary);
+  border-radius: 0.5rem;
+}
+
+.music .list .item .title {
+  font-size: 1.0rem;
+  color: var(--color-text-link);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.music .list .item .title svg {
+	font-size: 0.8rem;
+	margin-right: 0.5rem;
+}
+
+.music .list .item .artist {
+  font-size: 0.8rem;
+  color: var(--color-text-primary);
+}
+
+.music .list .item .createdAt {
+	font-size: 0.8rem;
+	color: var(--color-text-secondary);
+}
+
+.music .list .item .references {
+	font-size: 0.8rem;
+	padding-left: 0.5rem;
+}
+
+.music .list .item .references summary {
+	color: var(--color-text-primary);
+}
+
+.music .list .item .references summary::marker {
+	color: var(--color-text-secondary);
+}
+
+.music .list .item .references a {
+	display: list-item;
+	list-style-type: disc;
+	color: var(--color-text-link);
+	line-height: 2;
+	margin-left: 1rem;
+}
+
+.music .list .item .references a::marker {
+	color: var(--color-text-secondary);
+}
+
