@@ -25,6 +25,11 @@
   cursor: pointer;
 }
 
+.music .list .item .title svg {
+	font-size: 0.8rem;
+	margin-right: 0.5rem;
+}
+
 .music .list .item .artist {
   font-size: 0.8rem;
   color: var(--color-text-primary);
