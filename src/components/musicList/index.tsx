@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMusic, faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
@@ -10,9 +10,14 @@ import styles from "./style.module.css";
 export default function MusicList(props: { music: MusicData[] }) {
   const music: MusicData[] = props.music;
   const [isPlaying, setIsPlaying] = useState(false);
-  const [audio] = useState(new Audio());
+  const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    setAudio(new Audio());
+  }, []);
 
   const handleClick = (path: string) => {
+    if (!audio) return;
     audio.src = path;
 
     if (!isPlaying) {
@@ -25,6 +30,7 @@ export default function MusicList(props: { music: MusicData[] }) {
   };
 
   const toggleIcon = (path: string) => {
+    if (!audio) return faPlay;
     if (isPlaying && audio.src === encodeURI(path)) {
       return faPause;
     } else {
