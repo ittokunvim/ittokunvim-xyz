@@ -14,7 +14,7 @@ import { faClock } from "@fortawesome/free-regular-svg-icons";
 
 import iconPng from "./icon.png";
 import styles from "./page.module.css";
-import { fetchNewsJson, fetchToolsJson, formatDate } from "./lib";
+import { fetchNewsJson, fetchToolsJson, formatDate } from "@/lib/utils";
 import {
   JsonData as DocJsonData,
   fetchDocsJson,

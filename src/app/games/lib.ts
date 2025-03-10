@@ -1,4 +1,4 @@
-import { formatDate } from "@/app/lib"
+import { formatDate } from "@/lib/utils";
 
 const GAME_SITE_URL = process.env.GAMESITE_URL || "";
 

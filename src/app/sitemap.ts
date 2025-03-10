@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 
 import { fetchDocsJson } from "./docs/lib";
 import { fetchGamesJson } from "./games/lib";
-import toolsJson from "./tools/data.json";
+import toolsJson from "@/lib/tools.json";
 
 const BASE_URL = process.env.BASE_URL;
 

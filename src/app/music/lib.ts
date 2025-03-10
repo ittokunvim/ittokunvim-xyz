@@ -1,4 +1,4 @@
-import { formatDate } from "@/app/lib"
+import { formatDate } from "@/lib/utils"
 
 const MUSICSITE_URL = process.env.MUSICSITE_URL || "";
 const MUSICSITE_JSON_URL = process.env.MUSICSITE_JSON_URL || "";

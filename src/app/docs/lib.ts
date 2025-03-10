@@ -6,7 +6,7 @@ import remarkLinkCard from "remark-link-card";
 import { rehype } from "rehype";
 import rehypeHighlight from "rehype-highlight";
 
-import { formatDate } from "@/app/lib"
+import { formatDate } from "@/lib/utils"
 
 const DOCS_SITE_URL = process.env.DOCSSITE_URL || "";
 
