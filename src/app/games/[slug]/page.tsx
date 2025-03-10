@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 
 import { GameData, getGameSlugAll, getGameData } from "@/lib/games";
 import styles from "./page.module.css";
-import Game from "./game";
+import GameIframe from "@/components/gameIframe";
 import { JsonLd, JsonLdScript } from "@/components/jsonLdScript";
 
 export const dynamic = "auto";
@@ -21,14 +21,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const slug = params.slug;
   const gameData = await getGameData(slug);
   const { name, description } = gameData;
-  const title = name;
   const url = `${BASE_URL}/games/${slug}`;
 
   return {
-    title,
+    title: name,
     description,
     openGraph: {
-      title,
+      title: name,
       description,
       url,
       siteName: SITENAME,
@@ -37,7 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title,
+      title: name,
       description,
       site: "@ittokunvim",
       creator: "@ittokunvim",
@@ -65,7 +64,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
   return (
     <main className={styles.main}>
       <div className={styles.game}>
-        <Game gameData={game} />
+        <GameIframe gameData={game} />
       </div>
       <div className={styles.description}>{description}</div>
       <div className={styles.info}>

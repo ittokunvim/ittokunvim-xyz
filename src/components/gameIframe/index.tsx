@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlay } from "@fortawesome/free-regular-svg-icons";
 
 import { GameData } from "@/lib/games";
-import styles from "./page.module.css";
+import styles from "./style.module.css";
 
 const GAME_SITE_URL = process.env.NEXT_PUBLIC_GAMESITE_URL;
 
@@ -28,10 +28,10 @@ function Iframe({ gameData }: { gameData: GameData }) {
   const [width, height] = size.split("x");
   const iframeURL = GAME_SITE_URL + "/" + slug;
 
-  return <iframe src={iframeURL} width={width} height={height}></iframe>;
+  return <iframe className={styles.iframe} src={iframeURL} width={width} height={height}></iframe>;
 }
 
-export default function Game({ gameData }: { gameData: GameData }) {
+export default function GameIframe({ gameData }: { gameData: GameData }) {
   const [isClicked, setIsClicked] = useState(false);
   const handleClick = () => setIsClicked(true);
 
