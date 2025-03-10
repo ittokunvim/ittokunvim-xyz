@@ -10,7 +10,7 @@ import { faCopyright } from "@fortawesome/free-regular-svg-icons";
 import "./globals.css";
 import "@/config/fontawesome";
 import styles from "./layout.module.css";
-import { GoogleAdCodeSnipet, GoogleAdMetatag } from "./googleads";
+import { GoogleAdsCodeSnipet, GoogleAdsMetatag } from "@/components/googleAds";
 
 const noto_sans_jp = Noto_Sans_JP({ subsets: ["latin"] });
 
@@ -64,8 +64,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <html lang="ja">
-      <GoogleAdCodeSnipet />
-      <GoogleAdMetatag />
       <body className={noto_sans_jp.className}>
         <header className={styles.page_header}>
           <Link href="/">
@@ -103,6 +101,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </footer>
       </body>
+      <GoogleAdsCodeSnipet />
+      <GoogleAdsMetatag />
     </html>
   );
 }

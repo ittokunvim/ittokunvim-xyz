@@ -2,7 +2,7 @@ import Script from "next/script";
 
 const GOOGLEADS_ID = process.env.NEXT_PUBLIC_GOOGLEADS_ID;
 
-export function GoogleAdCodeSnipet() {
+export function GoogleAdsCodeSnipet() {
   if (process.env.NODE_ENV === "production") {
     return (
       <Script
@@ -15,7 +15,7 @@ export function GoogleAdCodeSnipet() {
   }
 }
 
-export function GoogleAdMetatag() {
+export function GoogleAdsMetatag() {
   if (process.env.NODE_ENV === "production") {
     return (
       <meta name="google-adsense-account" content={GOOGLEADS_ID} />
