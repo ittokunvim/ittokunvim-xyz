@@ -19,11 +19,7 @@ import {
   JsonData as DocJsonData,
   fetchDocsJson,
 } from "./docs/lib";
-import {
-  JsonData as GameJsonData,
-  fetchGamesJson,
-  getGameThumbnail,
-} from "./games/lib";
+import { GameData, getGameDataAll, getGameThumbnail } from "./games/lib";
 import { MusicData, getMusicDataAll } from "@/app/music/lib";
 
 import MusicList from "@/components/musicList";
@@ -35,7 +31,7 @@ const DESCRIPTION = process.env.NEXT_PUBLIC_DESCRIPTION || "";
 export default async function Home() {
   const news = fetchNewsJson();
   const docs: DocJsonData[] = await fetchDocsJson();
-  const games: GameJsonData[] = await fetchGamesJson();
+  const games: GameData[] = await getGameDataAll();
   const music: MusicData[] = await getMusicDataAll();
   const tools = fetchToolsJson();
   const jsonLd: JsonLd = {
@@ -127,7 +123,7 @@ export default async function Home() {
         <div className={styles.list}>
           {games.map((game) => (
             <div className={styles.item} key={game.slug}>
-              <div className={styles.thumbnail}>{ImageGameThumbnail(game)}</div>
+              <div className={styles.thumbnail}>{ImageGameThumbnail(game.slug)}</div>
               <div className={styles.name}>
                 <Link href={`/games/${game.slug}`}>{game.name}</Link>
               </div>
@@ -173,7 +169,7 @@ export default async function Home() {
   );
 }
 
-function ImageGameThumbnail(game: GameJsonData) {
-  const { src, alt, width, height } = getGameThumbnail(game);
+function ImageGameThumbnail(slug: string) {
+  const { src, alt, width, height } = getGameThumbnail(slug);
   return <img src={src} alt={alt} width={width} height={height} />;
 }

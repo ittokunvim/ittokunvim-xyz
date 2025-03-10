@@ -102,10 +102,9 @@ export async function getGameData(slug: string): Promise<GameData> {
   return gameData;
 }
 
-export function getGameThumbnail(game: JsonData): GameThumbnail {
-  const { slug } = game;
-  const src = `${GAME_SITE_URL}/images/${slug}.png`;
-  const alt = `${game.slug} thumbnail`;
+export function getGameThumbnail(slug: string): GameThumbnail {
+  const src = `${GAMESITE_URL}/images/${slug}.png`;
+  const alt = `${slug} thumbnail`;
   const [width, height] = ["300", "240"];
 
   return {
