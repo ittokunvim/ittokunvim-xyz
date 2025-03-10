@@ -27,6 +27,7 @@
 }
 
 .game .button svg {
+  color: var(--color-text-link);
   margin-right: 0.2em;
 }
 

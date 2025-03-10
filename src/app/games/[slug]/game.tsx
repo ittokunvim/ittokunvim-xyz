@@ -16,7 +16,7 @@ function Button({ gameData, onButtonClick }: { gameData: GameData; onButtonClick
   return (
     <div className={styles.button} style={{ width, height }}>
       <button onClick={onButtonClick}>
-        <FontAwesomeIcon icon={faCirclePlay} color="dodgerblue" />
+        <FontAwesomeIcon icon={faCirclePlay} />
         Run Game
       </button>
     </div>
