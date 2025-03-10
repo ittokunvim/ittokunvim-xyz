@@ -19,7 +19,7 @@ import {
   JsonData as DocJsonData,
   fetchDocsJson,
 } from "./docs/lib";
-import { GameData, getGameDataAll, getGameThumbnail } from "./games/lib";
+import { GameData, getGameDataAll, getGameThumbnail } from "@/lib/games";
 import { MusicData, getMusicDataAll } from "@/app/music/lib";
 
 import MusicList from "@/components/musicList";

@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 import { fetchDocsJson } from "./docs/lib";
-import { getGameSlugAll } from "./games/lib";
+import { getGameSlugAll } from "@/lib/games";
 import toolsJson from "@/lib/tools.json";
 
 const BASE_URL = process.env.BASE_URL;

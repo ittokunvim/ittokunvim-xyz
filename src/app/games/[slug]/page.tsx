@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { GameData, getGameSlugAll, getGameData } from "../lib";
+import { GameData, getGameSlugAll, getGameData } from "@/lib/games";
 import styles from "./page.module.css";
 import Game from "./game";
 import { JsonLd, JsonLdScript } from "@/components/jsonLdScript";

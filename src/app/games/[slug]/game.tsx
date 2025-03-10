@@ -4,7 +4,7 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlay } from "@fortawesome/free-regular-svg-icons";
 
-import { GameData } from "../lib";
+import { GameData } from "@/lib/games";
 import styles from "./page.module.css";
 
 const GAME_SITE_URL = process.env.NEXT_PUBLIC_GAMESITE_URL;
