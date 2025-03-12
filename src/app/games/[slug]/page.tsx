@@ -20,14 +20,14 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const slug = params.slug;
   const gameData = await getGameData(slug);
-  const { name, description } = gameData;
+  const { title, description } = gameData;
   const url = `${BASE_URL}/games/${slug}`;
 
   return {
-    title: name,
+    title,
     description,
     openGraph: {
-      title: name,
+      title,
       description,
       url,
       siteName: SITENAME,
@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: name,
+      title,
       description,
       site: "@ittokunvim",
       creator: "@ittokunvim",
@@ -54,8 +54,8 @@ export async function generateStaticParams() {
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const game: GameData = await getGameData(params.slug);
-  const { slug, name, description, size, createdAt, updatedAt } = game;
-  const jsonLd: JsonLd = { name, description };
+  const { slug, title, description, size, createdAt, updatedAt } = game;
+  const jsonLd: JsonLd = { name: title, description };
 
   if (slug === "") {
     return notFound();
@@ -72,7 +72,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
           <tbody>
             <tr>
               <th>Title</th>
-              <td>{name}</td>
+              <td>{title}</td>
             </tr>
             <tr>
               <th>Size</th>

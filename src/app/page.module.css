@@ -163,18 +163,18 @@
   object-fit: cover;
 }
 
-.games .list .item .name {
+.games .list .item .title {
   font-size: 0.8rem;
   font-weight: bold;
   line-height: 1.6;
 }
 
-.games .list .item .name a {
+.games .list .item .title a {
   color: black;
   text-decoration: none;
 }
 
-.games .list .item .name a:hover {
+.games .list .item .title a:hover {
   cursor: pointer;
   text-decoration: underline;
 }

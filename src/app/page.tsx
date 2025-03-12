@@ -124,8 +124,8 @@ export default async function Home() {
           {games.map((game) => (
             <div className={styles.item} key={game.slug}>
               <div className={styles.thumbnail}>{ImageGameThumbnail(game.slug)}</div>
-              <div className={styles.name}>
-                <Link href={`/games/${game.slug}`}>{game.name}</Link>
+              <div className={styles.title}>
+                <Link href={`/games/${game.slug}`}>{game.title}</Link>
               </div>
               <div className={styles.description}>{game.description}</div>
               <div className={styles.size}>{`Screen Size: ${game.size}`}</div>

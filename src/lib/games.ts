@@ -5,7 +5,7 @@ const GAMESITE_JSON_URL = process.env.GAMESITE_JSON_URL || "";
 
 type JsonData = {
   slug: string;
-  name: string;
+  title: string;
   description: string;
   size: string;
   createdAt: string;
@@ -14,7 +14,7 @@ type JsonData = {
 
 export type GameData = {
   slug: string;
-  name: string;
+  title: string;
   description: string;
   size: string;
   createdAt: string;
@@ -43,7 +43,7 @@ export async function getGameDataAll(): Promise<GameData[]> {
   const games = await fetchGamesJson();
   let gamesData: GameData[] = [{
     slug: "",
-    name: "",
+    title: "",
     description: "",
     size: "",
     createdAt: "",
@@ -59,13 +59,13 @@ export async function getGameDataAll(): Promise<GameData[]> {
   });
   gamesData = games.map((game: JsonData) => {
     const slug = game.slug;
-    const name = game.name;
+    const title = game.title;
     const description = game.description;
     const size = game.size;
     const createdAt = formatDate(game.createdAt);
     const updatedAt = formatDate(game.updatedAt);
 
-    return { slug, name, description, size, createdAt, updatedAt };
+    return { slug, title, description, size, createdAt, updatedAt };
   });
 
   return gamesData;
@@ -81,7 +81,7 @@ export async function getGameData(slug: string): Promise<GameData> {
   const gameJson = games.find((game: JsonData) => game.slug === slug);
   let gameData: GameData = {
     slug: "",
-    name: "",
+    title: "",
     description: "",
     size: "",
     createdAt: "",
@@ -93,7 +93,7 @@ export async function getGameData(slug: string): Promise<GameData> {
   }
 
   gameData.slug = gameJson.slug;
-  gameData.name = gameJson.name;
+  gameData.title = gameJson.title;
   gameData.description = gameJson.description;
   gameData.size = gameJson.size;
   gameData.createdAt = formatDate(gameJson.createdAt);
