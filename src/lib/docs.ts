@@ -8,9 +8,10 @@ import rehypeHighlight from "rehype-highlight";
 
 import { formatDate } from "@/lib/utils"
 
-const DOCS_SITE_URL = process.env.DOCSSITE_URL || "";
+const DOCSSITE_URL = process.env.DOCSSITE_URL || "";
+const DOCSSITE_JSON_URL = process.env.DOCSSITE_JSON_URL || "";
 
-export type JsonData = {
+type JsonData = {
   slug: string;
   title: string;
   description: string,
@@ -19,30 +20,26 @@ export type JsonData = {
   updatedAt: string;
 };
 
-type DocData = {
+export type DocData = {
+  href: string;
   title: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type DocContentData = {
+  title: string;
+  description: string;
   contentHtml: string;
   createdAt: string;
   updatedAt: string;
 };
 
-export async function fetchDocsJson(): Promise<JsonData[]> {
-  const jsonUrl = `${DOCS_SITE_URL}/data.json`;
-
+async function fetchDocsJson(): Promise<JsonData[]> {
   try {
-    const response = await fetch(jsonUrl, { cache: "force-cache" });
+    const response = await fetch(DOCSSITE_JSON_URL, { cache: "force-cache" });
     const data = await response.json();
-    data.sort((a: JsonData, b: JsonData) => {
-      if (a.updatedAt === b.updatedAt) {
-        return a.createdAt < b.createdAt ? 1 : -1;
-      } else {
-        return a.updatedAt < b.updatedAt ? 1 : -1;
-      }
-    });
-    data.forEach((doc: JsonData) => {
-      doc.createdAt = formatDate(doc.createdAt);
-      doc.updatedAt = formatDate(doc.updatedAt);
-    });
     return data;
   } catch (error) {
     console.error(error);
@@ -50,34 +47,75 @@ export async function fetchDocsJson(): Promise<JsonData[]> {
   }
 }
 
-export async function getDocData(slug: string): Promise<DocData> {
+export async function getDocDataAll(): Promise<DocData[]> {
   const docs = await fetchDocsJson();
-  const jsonData = docs.find((doc: JsonData) => doc.slug === slug);
-  const emptyDoc: DocData = {
+  let docDataList: DocData[] = [{
+    href: "",
     title: "",
+    description: "",
+    createdAt: "",
+    updatedAt: "",
+  }];
+
+  if (docs === undefined) {
+    return docDataList;
+  }
+
+  docs.sort((a: JsonData, b: JsonData) => {
+    if (a.updatedAt === b.updatedAt) {
+      return a.createdAt < b.createdAt ? 1 : -1;
+    } else {
+      return a.updatedAt < b.updatedAt ? 1 : -1;
+    }
+  });
+  docDataList = docs.map((doc: JsonData) => {
+    const href = `/docs/${doc.slug}`;
+    const title = doc.title;
+    const description = doc.description;
+    const createdAt = formatDate(doc.createdAt);
+    const updatedAt = formatDate(doc.updatedAt);
+
+    return { href, title, description, createdAt, updatedAt, };
+  });
+
+   return docDataList;
+}
+
+export async function getDocSlugAll(): Promise<string[]> {
+  const docs = await fetchDocsJson();
+  return docs.map((doc: JsonData) => doc.slug);
+}
+
+export async function getDocData(slug: string): Promise<DocContentData> {
+  const docs = await fetchDocsJson();
+  const doc = docs.find((doc: JsonData) => doc.slug === slug);
+  const docData: DocContentData = {
+    title: "",
+    description: "",
     contentHtml: "",
     createdAt: "",
     updatedAt: "",
   };
 
-  if (jsonData === undefined) {
-    return emptyDoc;
+  if (doc === undefined) {
+    return docData;
   }
 
-  const title = jsonData.title;
-  const contentHtml = await getDocContentHtml(jsonData.path);
-  const createdAt = jsonData.createdAt;
-  const updatedAt = jsonData.updatedAt;
+  const title = doc.title;
+  const description = doc.description;
+  const contentHtml = await getDocContentHtml(doc.path);
+  const createdAt = doc.createdAt;
+  const updatedAt = doc.updatedAt;
 
   if (contentHtml === "") {
-    return emptyDoc;
+    return docData;
   }
 
-  return { title, contentHtml, createdAt, updatedAt, };
+  return { title, description, contentHtml, createdAt, updatedAt, };
 }
 
 async function getDocContentHtml(path: string): Promise<string> {
-  const absoluteUrl = new URL(path, DOCS_SITE_URL);
+  const absoluteUrl = new URL(path, DOCSSITE_URL);
   const content = await fetch(absoluteUrl.href, { cache: "force-cache" })
     .then((res) => res.text())
     .then((text) => replaceRelativeUrlToAbsoluteUrl(path, text))
@@ -104,7 +142,7 @@ async function getDocContentHtml(path: string): Promise<string> {
 function replaceRelativeUrlToAbsoluteUrl(path: string, content: string): string {
   const splitPath = path.split("/");
   const excludeFilenamePath = splitPath.slice(0, splitPath.length - 1).join("/");
-  const absoluteUrl = new URL(excludeFilenamePath, DOCS_SITE_URL);
+  const absoluteUrl = new URL(excludeFilenamePath, DOCSSITE_URL);
 
   const relativeImageRegex = /!?\[[^\]]+\]\((?!https|ftp:\/\/)[^\)]+\)/g
   const imageUrlRegex = /\]\(([^)]+)\)/
