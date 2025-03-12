@@ -4,41 +4,41 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlay } from "@fortawesome/free-regular-svg-icons";
 
-import { JsonData } from "../lib";
-import styles from "./page.module.css";
+import { GameData } from "@/lib/games";
+import styles from "./style.module.css";
 
 const GAME_SITE_URL = process.env.NEXT_PUBLIC_GAMESITE_URL;
 
-function RunGameButton({ gameData, onButtonClick }: { gameData: JsonData; onButtonClick: () => void }) {
+function Button({ gameData, onButtonClick }: { gameData: GameData; onButtonClick: () => void }) {
   const { size } = gameData;
   const [width, height] = size.split("x").map((n) => Number(n));
 
   return (
     <div className={styles.button} style={{ width, height }}>
       <button onClick={onButtonClick}>
-        <FontAwesomeIcon icon={faCirclePlay} color="dodgerblue" />
+        <FontAwesomeIcon icon={faCirclePlay} />
         Run Game
       </button>
     </div>
   );
 }
 
-function GameIframe({ gameData }: { gameData: JsonData }) {
+function Iframe({ gameData }: { gameData: GameData }) {
   const { slug, size, } = gameData;
   const [width, height] = size.split("x");
   const iframeURL = GAME_SITE_URL + "/" + slug;
 
-  return <iframe src={iframeURL} width={width} height={height}></iframe>;
+  return <iframe className={styles.iframe} src={iframeURL} width={width} height={height}></iframe>;
 }
 
-export default function Game({ gameData }: { gameData: JsonData }) {
+export default function GameIframe({ gameData }: { gameData: GameData }) {
   const [isClicked, setIsClicked] = useState(false);
   const handleClick = () => setIsClicked(true);
 
   return (
     <>
-      {!isClicked && <RunGameButton gameData={gameData} onButtonClick={() => handleClick()} />}
-      <GameIframe gameData={gameData} />
+      {!isClicked && <Button gameData={gameData} onButtonClick={handleClick} />}
+      <Iframe gameData={gameData} />
     </>
   );
 }

@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
-import { fetchDocsJson } from "./docs/lib";
-import { fetchGamesJson } from "./games/lib";
+import { getDocSlugAll } from "@/lib/docs";
+import { getGameSlugAll } from "@/lib/games";
 import toolsJson from "@/lib/tools.json";
 
 const BASE_URL = process.env.BASE_URL;
@@ -12,8 +12,8 @@ type Sitemap = {
 };
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const docs = await fetchDocsJson();
-  const games = await fetchGamesJson();
+  const doc_slugs = await getDocSlugAll();
+  const game_slugs = await getGameSlugAll();
 
   const sitemap = (url: string) => {
     return {
@@ -25,9 +25,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     sitemap(`${BASE_URL}/`),
     sitemap(`${BASE_URL}/nextjs`),
   ];
-  const docsPage: Sitemap[] = docs.map((doc) => sitemap(`${BASE_URL}/docs/${doc.slug}`));
-  const gamesPage: Sitemap[] = games.map((game) => sitemap(`${BASE_URL}/games/${game.slug}`));
+  const docPages: Sitemap[] = doc_slugs.map((slug) => {
+    return sitemap(`${BASE_URL}/docs/${slug}`);
+  });
+  const gamePages: Sitemap[] = game_slugs.map((slug) => {
+    return sitemap(`${BASE_URL}/games/${slug}`);
+  });
   const toolsPage: Sitemap[] = toolsJson.map((tool) => sitemap(`${BASE_URL}/tools/${tool.slug}`));
 
-  return [...routes, ...docsPage, ...gamesPage, ...toolsPage];
+  return [...routes, ...docPages, ...gamePages, ...toolsPage];
 }

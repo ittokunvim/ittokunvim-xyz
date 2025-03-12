@@ -6,26 +6,19 @@ import {
   faInfoCircle,
   faAddressCard,
   faNewspaper,
-  faGamepad,
   faToolbox,
-  faPencil,
 } from "@fortawesome/free-solid-svg-icons";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 
 import iconPng from "./icon.png";
 import styles from "./page.module.css";
 import { fetchNewsJson, fetchToolsJson, formatDate } from "@/lib/utils";
-import {
-  JsonData as DocJsonData,
-  fetchDocsJson,
-} from "./docs/lib";
-import {
-  JsonData as GameJsonData,
-  fetchGamesJson,
-  getGameThumbnail,
-} from "./games/lib";
+import { DocData, getDocDataAll } from "@/lib/docs";
+import { GameData, getGameDataAll } from "@/lib/games";
 import { MusicData, getMusicDataAll } from "@/lib/music";
 
+import DocList from "@/components/DocList";
+import GameList from "@/components/gameList";
 import MusicList from "@/components/musicList";
 import { JsonLd, JsonLdScript } from "@/components/jsonLdScript";
 
@@ -34,8 +27,8 @@ const DESCRIPTION = process.env.NEXT_PUBLIC_DESCRIPTION || "";
 
 export default async function Home() {
   const news = fetchNewsJson();
-  const docs: DocJsonData[] = await fetchDocsJson();
-  const games: GameJsonData[] = await fetchGamesJson();
+  const docs: DocData[] = await getDocDataAll();
+  const games: GameData[] = await getGameDataAll();
   const music: MusicData[] = await getMusicDataAll();
   const tools = fetchToolsJson();
   const jsonLd: JsonLd = {
@@ -99,54 +92,8 @@ export default async function Home() {
           ))}
         </div>
       </article>
-      <article className={styles.docs}>
-        <h3>
-          <FontAwesomeIcon icon={faPencil} />
-          記事一覧
-        </h3>
-        <div className={styles.list}>
-          {docs.map((doc) => (
-            <div className={styles.item} key={doc.slug}>
-              <div className={styles.title}>
-                <Link href={`/docs/${doc.slug}`}>{doc.title}</Link>
-              </div>
-              <div className={styles.description}>{doc.description}</div>
-              <div className={styles.date}>
-                <FontAwesomeIcon icon={faClock} />
-                {`${doc.createdAt}に作成 ${doc.updatedAt}に更新`}
-              </div>
-            </div>
-          ))}
-        </div>
-      </article>
-      <article className={styles.games}>
-        <h3>
-          <FontAwesomeIcon icon={faGamepad} />
-          ゲーム一覧
-        </h3>
-        <div className={styles.list}>
-          {games.map((game) => (
-            <div className={styles.item} key={game.slug}>
-              <div className={styles.thumbnail}>{ImageGameThumbnail(game)}</div>
-              <div className={styles.name}>
-                <Link href={`/games/${game.slug}`}>{game.name}</Link>
-              </div>
-              <div className={styles.description}>{game.description}</div>
-              <div className={styles.size}>{`Screen Size: ${game.size}`}</div>
-              <div className={styles.date}>
-                <p>
-                  <FontAwesomeIcon icon={faClock} />
-                  {`${game.createdAt}に作成`}
-                </p>
-                <p>
-                  <FontAwesomeIcon icon={faClock} />
-                  {`${game.updatedAt}に更新`}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </article>
+      <DocList docs={docs} />
+      <GameList games={games} />
       <MusicList music={music}/>
       <article className={styles.tools}>
         <h3>
@@ -171,9 +118,4 @@ export default async function Home() {
       <JsonLdScript data={jsonLd} />
     </main>
   );
-}
-
-function ImageGameThumbnail(game: GameJsonData) {
-  const { src, alt, width, height } = getGameThumbnail(game);
-  return <img src={src} alt={alt} width={width} height={height} />;
 }
