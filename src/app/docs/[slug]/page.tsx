@@ -5,7 +5,7 @@ import { faClock } from "@fortawesome/free-regular-svg-icons";
 
 import "./hljs.css";
 import "./rlc.css";
-import { fetchDocsJson, getDocData } from "@/lib/docs";
+import { getDocSlugAll, getDocData } from "@/lib/docs";
 import styles from "./page.module.css";
 import { JsonLd, JsonLdScript } from "@/components/jsonLdScript";
 
@@ -23,8 +23,7 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const slug = params.slug;
   const docData = await getDocData(slug);
-  const { title } = docData;
-  const description = "この記事は、ittokunvimによって書かれています";
+  const { title, description } = docData;
   const url = `${BASE_URL}/docs/${slug}`;
 
   return {
@@ -52,21 +51,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  const docs = await fetchDocsJson();
-
-  return docs.map((doc) => ({
-    slug: doc.slug,
-  }));
+  const doc_slugs = await getDocSlugAll();
+  return doc_slugs.map((slug) => ({ slug: slug,  }));
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const docData = await getDocData(params.slug);
   const { title, createdAt, updatedAt, contentHtml } = docData;
   const jsonLd: JsonLd = {
-    name: `${docData?.title}`,
-    description: "この記事は、ittokunvimによって書かれています",
+    name: docData.title,
+    description: docData.description,
   };
-  const date = `${createdAt}に作成 ${updatedAt}に更新`;
 
   if (title === "") {
     return notFound();
@@ -78,7 +73,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
         <div className={styles.title}>{docData.title}</div>
         <div className={styles.date}>
           <FontAwesomeIcon icon={faClock} />
-          {date}
+          {`${createdAt}に作成 ${updatedAt}に更新`}
         </div>
         <div className={styles.content_html} dangerouslySetInnerHTML={{ __html: contentHtml }} />
       </article>

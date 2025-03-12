@@ -15,10 +15,7 @@ import { faClock } from "@fortawesome/free-regular-svg-icons";
 import iconPng from "./icon.png";
 import styles from "./page.module.css";
 import { fetchNewsJson, fetchToolsJson, formatDate } from "@/lib/utils";
-import {
-  JsonData as DocJsonData,
-  fetchDocsJson,
-} from "@/lib/docs";
+import { DocData, getDocDataAll } from "@/lib/docs";
 import {
   JsonData as GameJsonData,
   fetchGamesJson,
@@ -34,7 +31,7 @@ const DESCRIPTION = process.env.NEXT_PUBLIC_DESCRIPTION || "";
 
 export default async function Home() {
   const news = fetchNewsJson();
-  const docs: DocJsonData[] = await fetchDocsJson();
+  const docs: DocData[] = await getDocDataAll();
   const games: GameJsonData[] = await fetchGamesJson();
   const music: MusicData[] = await getMusicDataAll();
   const tools = fetchToolsJson();
@@ -106,9 +103,9 @@ export default async function Home() {
         </h3>
         <div className={styles.list}>
           {docs.map((doc) => (
-            <div className={styles.item} key={doc.slug}>
+            <div className={styles.item} key={doc.href}>
               <div className={styles.title}>
-                <Link href={`/docs/${doc.slug}`}>{doc.title}</Link>
+                <Link href={doc.href}>{doc.title}</Link>
               </div>
               <div className={styles.description}>{doc.description}</div>
               <div className={styles.date}>
