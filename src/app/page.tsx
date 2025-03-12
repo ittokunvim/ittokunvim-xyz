@@ -8,17 +8,13 @@ import {
   faNewspaper,
   faGamepad,
   faToolbox,
-  faPencil,
 } from "@fortawesome/free-solid-svg-icons";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 
 import iconPng from "./icon.png";
 import styles from "./page.module.css";
 import { fetchNewsJson, fetchToolsJson, formatDate } from "@/lib/utils";
-import {
-  JsonData as DocJsonData,
-  fetchDocsJson,
-} from "./docs/lib";
+import { DocData, getDocDataAll } from "@/lib/docs";
 import {
   JsonData as GameJsonData,
   fetchGamesJson,
@@ -26,6 +22,7 @@ import {
 } from "./games/lib";
 import { MusicData, getMusicDataAll } from "@/app/music/lib";
 
+import DocList from "@/components/DocList";
 import MusicList from "@/components/musicList";
 import { JsonLd, JsonLdScript } from "@/components/jsonLdScript";
 
@@ -34,7 +31,7 @@ const DESCRIPTION = process.env.NEXT_PUBLIC_DESCRIPTION || "";
 
 export default async function Home() {
   const news = fetchNewsJson();
-  const docs: DocJsonData[] = await fetchDocsJson();
+  const docs: DocData[] = await getDocDataAll();
   const games: GameJsonData[] = await fetchGamesJson();
   const music: MusicData[] = await getMusicDataAll();
   const tools = fetchToolsJson();
@@ -99,26 +96,7 @@ export default async function Home() {
           ))}
         </div>
       </article>
-      <article className={styles.docs}>
-        <h3>
-          <FontAwesomeIcon icon={faPencil} />
-          記事一覧
-        </h3>
-        <div className={styles.list}>
-          {docs.map((doc) => (
-            <div className={styles.item} key={doc.slug}>
-              <div className={styles.title}>
-                <Link href={`/docs/${doc.slug}`}>{doc.title}</Link>
-              </div>
-              <div className={styles.description}>{doc.description}</div>
-              <div className={styles.date}>
-                <FontAwesomeIcon icon={faClock} />
-                {`${doc.createdAt}に作成 ${doc.updatedAt}に更新`}
-              </div>
-            </div>
-          ))}
-        </div>
-      </article>
+      <DocList docs={docs} />
       <article className={styles.games}>
         <h3>
           <FontAwesomeIcon icon={faGamepad} />
