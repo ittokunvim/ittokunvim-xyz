@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMusic, faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
-import { MusicData } from "@/app/music/lib";
+import { MusicData } from "@/lib/music";
 import styles from "./style.module.css";
 
 export default function MusicList(props: { music: MusicData[] }) {
