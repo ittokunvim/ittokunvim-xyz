@@ -83,59 +83,6 @@
   margin-right: 0.25rem;
 }
 
-.docs {
-  padding: 1rem;
-}
-
-.docs .list {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.docs .list .item {
-  width: 100%;
-  border-bottom: 1px solid var(--color-border-primary);
-  padding: 1rem 0;
-}
-
-.docs .list .item:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
-}
-
-.docs .list .item .title {
-  font-size: 1rem;
-}
-
-.docs .list .item .title a {
-  text-decoration: none;
-  font-weight: bold;
-  color: var(--color-text-primary);
-}
-
-.docs .list .item .title a:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-
-.docs .list .item .description {
-  font-size: 0.8rem;
-  color: var(--color-text-secondary);
-  overflow: hidden;
-  text-wrap: nowrap;
-  text-overflow: ellipsis;
-}
-
-.docs .list .item .date {
-  font-size: 0.75rem;
-  color: var(--color-text-secondary);
-  word-spacing: 8px;
-}
-
-.docs .list .item .date svg {
-  margin-right: 0.25rem;
-}
-
 .games {
   padding: 1rem;
 }

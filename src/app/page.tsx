@@ -8,7 +8,6 @@ import {
   faNewspaper,
   faGamepad,
   faToolbox,
-  faPencil,
 } from "@fortawesome/free-solid-svg-icons";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 
@@ -23,6 +22,7 @@ import {
 } from "./games/lib";
 import { MusicData, getMusicDataAll } from "@/app/music/lib";
 
+import DocList from "@/components/DocList";
 import MusicList from "@/components/musicList";
 import { JsonLd, JsonLdScript } from "@/components/jsonLdScript";
 
@@ -96,26 +96,7 @@ export default async function Home() {
           ))}
         </div>
       </article>
-      <article className={styles.docs}>
-        <h3>
-          <FontAwesomeIcon icon={faPencil} />
-          記事一覧
-        </h3>
-        <div className={styles.list}>
-          {docs.map((doc) => (
-            <div className={styles.item} key={doc.href}>
-              <div className={styles.title}>
-                <Link href={doc.href}>{doc.title}</Link>
-              </div>
-              <div className={styles.description}>{doc.description}</div>
-              <div className={styles.date}>
-                <FontAwesomeIcon icon={faClock} />
-                {`${doc.createdAt}に作成 ${doc.updatedAt}に更新`}
-              </div>
-            </div>
-          ))}
-        </div>
-      </article>
+      <DocList docs={docs} />
       <article className={styles.games}>
         <h3>
           <FontAwesomeIcon icon={faGamepad} />
