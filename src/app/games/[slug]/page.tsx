@@ -48,8 +48,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  const games_slug = await getGameSlugAll();
-  return games_slug.map((slug) => ({ slug: slug }));
+  const game_slugs = await getGameSlugAll();
+  return game_slugs.map((slug) => ({ slug: slug }));
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
