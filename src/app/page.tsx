@@ -6,7 +6,6 @@ import {
   faInfoCircle,
   faAddressCard,
   faNewspaper,
-  faGamepad,
   faToolbox,
   faPencil,
 } from "@fortawesome/free-solid-svg-icons";
@@ -19,9 +18,10 @@ import {
   JsonData as DocJsonData,
   fetchDocsJson,
 } from "./docs/lib";
-import { GameData, getGameDataAll, getGameThumbnail } from "@/lib/games";
+import { GameData, getGameDataAll } from "@/lib/games";
 import { MusicData, getMusicDataAll } from "@/app/music/lib";
 
+import GameList from "@/components/gameList";
 import MusicList from "@/components/musicList";
 import { JsonLd, JsonLdScript } from "@/components/jsonLdScript";
 
@@ -115,34 +115,7 @@ export default async function Home() {
           ))}
         </div>
       </article>
-      <article className={styles.games}>
-        <h3>
-          <FontAwesomeIcon icon={faGamepad} />
-          ゲーム一覧
-        </h3>
-        <div className={styles.list}>
-          {games.map((game) => (
-            <div className={styles.item} key={game.slug}>
-              <div className={styles.thumbnail}>{ImageGameThumbnail(game.slug)}</div>
-              <div className={styles.title}>
-                <Link href={`/games/${game.slug}`}>{game.title}</Link>
-              </div>
-              <div className={styles.description}>{game.description}</div>
-              <div className={styles.size}>{`Screen Size: ${game.size}`}</div>
-              <div className={styles.date}>
-                <p>
-                  <FontAwesomeIcon icon={faClock} />
-                  {`${game.createdAt}に作成`}
-                </p>
-                <p>
-                  <FontAwesomeIcon icon={faClock} />
-                  {`${game.updatedAt}に更新`}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </article>
+      <GameList games={games} />
       <MusicList music={music}/>
       <article className={styles.tools}>
         <h3>
@@ -169,7 +142,3 @@ export default async function Home() {
   );
 }
 
-function ImageGameThumbnail(slug: string) {
-  const { src, alt, width, height } = getGameThumbnail(slug);
-  return <img src={src} alt={alt} width={width} height={height} />;
-}
