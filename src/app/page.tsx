@@ -18,7 +18,7 @@ import { fetchNewsJson, fetchToolsJson, formatDate } from "@/lib/utils";
 import {
   JsonData as DocJsonData,
   fetchDocsJson,
-} from "./docs/lib";
+} from "@/lib/docs";
 import {
   JsonData as GameJsonData,
   fetchGamesJson,

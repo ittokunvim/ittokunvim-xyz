@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 
-import { fetchDocsJson } from "./docs/lib";
+import { fetchDocsJson } from "@/lib/docs";
 import { fetchGamesJson } from "./games/lib";
 import toolsJson from "@/lib/tools.json";
 

@@ -5,7 +5,7 @@ import { faClock } from "@fortawesome/free-regular-svg-icons";
 
 import "./hljs.css";
 import "./rlc.css";
-import { fetchDocsJson, getDocData } from "../lib";
+import { fetchDocsJson, getDocData } from "@/lib/docs";
 import styles from "./page.module.css";
 import { JsonLd, JsonLdScript } from "@/components/jsonLdScript";
 
