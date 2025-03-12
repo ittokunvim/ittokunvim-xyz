@@ -6,7 +6,6 @@ import {
   faInfoCircle,
   faAddressCard,
   faNewspaper,
-  faGamepad,
   faToolbox,
 } from "@fortawesome/free-solid-svg-icons";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
@@ -15,14 +14,11 @@ import iconPng from "./icon.png";
 import styles from "./page.module.css";
 import { fetchNewsJson, fetchToolsJson, formatDate } from "@/lib/utils";
 import { DocData, getDocDataAll } from "@/lib/docs";
-import {
-  JsonData as GameJsonData,
-  fetchGamesJson,
-  getGameThumbnail,
-} from "./games/lib";
+import { GameData, getGameDataAll } from "@/lib/games";
 import { MusicData, getMusicDataAll } from "@/app/music/lib";
 
 import DocList from "@/components/DocList";
+import GameList from "@/components/gameList";
 import MusicList from "@/components/musicList";
 import { JsonLd, JsonLdScript } from "@/components/jsonLdScript";
 
@@ -32,7 +28,7 @@ const DESCRIPTION = process.env.NEXT_PUBLIC_DESCRIPTION || "";
 export default async function Home() {
   const news = fetchNewsJson();
   const docs: DocData[] = await getDocDataAll();
-  const games: GameJsonData[] = await fetchGamesJson();
+  const games: GameData[] = await getGameDataAll();
   const music: MusicData[] = await getMusicDataAll();
   const tools = fetchToolsJson();
   const jsonLd: JsonLd = {
@@ -97,34 +93,7 @@ export default async function Home() {
         </div>
       </article>
       <DocList docs={docs} />
-      <article className={styles.games}>
-        <h3>
-          <FontAwesomeIcon icon={faGamepad} />
-          ゲーム一覧
-        </h3>
-        <div className={styles.list}>
-          {games.map((game) => (
-            <div className={styles.item} key={game.slug}>
-              <div className={styles.thumbnail}>{ImageGameThumbnail(game)}</div>
-              <div className={styles.name}>
-                <Link href={`/games/${game.slug}`}>{game.name}</Link>
-              </div>
-              <div className={styles.description}>{game.description}</div>
-              <div className={styles.size}>{`Screen Size: ${game.size}`}</div>
-              <div className={styles.date}>
-                <p>
-                  <FontAwesomeIcon icon={faClock} />
-                  {`${game.createdAt}に作成`}
-                </p>
-                <p>
-                  <FontAwesomeIcon icon={faClock} />
-                  {`${game.updatedAt}に更新`}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </article>
+      <GameList games={games} />
       <MusicList music={music}/>
       <article className={styles.tools}>
         <h3>
@@ -149,9 +118,4 @@ export default async function Home() {
       <JsonLdScript data={jsonLd} />
     </main>
   );
-}
-
-function ImageGameThumbnail(game: GameJsonData) {
-  const { src, alt, width, height } = getGameThumbnail(game);
-  return <img src={src} alt={alt} width={width} height={height} />;
 }

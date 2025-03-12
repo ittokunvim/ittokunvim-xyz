@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { fetchGamesJson, getGameData } from "../lib";
+import { GameData, getGameSlugAll, getGameData } from "@/lib/games";
 import styles from "./page.module.css";
-import Game from "./game";
+import GameIframe from "@/components/gameIframe";
 import { JsonLd, JsonLdScript } from "@/components/jsonLdScript";
 
 export const dynamic = "auto";
@@ -20,8 +20,7 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const slug = params.slug;
   const gameData = await getGameData(slug);
-  const { name, description } = gameData;
-  const title = name;
+  const { title, description } = gameData;
   const url = `${BASE_URL}/games/${slug}`;
 
   return {
@@ -49,17 +48,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  const games = await fetchGamesJson();
-
-  return games.map((game) => ({
-    slug: game.slug,
-  }));
+  const game_slugs = await getGameSlugAll();
+  return game_slugs.map((slug) => ({ slug: slug }));
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
-  const game = await getGameData(params.slug);
-  const { slug, name, description, size, createdAt, updatedAt } = game;
-  const jsonLd: JsonLd = { name, description };
+  const game: GameData = await getGameData(params.slug);
+  const { slug, title, description, size, createdAt, updatedAt } = game;
+  const jsonLd: JsonLd = { name: title, description };
 
   if (slug === "") {
     return notFound();
@@ -68,7 +64,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
   return (
     <main className={styles.main}>
       <div className={styles.game}>
-        <Game gameData={game} />
+        <GameIframe gameData={game} />
       </div>
       <div className={styles.description}>{description}</div>
       <div className={styles.info}>
@@ -76,7 +72,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
           <tbody>
             <tr>
               <th>Title</th>
-              <td>{name}</td>
+              <td>{title}</td>
             </tr>
             <tr>
               <th>Size</th>

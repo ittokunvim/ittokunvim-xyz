@@ -1,0 +1,33 @@
+.button {
+  display: inline-flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-background-tertiary);
+  margin: 0 auto;
+}
+
+.button button {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--color-text-secondary);
+  background-color: var(--color-background-lightgray);
+  padding: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+}
+
+.button button:hover {
+  opacity: 0.8;
+}
+
+.button svg {
+  color: var(--color-text-link);
+  margin-right: 0.2em;
+}
+
+.iframe {
+  border: none;
+}
+
+
