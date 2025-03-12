@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 
-import "./hljs.css";
-import "./rlc.css";
+import "@/lib/hljs.css";
+import "@/lib/rlc.css";
 import { getDocSlugAll, getDocData } from "@/lib/docs";
-import styles from "./page.module.css";
 import { JsonLd, JsonLdScript } from "@/components/jsonLdScript";
+import styles from "./page.module.css";
 
 export const dynamic = "auto";
 export const dynamicParams = false;
@@ -52,7 +53,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export async function generateStaticParams() {
   const doc_slugs = await getDocSlugAll();
-  return doc_slugs.map((slug) => ({ slug: slug,  }));
+  return doc_slugs.map((slug) => ({ slug: slug }));
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
