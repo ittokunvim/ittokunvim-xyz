@@ -29,7 +29,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     return sitemap(`${BASE_URL}/docs/${slug}`);
   });
   const gamePages: Sitemap[] = game_slugs.map((slug) => {
-    return sitemap(`${BASE_URL}/games/${slug}`));
+    return sitemap(`${BASE_URL}/games/${slug}`);
   });
   const toolsPage: Sitemap[] = toolsJson.map((tool) => sitemap(`${BASE_URL}/tools/${tool.slug}`));
 
