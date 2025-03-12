@@ -2,14 +2,28 @@
 
 `ittokunvim-xyz`はittokunvimが公開しているWebサイトです
 
-## 準備
+## はじめに
 
-このプロジェクトを立ち上げるためには`Docker`が必要になります。
-以下のURLにアクセスしてインストールしましょう。
+サイトを立ち上げる前に以下のアプリケーションが必要です。
 
-[Docker](https://www.docker.com/)
+- [Docker](https://www.docker.com/)
 
-次に環境変数を設定するために、`.env.local`ファイルを作成します。
+次は`Docker`ビルド時に`SSH`キーが必要になります。
+以下のコマンドと記事を参考にしながら`SSH`キーを作成していきます。
+
+```sh
+# SSHキーを作成
+$ ssh-keygen -t ed25519
+# SSHキーを追加(mac専用)
+$ ssh-add --apple-use-keychain ~/.ssh/github
+# 接続を確認
+$ ssh -T github
+
+# 参考URL
+# https://zenn.dev/schnell/articles/0e1c2e9db5c08d
+```
+
+次は環境変数の設定です。`.env.local`ファイルを作成して値を書いていきます。
 見本として`.env.example`ファイルを作成しているので、これを参考に変数を設定します。
 
 以下のコマンドを実行するとスムーズに設定することが可能です。
@@ -21,20 +35,9 @@ cp .env.example .env.local
 make echo_ip
 ```
 
-最後に`Docker`でビルドする際に、リポジトリをクローンする処理の時にGitHubのSSHキーが必要になります。
+これで準備は完了です！
 
-以下にGitHubにSSHキーを設定する方法について書かれているドキュメントのURLを載せていますので、
-そちらを参考にしてキーの設定を行うと良いでしょう。
-
-https://zenn.dev/schnell/articles/0e1c2e9db5c08d
-
-https://zenn.dev/ryo_f/articles/27f223203481ef
-
-これで準備は整いました！お疲れ様です！
-
-## プロジェクトを立ち上げる
-
-では`Docker`を使用してビルドをして、サーバーを立ち上げてみましょう！
+以下のコマンドを実行してサイトを立ち上げてみましょう！
 
 ```bash
 # ビルド
@@ -43,7 +46,7 @@ make build
 make up
 ```
 
-これでプロジェクトが動作するはずです。以下のURLにアクセスして確認してみましょう！
+以下のURLにアクセスすることができれば成功です！
 
 http://localhost:3000
 
