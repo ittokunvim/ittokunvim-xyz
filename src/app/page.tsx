@@ -15,7 +15,7 @@ import styles from "./page.module.css";
 import { fetchNewsJson, fetchToolsJson, formatDate } from "@/lib/utils";
 import { DocData, getDocDataAll } from "@/lib/docs";
 import { GameData, getGameDataAll } from "@/lib/games";
-import { MusicData, getMusicDataAll } from "@/app/music/lib";
+import { MusicData, getMusicDataAll } from "@/lib/music";
 
 import DocList from "@/components/DocList";
 import GameList from "@/components/gameList";
