@@ -24,7 +24,7 @@ import {
   fetchGamesJson,
   getGameThumbnail,
 } from "./games/lib";
-import { MusicData, getMusicDataAll } from "@/app/music/lib";
+import { MusicData, getMusicDataAll } from "@/lib/music";
 
 import MusicList from "@/components/musicList";
 import { JsonLd, JsonLdScript } from "@/components/jsonLdScript";
