@@ -6,7 +6,7 @@ type NewsData = {
   createdAt: string;
 };
 
-type ToolsData = {
+export type ToolData = {
   slug: string;
   name: string;
   description: string;
@@ -21,10 +21,10 @@ export function fetchNewsJson(): NewsData[] {
   });
 }
 
-export function fetchToolsJson(): ToolsData[] {
+export function fetchToolsJson(): ToolData[] {
   const tools = toolsJson;
   // sort tools by createdAt
-  return tools.sort((a: ToolsData, b: ToolsData) => {
+  return tools.sort((a: ToolData, b: ToolData) => {
     return a.createdAt < b.createdAt ? 1 : -1;
   });
 }
