@@ -1,0 +1,37 @@
+.pachi_border {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  text-align: left;
+}
+
+.pachi_border div {
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+}
+
+.pachi_border div label {
+  min-width: 100px;
+}
+
+.pachi_border div input,
+.pachi_border div span {
+  font-size: 1em;
+  width: 100%;
+  padding: 0 0.5em;
+  border: none;
+  border-bottom: 2px solid var(--color-border-primary);
+  border-radius: 0;
+}
+
+.pachi_border div:last-child {
+  margin-top: 2em;
+}
+
+.pachi_border div:last-child span {
+  background-image: radial-gradient(circle, violet, indigo, blue, green, orange, orange, red);
+  color: transparent;
+  background-clip: text;
+}
+

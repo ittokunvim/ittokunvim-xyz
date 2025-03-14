@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-
-import styles from "./page.module.css";
+import styles from "./index.module.css";
 
 export default function PachiBorder() {
   const [ballCount, setBallCount] = useState("2500");

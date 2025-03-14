@@ -1,8 +1,7 @@
 import { MetadataRoute } from "next";
-
 import { getDocSlugAll } from "@/lib/docs";
 import { getGameSlugAll } from "@/lib/games";
-import toolsJson from "@/lib/tools.json";
+import { getToolDataAll } from "@/lib/tools";
 
 const BASE_URL = process.env.BASE_URL;
 
@@ -14,6 +13,7 @@ type Sitemap = {
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const doc_slugs = await getDocSlugAll();
   const game_slugs = await getGameSlugAll();
+  const tool_slugs = getToolDataAll();
 
   const sitemap = (url: string) => {
     return {
@@ -31,7 +31,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const gamePages: Sitemap[] = game_slugs.map((slug) => {
     return sitemap(`${BASE_URL}/games/${slug}`);
   });
-  const toolsPage: Sitemap[] = toolsJson.map((tool) => sitemap(`${BASE_URL}/tools/${tool.slug}`));
+  const toolPages: Sitemap[] = tool_slugs.map((slug) => {
+    return sitemap(`${BASE_URL}/tools/${slug}`);
+  });
 
-  return [...routes, ...docPages, ...gamePages, ...toolsPage];
+  return [...routes, ...docPages, ...gamePages, ...toolPages];
 }
