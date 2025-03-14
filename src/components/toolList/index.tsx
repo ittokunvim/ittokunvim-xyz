@@ -4,7 +4,8 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faToolbox, } from "@fortawesome/free-solid-svg-icons";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
-import { formatDate, ToolData } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
+import { ToolData } from "@/lib/tools";
 import styles from "./index.module.css";
 
 export default function ToolList(props: { tools: ToolData[] }) {

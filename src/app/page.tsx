@@ -10,11 +10,11 @@ import { faClock } from "@fortawesome/free-regular-svg-icons";
 
 import iconPng from "./icon.png";
 import styles from "./page.module.css";
-import { fetchNewsJson, fetchToolsJson, formatDate } from "@/lib/utils";
+import { fetchNewsJson, formatDate } from "@/lib/utils";
 import { DocData, getDocDataAll } from "@/lib/docs";
 import { GameData, getGameDataAll } from "@/lib/games";
 import { MusicData, getMusicDataAll } from "@/lib/music";
-import { ToolData } from "@/lib/utils";
+import { ToolData, getToolDataAll } from "@/lib/tools";
 
 import DocList from "@/components/DocList";
 import GameList from "@/components/gameList";
@@ -30,7 +30,7 @@ export default async function Home() {
   const docs: DocData[] = await getDocDataAll();
   const games: GameData[] = await getGameDataAll();
   const music: MusicData[] = await getMusicDataAll();
-  const tools: ToolData[] = fetchToolsJson();
+  const tools: ToolData[] = getToolDataAll();
   const jsonLd: JsonLd = {
     name: SITENAME,
     description: DESCRIPTION,
