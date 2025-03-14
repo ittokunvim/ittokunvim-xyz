@@ -104,8 +104,8 @@ export async function getDocData(slug: string): Promise<DocContentData> {
   const title = doc.title;
   const description = doc.description;
   const contentHtml = await getDocContentHtml(doc.path);
-  const createdAt = doc.createdAt;
-  const updatedAt = doc.updatedAt;
+  const createdAt = formatDate(doc.createdAt);
+  const updatedAt = formatDate(doc.updatedAt);
 
   if (contentHtml === "") {
     return docData;
