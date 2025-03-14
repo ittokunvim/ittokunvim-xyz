@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faInfoCircle,
   faAddressCard,
-  faNewspaper,
   faToolbox,
 } from "@fortawesome/free-solid-svg-icons";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
@@ -17,6 +16,7 @@ import { DocData, getDocDataAll } from "@/lib/docs";
 import { GameData, getGameDataAll } from "@/lib/games";
 import { MusicData, getMusicDataAll } from "@/lib/music";
 
+import NewsList from "@/components/newsList";
 import DocList from "@/components/DocList";
 import GameList from "@/components/gameList";
 import MusicList from "@/components/musicList";
@@ -71,27 +71,7 @@ export default async function Home() {
           </div>
         </div>
       </article>
-      <article className={styles.news}>
-        <h3>
-          <FontAwesomeIcon icon={faNewspaper} />
-          ニュース一覧
-        </h3>
-        <div className={styles.list}>
-          {news.map((news) => (
-            <div className={styles.item}>
-              <div className={styles.contents}>
-              {news.contents.map((content) => (
-                <div>{content}</div>
-              ))}
-              </div>
-              <div className={styles.createdAt}>
-                <FontAwesomeIcon icon={faClock} />
-                {formatDate(news.createdAt)}
-              </div>
-            </div>
-          ))}
-        </div>
-      </article>
+      <NewsList news={news} />
       <DocList docs={docs} />
       <GameList games={games} />
       <MusicList music={music}/>

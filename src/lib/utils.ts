@@ -1,7 +1,7 @@
 import newsJson from './news.json';
 import toolsJson from './tools.json';
 
-type NewsData = {
+export type NewsData = {
   contents: string[];
   createdAt: string;
 };
