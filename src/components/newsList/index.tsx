@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faNewspaper } from "@fortawesome/free-solid-svg-icons";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 
-import { NewsData, formatDate } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
+import { NewsData } from "@/lib/news";
 
 import styles from "./index.module.css";
 

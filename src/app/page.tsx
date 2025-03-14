@@ -11,7 +11,8 @@ import { faClock } from "@fortawesome/free-regular-svg-icons";
 
 import iconPng from "./icon.png";
 import styles from "./page.module.css";
-import { fetchNewsJson, fetchToolsJson, formatDate } from "@/lib/utils";
+import { fetchToolsJson, formatDate } from "@/lib/utils";
+import { NewsData, getNewsListAll } from "@/lib/news";
 import { DocData, getDocDataAll } from "@/lib/docs";
 import { GameData, getGameDataAll } from "@/lib/games";
 import { MusicData, getMusicDataAll } from "@/lib/music";
@@ -26,7 +27,7 @@ const SITENAME    = process.env.NEXT_PUBLIC_SITENAME    || "";
 const DESCRIPTION = process.env.NEXT_PUBLIC_DESCRIPTION || "";
 
 export default async function Home() {
-  const news = fetchNewsJson();
+  const news: NewsData[] = getNewsListAll();
   const docs: DocData[] = await getDocDataAll();
   const games: GameData[] = await getGameDataAll();
   const music: MusicData[] = await getMusicDataAll();

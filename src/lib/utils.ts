@@ -1,10 +1,4 @@
-import newsJson from './news.json';
 import toolsJson from './tools.json';
-
-export type NewsData = {
-  contents: string[];
-  createdAt: string;
-};
 
 type ToolsData = {
   slug: string;
@@ -12,14 +6,6 @@ type ToolsData = {
   description: string;
   createdAt: string;
 };
-
-export function fetchNewsJson(): NewsData[] {
-  const news = newsJson;
-  // sort news by createdAt
-  return news.sort((a: NewsData, b: NewsData) => {
-    return a.createdAt < b.createdAt ? 1 : -1;
-  });
-}
 
 export function fetchToolsJson(): ToolsData[] {
   const tools = toolsJson;
