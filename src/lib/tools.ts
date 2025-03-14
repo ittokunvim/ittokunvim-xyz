@@ -15,3 +15,6 @@ export function getToolDataAll(): ToolData[] {
   });
 }
 
+export function getToolSlugAll(): string[] {
+  return toolsJson.map((tool) => tool.slug);
+}
