@@ -19,11 +19,11 @@ export default function NewsList(props: { news: NewsData[] }) {
         ニュース一覧
       </h3>
       <div className={styles.list}>
-        {news.map((news) => (
-          <div className={styles.item}>
+        {news.map((news, id) => (
+          <div className={styles.item} key={id}>
             <div className={styles.contents}>
-              {news.contents.map((content) => (
-                <div>{content}</div>
+              {news.contents.map((content, id) => (
+                <div key={id}>{content}</div>
               ))}
             </div>
             <div className={styles.createdAt}>
