@@ -6,6 +6,7 @@
   "rules": {
     "@next/next/no-img-element": "off",
     "semi": ["error", "always"],
-    "quotes": ["error", "double"]
+    "quotes": ["error", "double"],
+    "camelcase": ["error", { "properties": "never", "ignoreImports": true }]
   }
 }

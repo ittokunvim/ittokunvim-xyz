@@ -9,12 +9,12 @@ export type JsonLd = {
 
 export function JsonLdScript({ data }: { data: JsonLd}) {
   const { name, description } = data;
-  const logo_url = `${BASE_URL}/logo.png`;
+  const logoUrl = `${BASE_URL}/logo.png`;
   const jsonLd: WithContext<Product> = {
     "@context": "https://schema.org",
     "@type": "Product",
     name,
-    image: logo_url,
+    image: logoUrl,
     description,
   };
 
