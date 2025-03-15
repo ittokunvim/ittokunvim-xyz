@@ -79,7 +79,7 @@ export async function getGameSlugAll(): Promise<string[]> {
 export async function getGameData(slug: string): Promise<GameData> {
   const games = await fetchGamesJson();
   const gameJson = games.find((game: JsonData) => game.slug === slug);
-  let gameData: GameData = {
+  const gameData: GameData = {
     slug: "",
     title: "",
     description: "",

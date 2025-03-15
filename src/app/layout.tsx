@@ -87,8 +87,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {children}
         <footer className={styles.page_footer}>
           <div className={styles.external}>
-            {externals.map((external) => (
-              <a href={external.url} target="_blank" rel="noopener noreferrer">
+            {externals.map((external, id) => (
+              <a href={external.url} key={id} target="_blank" rel="noopener noreferrer">
                 {external.name}
               </a>
             ))}
