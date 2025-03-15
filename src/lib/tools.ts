@@ -1,4 +1,4 @@
-import toolsJson from './tools.json';
+import toolsJson from "./tools.json";
 
 export type ToolData = {
   slug: string;

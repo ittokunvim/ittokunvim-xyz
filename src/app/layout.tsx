@@ -12,7 +12,7 @@ import "@/config/fontawesome";
 import styles from "./layout.module.css";
 import { GoogleAdsCodeSnipet, GoogleAdsMetatag } from "@/components/googleAds";
 
-const noto_sans_jp = Noto_Sans_JP({ subsets: ["latin"] });
+const notoSansJP = Noto_Sans_JP({ subsets: ["latin"] });
 
 const SITENAME    = process.env.NEXT_PUBLIC_SITENAME    || "";
 const DESCRIPTION = process.env.NEXT_PUBLIC_DESCRIPTION || "";
@@ -48,10 +48,10 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const github_url  = "https://github.com/ittokunvim";
-  const twitter_url = "https://twitter.com/ittokunvim";
-  const zenn_url    = "https://zenn.dev/ittoku_ky73";
-  const itch_url    = "https://ittokunvim.itch.io";
+  const githubUrl  = "https://github.com/ittokunvim";
+  const twitterUrl = "https://twitter.com/ittokunvim";
+  const zennUrl    = "https://zenn.dev/ittoku_ky73";
+  const itchUrl    = "https://ittokunvim.itch.io";
 
   const externals  = [
     { name: "Source Code",  url: "https://github.com/ittokunvim/ittokunvim-xyz" },
@@ -64,22 +64,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <html lang="ja">
-      <body className={noto_sans_jp.className}>
+      <body className={notoSansJP.className}>
         <header className={styles.page_header}>
           <Link href="/">
             <Image src="/logo.svg" width={44} height={44} alt="site logo" />
           </Link>
           <div>
-            <a href={github_url} target="_blank" rel="noopener noreferrer">
+            <a href={githubUrl} target="_blank" rel="noopener noreferrer">
               <FontAwesomeIcon icon={faGithub} size="2xl" style={{ color: "#202328" }} />
             </a>
-            <a href={twitter_url} target="_blank" rel="noopener noreferrer">
+            <a href={twitterUrl} target="_blank" rel="noopener noreferrer">
               <FontAwesomeIcon icon={faTwitter} size="2xl" style={{ color: "#1DA1F2" }} />
             </a>
-            <a href={zenn_url} target="_blank" rel="noopener noreferrer">
+            <a href={zennUrl} target="_blank" rel="noopener noreferrer">
               <Image src="/zenn.svg" width={32} height={32} alt="zenn logo" />
             </a>
-            <a href={itch_url} target="_blank" rel="noopener noreferrer">
+            <a href={itchUrl} target="_blank" rel="noopener noreferrer">
               <FontAwesomeIcon icon={faItchIo} size="2xl" style={{ color: "#FA5C5C" }} />
             </a>
           </div>

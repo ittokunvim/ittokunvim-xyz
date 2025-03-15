@@ -3,7 +3,7 @@ import Link from "next/link";
 import { faGamepad, faClock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { GameData, getGameThumbnail } from "@/lib/games"
+import { GameData, getGameThumbnail } from "@/lib/games";
 import styles from "./index.module.css";
 
 export default async function GameList(props: { games: GameData[] }) {
