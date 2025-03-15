@@ -5,6 +5,7 @@
   ],
   "rules": {
     "@next/next/no-img-element": "off",
-    "semi": ["error", "always"]
+    "semi": ["error", "always"],
+    "quotes": ["error", "double"]
   }
 }
