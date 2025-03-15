@@ -19,8 +19,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     return {
       url,
       lastModified: new Date(),
-    }
-  }
+    };
+  };
   const routes: Sitemap[] = [
     sitemap(`${BASE_URL}/`),
     sitemap(`${BASE_URL}/nextjs`),

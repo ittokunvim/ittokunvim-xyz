@@ -6,7 +6,7 @@ import remarkLinkCard from "remark-link-card";
 import { rehype } from "rehype";
 import rehypeHighlight from "rehype-highlight";
 
-import { formatDate } from "@/lib/utils"
+import { formatDate } from "@/lib/utils";
 
 const DOCSSITE_URL = process.env.DOCSSITE_URL || "";
 const DOCSSITE_JSON_URL = process.env.DOCSSITE_JSON_URL || "";
@@ -144,23 +144,23 @@ function replaceRelativeUrlToAbsoluteUrl(path: string, content: string): string 
   const excludeFilenamePath = splitPath.slice(0, splitPath.length - 1).join("/");
   const absoluteUrl = new URL(excludeFilenamePath, DOCSSITE_URL);
 
-  const relativeImageRegex = /!?\[[^\]]+\]\((?!https|ftp:\/\/)[^\)]+\)/g
-  const imageUrlRegex = /\]\(([^)]+)\)/
+  const relativeImageRegex = /!?\[[^\]]+\]\((?!https|ftp:\/\/)[^\)]+\)/g;
+  const imageUrlRegex = /\]\(([^)]+)\)/;
 
   content.match(relativeImageRegex)?.forEach((relativeImage) => {
     if (imageUrlRegex.test(relativeImage)) {
-      const url = imageUrlRegex.exec(relativeImage)![1]
-      content = content.replace(url, `${absoluteUrl.href}/${url}`)
+      const url = imageUrlRegex.exec(relativeImage)![1];
+      content = content.replace(url, `${absoluteUrl.href}/${url}`);
     }
-  })
+  });
 
-  const relativeImageTagRegex = /<img src="(?!https|ftp:\/\/)[^"]+"/g
-  const imageSrcRegex = /src="([^"]+)"/
+  const relativeImageTagRegex = /<img src="(?!https|ftp:\/\/)[^"]+"/g;
+  const imageSrcRegex = /src="([^"]+)"/;
 
   content.match(relativeImageTagRegex)?.forEach((relativeImageTag) => {
     if (imageSrcRegex.test(relativeImageTag)) {
-      const src = imageSrcRegex.exec(relativeImageTag)![1]
-      content = content.replace(src, `${absoluteUrl.href}/${src}`)
+      const src = imageSrcRegex.exec(relativeImageTag)![1];
+      content = content.replace(src, `${absoluteUrl.href}/${src}`);
     }
   });
 
@@ -172,9 +172,9 @@ function replaceCodeBlockTitle(content: string): string {
   const filenameRegex = /:[\w\.]+/;
 
   content.match(codeBlockTitleRegex)?.forEach((codeBlock) => {
-    const filename = filenameRegex.exec(codeBlock)![0]
+    const filename = filenameRegex.exec(codeBlock)![0];
     content = content.replace(filename, ` title="${filename.slice(1)}"`);
   });
 
-  return content
+  return content;
 }
