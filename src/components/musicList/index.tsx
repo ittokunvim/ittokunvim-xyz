@@ -9,7 +9,7 @@ import { MusicData } from "@/lib/music";
 import styles from "./style.module.css";
 
 export default function MusicList(props: { music: MusicData[] }) {
-  const music: MusicData[] = [...props.music].reverse().slice(0, 10);
+  const music: MusicData[] = props.music
   const [isPlaying, setIsPlaying] = useState(false);
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
 
