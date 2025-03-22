@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,7 +9,7 @@ import { MusicData } from "@/lib/music";
 import styles from "./style.module.css";
 
 export default function MusicList(props: { music: MusicData[] }) {
-  const music: MusicData[] = props.music;
+  const music: MusicData[] = [...props.music].reverse().slice(0, 10);
   const [isPlaying, setIsPlaying] = useState(false);
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
 
@@ -66,6 +67,9 @@ export default function MusicList(props: { music: MusicData[] }) {
             </details>
           </div>
         ))}
+      </div>
+      <div className={styles.link}>
+        <Link href="/music">もっと見る</Link>
       </div>
     </article>
   );

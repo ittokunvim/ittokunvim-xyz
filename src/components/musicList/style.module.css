@@ -65,3 +65,17 @@
 	color: var(--color-text-secondary);
 }
 
+.music .link {
+  font-size: 0.8rem;
+  margin-left: 1rem;
+}
+
+.music .link a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+
+.music .link a:hover {
+  color: var(--color-text-link);
+  text-decoration: underline;
+}
