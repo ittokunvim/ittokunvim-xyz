@@ -4,6 +4,7 @@ const MUSICSITE_URL = process.env.MUSICSITE_URL || "";
 const MUSICSITE_JSON_URL = process.env.MUSICSITE_JSON_URL || "";
 
 type JsonData = {
+  path: string;
   title: string;
   artist: string;
   references: string[];
@@ -46,7 +47,7 @@ export async function getMusicDataAll(): Promise<MusicData[]> {
   musicDataList = musicList.map((music: JsonData) => {
     const title = music.title;
     const artist = music.artist;
-    const path = `${MUSICSITE_URL}/music/${title}.mp3`;
+    const path = new URL(music.path, MUSICSITE_URL).toString();
     const references = music.references;
     const createdAt = formatDate(music.createdAt);
 
