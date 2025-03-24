@@ -1,12 +1,12 @@
 import { Metadata } from "next";
-
+import { MusicData, getMusicDataAll } from "@/lib/music";
+import MusicList from "@/components/musicList";
 import { JsonLd, JsonLdScript } from "@/components/jsonLdScript";
-
 import styles from "./page.module.css";
 
 const BASE_URL = process.env.BASE_URL             || "";
 const SITENAME = process.env.NEXT_PUBLIC_SITENAME || "";
-const title = "音楽リスト";
+const title = "ミュージック一覧";
 const description = "音楽の一覧を表示するページ";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -38,6 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page() {
+  const music: MusicData[] = await getMusicDataAll();
   const jsonLd: JsonLd = {
     name: title,
     description,
@@ -45,7 +46,7 @@ export default async function Page() {
 
   return (
     <main className={styles.main}>
-      {title}
+      <MusicList music={music} route="/music" />
       <JsonLdScript data={jsonLd} />
     </main>
   );

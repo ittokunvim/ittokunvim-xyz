@@ -8,8 +8,9 @@ import { faMusic, faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { MusicData } from "@/lib/music";
 import styles from "./style.module.css";
 
-export default function MusicList(props: { music: MusicData[] }) {
-  const music: MusicData[] = props.music
+export default function MusicList(props: { music: MusicData[], route: string }) {
+  const music: MusicData[] = props.music;
+  const route: string = props.route;
   const [isPlaying, setIsPlaying] = useState(false);
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
 
@@ -68,9 +69,11 @@ export default function MusicList(props: { music: MusicData[] }) {
           </div>
         ))}
       </div>
-      <div className={styles.link}>
-        <Link href="/music">もっと見る</Link>
-      </div>
+      {route === "/" && (
+        <div className={styles.link}>
+          <Link href="/music">もっと見る</Link>
+        </div>
+      )}
     </article>
   );
 }

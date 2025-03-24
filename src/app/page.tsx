@@ -73,7 +73,7 @@ export default async function Home() {
       <NewsList news={news} />
       <DocList docs={docs} />
       <GameList games={games} />
-      <MusicList music={music.reverse().slice(0, 10)}/>
+      <MusicList music={music.reverse().slice(0, 10)} route="/" />
       <ToolList tools={tools} />
       <JsonLdScript data={jsonLd} />
     </main>

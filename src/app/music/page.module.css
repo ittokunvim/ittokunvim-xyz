@@ -1,2 +1,16 @@
 .main {
+  line-height: 2;
+  letter-spacing: 1px;
+  word-spacing: 2px;
+  max-width: var(--px-phone-main-max-width);
+  margin: 0 auto;
 }
+
+.main h3 {
+  font-size: 1rem;
+}
+
+.main h3 svg {
+  margin-right: 0.5rem;
+}
+
