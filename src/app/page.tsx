@@ -12,6 +12,7 @@ import { NewsData, getNewsListAll } from "@/lib/news";
 import { DocData, getDocDataAll } from "@/lib/docs";
 import { GameData, getGameDataAll } from "@/lib/games";
 import { MusicData, getMusicDataAll } from "@/lib/music";
+import { PictureData, getPictureDataAll } from "@/lib/picture";
 import { ToolData, getToolDataAll } from "@/lib/tools";
 
 import NewsList from "@/components/newsList";
@@ -29,6 +30,7 @@ export default async function Home() {
   const docs: DocData[] = await getDocDataAll();
   const games: GameData[] = await getGameDataAll();
   const music: MusicData[] = await getMusicDataAll();
+  const pictures: PictureData[] = await getPictureDataAll();
   const tools: ToolData[] = getToolDataAll();
   const jsonLd: JsonLd = {
     name: SITENAME,
