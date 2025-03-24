@@ -19,6 +19,7 @@ import NewsList from "@/components/newsList";
 import DocList from "@/components/DocList";
 import GameList from "@/components/gameList";
 import MusicList from "@/components/musicList";
+import PictureList from "@/components/PictureList";
 import ToolList from "@/components/toolList";
 import { JsonLd, JsonLdScript } from "@/components/jsonLdScript";
 
@@ -76,6 +77,7 @@ export default async function Home() {
       <DocList docs={docs} />
       <GameList games={games} />
       <MusicList music={music.reverse().slice(0, 10)} route="/" />
+      <PictureList pictures={pictures.slice(0, 10)} route="/" />
       <ToolList tools={tools} />
       <JsonLdScript data={jsonLd} />
     </main>
