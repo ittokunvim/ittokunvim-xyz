@@ -11,20 +11,24 @@ type Sitemap = {
 };
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const docSlugs = await getDocSlugAll();
-  const gameSlugs = await getGameSlugAll();
-  const toolSlugs = getToolDataAll();
-
   const sitemap = (url: string) => {
     return {
       url,
       lastModified: new Date(),
     };
   };
-  const routes: Sitemap[] = [
-    sitemap(`${BASE_URL}/`),
-    sitemap(`${BASE_URL}/nextjs`),
+  const routeList = [
+    "/",
+    "/nextjs",
+    "/music",
+    "/pictures",
   ];
+  const docSlugs = await getDocSlugAll();
+  const gameSlugs = await getGameSlugAll();
+  const toolSlugs = getToolDataAll();
+  const routes: Sitemap[] = routeList.map((route) => {
+    return sitemap(route);
+  });
   const docPages: Sitemap[] = docSlugs.map((slug) => {
     return sitemap(`${BASE_URL}/docs/${slug}`);
   });
