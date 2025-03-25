@@ -79,5 +79,5 @@ function PictureImage(props: { path: string, }) {
     alt={alt}
     width={width}
     height={height}
-  />
+  />;
 }

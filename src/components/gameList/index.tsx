@@ -4,7 +4,7 @@ import Image, { ImageLoaderProps } from "next/image";
 import Link from "next/link";
 import { faGamepad, faClock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { GameData, getGameThumbnail } from "@/lib/games";
+import { GameData } from "@/lib/games";
 import styles from "./index.module.css";
 
 const GAMESITE_URL = process.env.NEXT_PUBLIC_GAMESITE_URL || "";
@@ -68,5 +68,5 @@ function ThumbnailImage(props: { slug: string }) {
     alt={alt}
     width={width}
     height={height}
-  />
+  />;
 }
