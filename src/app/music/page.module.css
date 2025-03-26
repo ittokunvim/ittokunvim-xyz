@@ -2,7 +2,6 @@
   line-height: 2;
   letter-spacing: 1px;
   word-spacing: 2px;
-  max-width: var(--px-phone-main-max-width);
   margin: 0 auto;
 }
 
