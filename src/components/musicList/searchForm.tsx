@@ -16,11 +16,6 @@ type Prop = {
 };
 
 export function SearchForm({ searchMusic }: Prop) {
-  const searchValue: SearchData = {
-    title: "",
-    artist: "",
-    createdAt: "",
-  };
   const createdAtList = [
     "",
     "2022年7月",
@@ -30,22 +25,30 @@ export function SearchForm({ searchMusic }: Prop) {
     "2022年11月",
     "2022年12月",
   ];
+  const [searchValue, setSearchValue] = useState<SearchData>({
+    title: "",
+    artist: "",
+    createdAt: "",
+  });
   const [inputTitleValue, setInputTitleValue] = useState<string>("");
   const [inputArtistValue, setInputArtistValue] = useState<string>("");
   const [inputCreatedAtValue, setInputCreatedAtValue] = useState<string>("");
   const handleInputTitleChange = (value: string) => {
     setInputTitleValue(value);
     searchValue.title = value;
+    setSearchValue(searchValue);
     searchMusic(searchValue);
   };
   const handleInputArtistChange = (value: string) => {
     setInputArtistValue(value);
     searchValue.artist = value;
+    setSearchValue(searchValue);
     searchMusic(searchValue);
   };
   const handleInputCreatedAtChange = (value: string) => {
     setInputCreatedAtValue(value);
     searchValue.createdAt = value;
+    setSearchValue(searchValue);
     searchMusic(searchValue);
   };
 
