@@ -6,14 +6,18 @@ import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMusic, faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { MusicData } from "@/lib/music";
+
 import styles from "./style.module.css";
 
-export default function MusicList(props: { music: MusicData[], route: string }) {
-  const music: MusicData[] = props.music;
-  const route: string = props.route;
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
+type Prop = {
+  music: MusicData[];
+  route: string;
+};
 
+export default function MusicList({ music, route }: Prop) {
+  const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [volume, setVolume] = useState<number>(0);
   useEffect(() => {
     setAudio(new Audio());
   }, []);
@@ -21,6 +25,8 @@ export default function MusicList(props: { music: MusicData[], route: string }) 
   const handleClick = (path: string) => {
     if (!audio) return;
     audio.src = path;
+    audio.volume = 0;
+    setVolume(0);
 
     if (!isPlaying) {
       setIsPlaying(true);
@@ -30,7 +36,6 @@ export default function MusicList(props: { music: MusicData[], route: string }) 
       audio.pause();
     }
   };
-
   const toggleIcon = (path: string) => {
     if (!audio) return faPlay;
     if (isPlaying && audio.src === encodeURI(path)) {
@@ -39,6 +44,17 @@ export default function MusicList(props: { music: MusicData[], route: string }) 
       return faPlay;
     }
   };
+  useEffect(() => {
+    if (!isPlaying) return;
+
+    const interval = setInterval(() => {
+      if (!audio) return;
+      setVolume(Math.min(1, volume + 0.02));
+      audio.volume = volume;
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, [isPlaying, audio, volume]);
 
   return (
     <article className={styles.music}>
