@@ -34,11 +34,6 @@ const imageLoader = ({ src, width, quality, }: ImageLoaderProps): string => {
 
 export default function PictureList({ pictures, route }: Prop) {
   const [pictureList, setPictureList] = useState<PictureData[]>(pictures);
-  const { alt, width, height } = {
-    alt: "ittokunvim picture",
-    width: 200,
-    height: 200,
-  };
   const searchPictures = ({ bonus, flag, album }: SearchData) => {
     if (bonus === "" && flag === "" && album === "") {
       setPictureList(pictures);
