@@ -4,8 +4,8 @@ import { notFound } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 
-import "@/lib/hljs.css";
-import "@/lib/rlc.css";
+import "@/config/hljs.css";
+import "@/config/rlc.css";
 import { getDocSlugAll, getDocData } from "@/lib/docs";
 import { JsonLd, JsonLdScript } from "@/components/JsonLdScript";
 import styles from "./page.module.css";

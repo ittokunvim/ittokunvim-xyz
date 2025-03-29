@@ -1,4 +1,4 @@
-import newsJson from "./news.json";
+import newsJson from "@/config/news.json";
 
 export type NewsData = {
   contents: string[];
