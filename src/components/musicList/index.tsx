@@ -5,8 +5,9 @@ import { useEffect, useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMusic, faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
-import { MusicData } from "@/lib/music";
 
+import { MusicData } from "@/lib/music";
+import { SearchData, SearchForm } from "./searchForm";
 import styles from "./style.module.css";
 
 type Prop = {
@@ -15,6 +16,7 @@ type Prop = {
 };
 
 export default function MusicList({ music, route }: Prop) {
+  const [musicList, setMusicList] = useState<MusicData[]>(music);
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [volume, setVolume] = useState<number>(0);
@@ -55,6 +57,26 @@ export default function MusicList({ music, route }: Prop) {
 
     return () => clearInterval(interval);
   }, [isPlaying, audio, volume]);
+  const searchMusic = ({ title, artist, createdAt }: SearchData) => {
+    if (title === "" && artist === "" && createdAt === "") {
+      setMusicList(music);
+    }
+
+    title = title.split(" ").join("*").toLowerCase();
+    artist = artist.split(" ").join("*").toLowerCase();
+    const titleRegex = new RegExp(title, "i");
+    const artistRegex = new RegExp(artist, "i");
+    const createdAtRegex = new RegExp(createdAt, "i");
+
+    const searchMusicList = music.filter((music) => {
+      const isTitleTest = titleRegex.test(music.title);
+      const isArtistTest = artistRegex.test(music.artist);
+      const isCreatedAtTest = createdAtRegex.test(music.createdAt);
+      return (isTitleTest && isArtistTest && isCreatedAtTest);
+    });
+
+    setMusicList(searchMusicList);
+  };
 
   return (
     <article className={styles.music}>
@@ -62,8 +84,11 @@ export default function MusicList({ music, route }: Prop) {
         <FontAwesomeIcon icon={faMusic} />
         ミュージック一覧
       </h3>
+      {route === "/music" && (
+        <SearchForm searchMusic={searchMusic} />
+      )}
       <div className={styles.list}>
-        {music.map((music) => (
+        {musicList.map((music) => (
           <div className={styles.item} key={music.title}>
             <div className={styles.title} onClick={() => handleClick(music.path)}>
               <FontAwesomeIcon icon={toggleIcon(music.path)} />

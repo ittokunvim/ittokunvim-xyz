@@ -1,22 +1,54 @@
 "use client";
 
+import Image, { ImageLoaderProps } from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-regular-svg-icons";
-import styles from "./style.module.css";
+
 import { PictureData } from "@/lib/picture";
+import SearchForm from "./SearchForm";
+import styles from "./style.module.css";
+
+export type SearchData = {
+  bonus: string;
+  flag: string;
+  album: string;
+};
 
 type Prop = {
   pictures: PictureData[];
   route: string;
 };
 
-export default function PictureList(props: Prop) {
-  const { pictures, route } = props;
-  const { alt, width, height } = {
-    alt: "ittokunvim picture",
-    width: 200,
-    height: 200,
+const PICTURESITE_URL = process.env.NEXT_PUBLIC_PICTURESITE_URL || "";
+
+const imageLoader = ({ src, width, quality, }: ImageLoaderProps): string => {
+  const url = new URL(src, PICTURESITE_URL);
+  url.searchParams.set("format", "auto");
+  url.searchParams.set("width", width.toString());
+  url.searchParams.set("quality", (quality || 75).toString());
+  return url.href;
+};
+
+export default function PictureList({ pictures, route }: Prop) {
+  const [pictureList, setPictureList] = useState<PictureData[]>(pictures);
+  const searchPictures = ({ bonus, flag, album }: SearchData) => {
+    if (bonus === "" && flag === "" && album === "") {
+      setPictureList(pictures);
+    }
+    const bonusRegex = new RegExp(bonus, "i");
+    const flagRegex = new RegExp(flag, "i");
+    const albumRegex = new RegExp(album, "i");
+    const searchPictureList = pictures.filter((picture) => {
+      const isBonusTest = bonusRegex.test(picture.bonus);
+      const isFlagTest = flagRegex.test(picture.flag);
+      const isAlbumTest = albumRegex.test(picture.album);
+      return (isBonusTest && isFlagTest && isAlbumTest);
+    });
+
+    setPictureList(searchPictureList);
   };
 
   return (
@@ -25,11 +57,14 @@ export default function PictureList(props: Prop) {
         <FontAwesomeIcon icon={faImage} />
         写真リスト
       </h3>
+      {route === "/pictures" && (
+        <SearchForm searchPicture={searchPictures} />
+      )}
       <div className={styles.list}>
-        {pictures.map((picture, i) => (
+        {pictureList.map((picture, i) => (
           <div className={styles.item} key={i}>
             <div className={styles.image}>
-              <img src={picture.path} alt={alt} width={width} height={height} />
+              <PictureImage path={picture.path} />
             </div>
             <table>
               <tbody>
@@ -59,3 +94,19 @@ export default function PictureList(props: Prop) {
   );
 }
 
+function PictureImage(props: { path: string, }) {
+  const path = props.path;
+  const { src, alt, width, height } = {
+    src: path,
+    alt: "ittokunvim picture",
+    width: 200,
+    height: 200,
+  };
+  return <Image
+    loader={imageLoader}
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+  />;
+}
