@@ -17,9 +17,9 @@ type Prop = {
 
 export default function MusicList({ music, route }: Prop) {
   const [musicList, setMusicList] = useState<MusicData[]>(music);
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
-
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [volume, setVolume] = useState<number>(0);
   useEffect(() => {
     setAudio(new Audio());
   }, []);
@@ -27,6 +27,8 @@ export default function MusicList({ music, route }: Prop) {
   const handleClick = (path: string) => {
     if (!audio) return;
     audio.src = path;
+    audio.volume = 0;
+    setVolume(0);
 
     if (!isPlaying) {
       setIsPlaying(true);
@@ -44,6 +46,17 @@ export default function MusicList({ music, route }: Prop) {
       return faPlay;
     }
   };
+  useEffect(() => {
+    if (!isPlaying) return;
+
+    const interval = setInterval(() => {
+      if (!audio) return;
+      setVolume(Math.min(1, volume + 0.02));
+      audio.volume = volume;
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, [isPlaying, audio, volume]);
   const searchMusic = ({ title, artist, createdAt }: SearchData) => {
     if (title === "" && artist === "" && createdAt === "") {
       setMusicList(music);
