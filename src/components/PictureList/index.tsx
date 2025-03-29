@@ -1,10 +1,21 @@
 "use client";
 
+import Image, { ImageLoaderProps } from "next/image";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-regular-svg-icons";
-import styles from "./style.module.css";
 import { PictureData } from "@/lib/picture";
+import styles from "./style.module.css";
+
+const PICTURESITE_URL = process.env.NEXT_PUBLIC_PICTURESITE_URL || "";
+
+const imageLoader = ({ src, width, quality, }: ImageLoaderProps): string => {
+  const url = new URL(src, PICTURESITE_URL);
+  url.searchParams.set("format", "auto");
+  url.searchParams.set("width", width.toString());
+  url.searchParams.set("quality", (quality || 75).toString());
+  return url.href;
+};
 
 type Prop = {
   pictures: PictureData[];
@@ -13,11 +24,6 @@ type Prop = {
 
 export default function PictureList(props: Prop) {
   const { pictures, route } = props;
-  const { alt, width, height } = {
-    alt: "ittokunvim picture",
-    width: 200,
-    height: 200,
-  };
 
   return (
     <article className={styles.pictures}>
@@ -29,7 +35,7 @@ export default function PictureList(props: Prop) {
         {pictures.map((picture, i) => (
           <div className={styles.item} key={i}>
             <div className={styles.image}>
-              <img src={picture.path} alt={alt} width={width} height={height} />
+              <PictureImage path={picture.path} />
             </div>
             <table>
               <tbody>
@@ -59,3 +65,19 @@ export default function PictureList(props: Prop) {
   );
 }
 
+function PictureImage(props: { path: string, }) {
+  const path = props.path;
+  const { src, alt, width, height } = {
+    src: path,
+    alt: "ittokunvim picture",
+    width: 200,
+    height: 200,
+  };
+  return <Image
+    loader={imageLoader}
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+  />;
+}

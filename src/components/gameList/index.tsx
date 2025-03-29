@@ -1,12 +1,23 @@
-import Link from "next/link";
+"use client";
 
+import Image, { ImageLoaderProps } from "next/image";
+import Link from "next/link";
 import { faGamepad, faClock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import { GameData, getGameThumbnail } from "@/lib/games";
+import { GameData } from "@/lib/games";
 import styles from "./index.module.css";
 
-export default async function GameList(props: { games: GameData[] }) {
+const GAMESITE_URL = process.env.NEXT_PUBLIC_GAMESITE_URL || "";
+
+const imageLoader = ({ src, width, quality, }: ImageLoaderProps): string => {
+  const url = new URL(src, GAMESITE_URL);
+  url.searchParams.set("format", "auto");
+  url.searchParams.set("width", width.toString());
+  url.searchParams.set("quality", (quality || 75).toString());
+  return url.href;
+};
+
+export default function GameList(props: { games: GameData[] }) {
   const games: GameData[] = props.games;
 
   return (
@@ -18,7 +29,9 @@ export default async function GameList(props: { games: GameData[] }) {
       <div className={styles.list}>
         {games.map((game) => (
           <div className={styles.item} key={game.slug}>
-            <div className={styles.thumbnail}>{ImageGameThumbnail(game.slug)}</div>
+            <div className={styles.thumbnail}>
+              <ThumbnailImage slug={game.slug} />
+            </div>
             <div className={styles.title}>
               <Link href={`/games/${game.slug}`}>{game.title}</Link>
             </div>
@@ -41,7 +54,19 @@ export default async function GameList(props: { games: GameData[] }) {
   );
 }
 
-function ImageGameThumbnail(slug: string) {
-  const { src, alt, width, height } = getGameThumbnail(slug);
-  return <img src={src} alt={alt} width={width} height={height} />;
+function ThumbnailImage(props: { slug: string }) {
+  const slug = props.slug;
+  const { src, alt, width, height, } = {
+    src: `images/${slug}.png`,
+    alt: `${slug} thumbnail`,
+    width: 300,
+    height: 240,
+  };
+  return <Image
+    loader={imageLoader}
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+  />;
 }
