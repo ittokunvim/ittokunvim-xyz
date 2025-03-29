@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { JsonLd, JsonLdScript } from "@/components/JsonLdScript";
 import styles from "./page.module.css";
 
-const BASE_URL = process.env.BASE_URL || "";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "";
 const SITENAME = process.env.NEXT_PUBLIC_SITENAME || "";
 const title = "Hello, world";
 const description = "This is a hello world page.";

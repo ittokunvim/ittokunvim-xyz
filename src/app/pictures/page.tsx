@@ -4,7 +4,7 @@ import PictureList from "@/components/PictureList";
 import { JsonLd, JsonLdScript } from "@/components/JsonLdScript";
 import styles from "./page.module.css";
 
-const BASE_URL = process.env.BASE_URL || "";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "";
 const SITENAME = process.env.NEXT_PUBLIC_SITENAME || "";
 const title = "写真リスト";
 const description = "写真の一覧を表示するページ";

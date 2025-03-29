@@ -13,7 +13,7 @@ import styles from "./page.module.css";
 export const dynamic = "auto";
 export const dynamicParams = false;
 
-const BASE_URL = process.env.BASE_URL             || "";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "";
 const SITENAME = process.env.NEXT_PUBLIC_SITENAME || "";
 
 type Props = {

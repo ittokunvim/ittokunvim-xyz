@@ -3,7 +3,7 @@ import PachiBorder from "@/components/PachiBorder";
 import { JsonLd, JsonLdScript } from "@/components/JsonLdScript";
 import styles from "./page.module.css";
 
-const BASE_URL = process.env.BASE_URL || "";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "";
 const SITENAME = process.env.NEXT_PUBLIC_SITENAME || "";
 const title = "パチンコボーダー計算ツール";
 const description = "パチンコボーダー計算ツールです";

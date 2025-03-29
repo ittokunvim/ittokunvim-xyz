@@ -23,7 +23,7 @@ import PictureList from "@/components/PictureList";
 import ToolList from "@/components/ToolList";
 import { JsonLd, JsonLdScript } from "@/components/JsonLdScript";
 
-const SITENAME    = process.env.NEXT_PUBLIC_SITENAME    || "";
+const SITENAME = process.env.NEXT_PUBLIC_SITENAME || "";
 const DESCRIPTION = process.env.NEXT_PUBLIC_DESCRIPTION || "";
 
 export default async function Home() {

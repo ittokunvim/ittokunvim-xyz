@@ -14,9 +14,9 @@ import { GoogleAdsCodeSnipet, GoogleAdsMetatag } from "@/components/GoogleAds";
 
 const notoSansJP = Noto_Sans_JP({ subsets: ["latin"] });
 
-const SITENAME    = process.env.NEXT_PUBLIC_SITENAME    || "";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "";
+const SITENAME = process.env.NEXT_PUBLIC_SITENAME || "";
 const DESCRIPTION = process.env.NEXT_PUBLIC_DESCRIPTION || "";
-const BASE_URL    = process.env.NEXT_PUBLIC_BASE_URL    || "";
 
 export const metadata: Metadata = {
   title: {
