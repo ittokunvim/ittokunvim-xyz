@@ -10,7 +10,6 @@ export const dynamic = "auto";
 export const dynamicParams = false;
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "";
-const SITENAME = process.env.NEXT_PUBLIC_SITENAME || "";
 
 type Props = {
   params: { slug: string };
@@ -18,8 +17,8 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const slug = params.slug;
-  const gameData = await getGameData(slug);
+  const { slug } = params;
+  const gameData: GameData = await getGameData(slug);
   const { title, description } = gameData;
   const url = `${BASE_URL}/games/${slug}`;
 
@@ -30,16 +29,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title,
       description,
       url,
-      siteName: SITENAME,
-      locale: "ja_JP",
-      type: "website",
     },
     twitter: {
-      card: "summary_large_image",
       title,
       description,
-      site: "@ittokunvim",
-      creator: "@ittokunvim",
     },
     alternates: {
       canonical: url,
