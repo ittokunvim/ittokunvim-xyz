@@ -1,5 +1,6 @@
 "use client";
 
+import Image, { ImageLoaderProps } from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -19,6 +20,16 @@ export type SearchData = {
 type Prop = {
   pictures: PictureData[];
   route: string;
+};
+
+const PICTURESITE_URL = process.env.NEXT_PUBLIC_PICTURESITE_URL || "";
+
+const imageLoader = ({ src, width, quality, }: ImageLoaderProps): string => {
+  const url = new URL(src, PICTURESITE_URL);
+  url.searchParams.set("format", "auto");
+  url.searchParams.set("width", width.toString());
+  url.searchParams.set("quality", (quality || 75).toString());
+  return url.href;
 };
 
 export default function PictureList({ pictures, route }: Prop) {
@@ -58,7 +69,7 @@ export default function PictureList({ pictures, route }: Prop) {
         {pictureList.map((picture, i) => (
           <div className={styles.item} key={i}>
             <div className={styles.image}>
-              <img src={picture.path} alt={alt} width={width} height={height} />
+              <PictureImage path={picture.path} />
             </div>
             <table>
               <tbody>
@@ -88,3 +99,19 @@ export default function PictureList({ pictures, route }: Prop) {
   );
 }
 
+function PictureImage(props: { path: string, }) {
+  const path = props.path;
+  const { src, alt, width, height } = {
+    src: path,
+    alt: "ittokunvim picture",
+    width: 200,
+    height: 200,
+  };
+  return <Image
+    loader={imageLoader}
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+  />;
+}

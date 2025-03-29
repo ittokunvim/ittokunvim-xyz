@@ -1,6 +1,6 @@
 import { formatDate } from "@/lib/utils";
 
-const GAMESITE_URL = process.env.GAMESITE_URL || "";
+// const GAMESITE_URL = process.env.GAMESITE_URL || "";
 const GAMESITE_JSON_URL = process.env.GAMESITE_JSON_URL || "";
 
 type JsonData = {
@@ -19,13 +19,6 @@ export type GameData = {
   size: string;
   createdAt: string;
   updatedAt: string;
-};
-
-type GameThumbnail = {
-  src: string;
-  alt: string;
-  width: string;
-  height: string;
 };
 
 async function fetchGamesJson(): Promise<JsonData[]> {
@@ -102,15 +95,3 @@ export async function getGameData(slug: string): Promise<GameData> {
   return gameData;
 }
 
-export function getGameThumbnail(slug: string): GameThumbnail {
-  const src = `${GAMESITE_URL}/images/${slug}.png`;
-  const alt = `${slug} thumbnail`;
-  const [width, height] = ["300", "240"];
-
-  return {
-    src,
-    alt,
-    width,
-    height,
-  };
-}
