@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { PictureData, getPictureDataAll } from "@/lib/picture";
 import PictureList from "@/components/PictureList";
-import { JsonLd, JsonLdScript } from "@/components/jsonLdScript";
+import { JsonLd, JsonLdScript } from "@/components/JsonLdScript";
 import styles from "./page.module.css";
 
 const BASE_URL = process.env.BASE_URL || "";

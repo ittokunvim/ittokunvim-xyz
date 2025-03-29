@@ -15,13 +15,13 @@ import { MusicData, getMusicDataAll } from "@/lib/music";
 import { PictureData, getPictureDataAll } from "@/lib/picture";
 import { ToolData, getToolDataAll } from "@/lib/tools";
 
-import NewsList from "@/components/newsList";
+import NewsList from "@/components/NewsList";
 import DocList from "@/components/DocList";
-import GameList from "@/components/gameList";
-import MusicList from "@/components/musicList";
+import GameList from "@/components/GameList";
+import MusicList from "@/components/MusicList";
 import PictureList from "@/components/PictureList";
-import ToolList from "@/components/toolList";
-import { JsonLd, JsonLdScript } from "@/components/jsonLdScript";
+import ToolList from "@/components/ToolList";
+import { JsonLd, JsonLdScript } from "@/components/JsonLdScript";
 
 const SITENAME    = process.env.NEXT_PUBLIC_SITENAME    || "";
 const DESCRIPTION = process.env.NEXT_PUBLIC_DESCRIPTION || "";

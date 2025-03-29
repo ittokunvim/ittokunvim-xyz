@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import PachiBorder from "@/components/pachiBorder";
-import { JsonLd, JsonLdScript } from "@/components/jsonLdScript";
+import PachiBorder from "@/components/PachiBorder";
+import { JsonLd, JsonLdScript } from "@/components/JsonLdScript";
 import styles from "./page.module.css";
 
 const BASE_URL = process.env.BASE_URL || "";

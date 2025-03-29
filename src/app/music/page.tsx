@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { MusicData, getMusicDataAll } from "@/lib/music";
-import MusicList from "@/components/musicList";
-import { JsonLd, JsonLdScript } from "@/components/jsonLdScript";
+import MusicList from "@/components/MusicList";
+import { JsonLd, JsonLdScript } from "@/components/JsonLdScript";
 import styles from "./page.module.css";
 
 const BASE_URL = process.env.BASE_URL             || "";

@@ -10,7 +10,7 @@ import { faCopyright } from "@fortawesome/free-regular-svg-icons";
 import "./globals.css";
 import "@/config/fontawesome";
 import styles from "./layout.module.css";
-import { GoogleAdsCodeSnipet, GoogleAdsMetatag } from "@/components/googleAds";
+import { GoogleAdsCodeSnipet, GoogleAdsMetatag } from "@/components/GoogleAds";
 
 const notoSansJP = Noto_Sans_JP({ subsets: ["latin"] });
 

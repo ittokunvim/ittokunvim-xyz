@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { JsonLd, JsonLdScript } from "@/components/jsonLdScript";
+import { JsonLd, JsonLdScript } from "@/components/JsonLdScript";
 import styles from "./page.module.css";
 
 const BASE_URL = process.env.BASE_URL || "";

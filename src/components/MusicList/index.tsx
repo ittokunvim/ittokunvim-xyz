@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMusic, faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
 
 import { MusicData } from "@/lib/music";
-import { SearchData, SearchForm } from "./searchForm";
+import { SearchData, SearchForm } from "./SearchForm";
 import styles from "./style.module.css";
 
 type Prop = {

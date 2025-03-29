@@ -7,7 +7,7 @@ import { faClock } from "@fortawesome/free-regular-svg-icons";
 import "@/lib/hljs.css";
 import "@/lib/rlc.css";
 import { getDocSlugAll, getDocData } from "@/lib/docs";
-import { JsonLd, JsonLdScript } from "@/components/jsonLdScript";
+import { JsonLd, JsonLdScript } from "@/components/JsonLdScript";
 import styles from "./page.module.css";
 
 export const dynamic = "auto";

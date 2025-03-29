@@ -3,8 +3,8 @@ import { notFound } from "next/navigation";
 
 import { GameData, getGameSlugAll, getGameData } from "@/lib/games";
 import styles from "./page.module.css";
-import GameIframe from "@/components/gameIframe";
-import { JsonLd, JsonLdScript } from "@/components/jsonLdScript";
+import GameIframe from "@/components/GameIframe";
+import { JsonLd, JsonLdScript } from "@/components/JsonLdScript";
 
 export const dynamic = "auto";
 export const dynamicParams = false;
