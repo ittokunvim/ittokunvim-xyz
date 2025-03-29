@@ -2,10 +2,25 @@
 
 import Image, { ImageLoaderProps } from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-regular-svg-icons";
+
 import { PictureData } from "@/lib/picture";
+import SearchForm from "./SearchForm";
 import styles from "./style.module.css";
+
+export type SearchData = {
+  bonus: string;
+  flag: string;
+  album: string;
+};
+
+type Prop = {
+  pictures: PictureData[];
+  route: string;
+};
 
 const PICTURESITE_URL = process.env.NEXT_PUBLIC_PICTURESITE_URL || "";
 
@@ -17,13 +32,24 @@ const imageLoader = ({ src, width, quality, }: ImageLoaderProps): string => {
   return url.href;
 };
 
-type Prop = {
-  pictures: PictureData[];
-  route: string;
-};
+export default function PictureList({ pictures, route }: Prop) {
+  const [pictureList, setPictureList] = useState<PictureData[]>(pictures);
+  const searchPictures = ({ bonus, flag, album }: SearchData) => {
+    if (bonus === "" && flag === "" && album === "") {
+      setPictureList(pictures);
+    }
+    const bonusRegex = new RegExp(bonus, "i");
+    const flagRegex = new RegExp(flag, "i");
+    const albumRegex = new RegExp(album, "i");
+    const searchPictureList = pictures.filter((picture) => {
+      const isBonusTest = bonusRegex.test(picture.bonus);
+      const isFlagTest = flagRegex.test(picture.flag);
+      const isAlbumTest = albumRegex.test(picture.album);
+      return (isBonusTest && isFlagTest && isAlbumTest);
+    });
 
-export default function PictureList(props: Prop) {
-  const { pictures, route } = props;
+    setPictureList(searchPictureList);
+  };
 
   return (
     <article className={styles.pictures}>
@@ -31,8 +57,11 @@ export default function PictureList(props: Prop) {
         <FontAwesomeIcon icon={faImage} />
         写真リスト
       </h3>
+      {route === "/pictures" && (
+        <SearchForm searchPicture={searchPictures} />
+      )}
       <div className={styles.list}>
-        {pictures.map((picture, i) => (
+        {pictureList.map((picture, i) => (
           <div className={styles.item} key={i}>
             <div className={styles.image}>
               <PictureImage path={picture.path} />
