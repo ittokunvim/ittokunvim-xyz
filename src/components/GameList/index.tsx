@@ -5,7 +5,7 @@ import Link from "next/link";
 import { faGamepad, faClock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { GameData } from "@/lib/games";
-import styles from "./index.module.css";
+import styles from "./styles.module.css";
 
 const GAMESITE_URL = process.env.NEXT_PUBLIC_GAMESITE_URL || "";
 

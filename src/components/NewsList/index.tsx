@@ -7,7 +7,7 @@ import { faClock } from "@fortawesome/free-regular-svg-icons";
 import { formatDate } from "@/lib/utils";
 import { NewsData } from "@/lib/news";
 
-import styles from "./index.module.css";
+import styles from "./styles.module.css";
 
 export default function NewsList(props: { news: NewsData[] }) {
   const news = props.news;

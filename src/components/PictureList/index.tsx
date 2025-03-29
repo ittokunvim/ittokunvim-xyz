@@ -9,7 +9,7 @@ import { faImage } from "@fortawesome/free-regular-svg-icons";
 
 import { PictureData } from "@/lib/picture";
 import SearchForm from "./SearchForm";
-import styles from "./style.module.css";
+import styles from "./styles.module.css";
 
 export type SearchData = {
   bonus: string;

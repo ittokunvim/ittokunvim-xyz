@@ -6,7 +6,7 @@ import { faToolbox, } from "@fortawesome/free-solid-svg-icons";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 import { formatDate } from "@/lib/utils";
 import { ToolData } from "@/lib/tools";
-import styles from "./index.module.css";
+import styles from "./styles.module.css";
 
 export default function ToolList(props: { tools: ToolData[] }) {
   const tools = props.tools;

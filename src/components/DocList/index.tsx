@@ -5,7 +5,7 @@ import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 
 import { DocData } from "@/lib/docs";
-import styles from "./index.module.css";
+import styles from "./styles.module.css";
 
 export default async function DocList(props: { docs: DocData[] }) {
   const { docs } = props;

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 import { SearchData } from ".";
-import styles from "./style.module.css";
+import styles from "./styles.module.css";
 
 type Prop = {
   searchPicture: (searchData: SearchData) => void;

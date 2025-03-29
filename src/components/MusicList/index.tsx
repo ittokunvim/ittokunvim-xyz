@@ -8,7 +8,7 @@ import { faMusic, faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
 
 import { MusicData } from "@/lib/music";
 import { SearchData, SearchForm } from "./SearchForm";
-import styles from "./style.module.css";
+import styles from "./styles.module.css";
 
 type Prop = {
   music: MusicData[];
