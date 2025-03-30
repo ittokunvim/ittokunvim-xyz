@@ -34,7 +34,7 @@ async function fetchGamesJson(): Promise<JsonData[]> {
 
 export async function getGameDataAll(): Promise<GameData[]> {
   const games = await fetchGamesJson();
-  let gamesData: GameData[] = [{
+  let gameDataList: GameData[] = [{
     slug: "",
     title: "",
     description: "",
@@ -50,7 +50,7 @@ export async function getGameDataAll(): Promise<GameData[]> {
       return a.updatedAt < b.updatedAt ? 1 : -1;
     }
   });
-  gamesData = games.map((game: JsonData) => {
+  gameDataList = games.map((game: JsonData) => {
     const slug = game.slug;
     const title = game.title;
     const description = game.description;
@@ -61,7 +61,7 @@ export async function getGameDataAll(): Promise<GameData[]> {
     return { slug, title, description, size, createdAt, updatedAt };
   });
 
-  return gamesData;
+  return gameDataList;
 }
 
 export async function getGameSlugAll(): Promise<string[]> {
@@ -71,7 +71,7 @@ export async function getGameSlugAll(): Promise<string[]> {
 
 export async function getGameData(slug: string): Promise<GameData> {
   const games = await fetchGamesJson();
-  const gameJson = games.find((game: JsonData) => game.slug === slug);
+  const game = games.find((game: JsonData) => game.slug === slug);
   const gameData: GameData = {
     slug: "",
     title: "",
@@ -81,16 +81,16 @@ export async function getGameData(slug: string): Promise<GameData> {
     updatedAt: "",
   };
 
-  if (gameJson === undefined) {
+  if (game === undefined) {
     return gameData;
   }
 
-  gameData.slug = gameJson.slug;
-  gameData.title = gameJson.title;
-  gameData.description = gameJson.description;
-  gameData.size = gameJson.size;
-  gameData.createdAt = formatDate(gameJson.createdAt);
-  gameData.updatedAt = formatDate(gameJson.updatedAt);
+  gameData.slug = game.slug;
+  gameData.title = game.title;
+  gameData.description = game.description;
+  gameData.size = game.size;
+  gameData.createdAt = formatDate(game.createdAt);
+  gameData.updatedAt = formatDate(game.updatedAt);
 
   return gameData;
 }
