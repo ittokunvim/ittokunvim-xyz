@@ -16,12 +16,12 @@ export const dynamicParams = false;
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "";
 
 type Props = {
-  params: { slug: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = params;
+  const { slug } = await params;
   const doc: DocContentData = await getDocData(slug);
   const { title, description } = doc;
   const url = `${BASE_URL}/docs/${slug}`;
@@ -50,7 +50,7 @@ export async function generateStaticParams() {
 }
 
 export default async function Page({ params }: Props) {
-  const { slug } = params;
+  const { slug } = await params;
   const doc: DocContentData = await getDocData(slug);
   const { title, description, createdAt, updatedAt, contentHtml } = doc;
   const jsonLd: JsonLd = {

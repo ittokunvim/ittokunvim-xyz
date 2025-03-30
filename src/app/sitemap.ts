@@ -3,6 +3,8 @@ import { getDocSlugAll } from "@/lib/docs";
 import { getGameSlugAll } from "@/lib/games";
 import { ToolData, getToolDataAll } from "@/lib/tools";
 
+export const dynamic = "force-static";
+
 const BASE_URL = process.env.BASE_URL;
 
 type Sitemap = {
