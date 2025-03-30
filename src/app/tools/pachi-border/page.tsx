@@ -1,40 +1,30 @@
 import { Metadata } from "next";
-import PachiBorder from "@/components/pachiBorder";
-import { JsonLd, JsonLdScript } from "@/components/jsonLdScript";
+import PachiBorder from "@/components/PachiBorder";
+import { JsonLd, JsonLdScript } from "@/components/JsonLdScript";
 import styles from "./page.module.css";
 
-const BASE_URL = process.env.BASE_URL || "";
-const SITENAME = process.env.NEXT_PUBLIC_SITENAME || "";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "";
 const title = "パチンコボーダー計算ツール";
 const description = "パチンコボーダー計算ツールです";
+const route = "/tools/pachi-border";
+const url = BASE_URL + route;
 
-export async function generateMetadata(): Promise<Metadata> {
-  const url = `${BASE_URL}/tools/pachi-border`;
-  const siteName = SITENAME;
-
-  return {
+export const metadata: Metadata = {
+  title,
+  description,
+  openGraph: {
     title,
     description,
-    openGraph: {
-      title,
-      description,
-      url,
-      siteName,
-      locale: "ja_JP",
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      site: "@ittokunvim",
-      creator: "@ittokunvim",
-    },
-    alternates: {
-      canonical: url,
-    },
-  };
-}
+    url,
+  },
+  twitter: {
+    title,
+    description,
+  },
+  alternates: {
+    canonical: url,
+  },
+};
 
 export default async function Page() {
   const jsonLd: JsonLd = {

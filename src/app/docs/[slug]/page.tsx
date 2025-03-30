@@ -4,17 +4,16 @@ import { notFound } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 
-import "@/lib/hljs.css";
-import "@/lib/rlc.css";
-import { getDocSlugAll, getDocData } from "@/lib/docs";
-import { JsonLd, JsonLdScript } from "@/components/jsonLdScript";
+import "@/config/hljs.css";
+import "@/config/rlc.css";
+import { DocContentData, getDocSlugAll, getDocData } from "@/lib/docs";
+import { JsonLd, JsonLdScript } from "@/components/JsonLdScript";
 import styles from "./page.module.css";
 
 export const dynamic = "auto";
 export const dynamicParams = false;
 
-const BASE_URL = process.env.BASE_URL             || "";
-const SITENAME = process.env.NEXT_PUBLIC_SITENAME || "";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "";
 
 type Props = {
   params: { slug: string };
@@ -22,9 +21,9 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const slug = params.slug;
-  const docData = await getDocData(slug);
-  const { title, description } = docData;
+  const { slug } = params;
+  const doc: DocContentData = await getDocData(slug);
+  const { title, description } = doc;
   const url = `${BASE_URL}/docs/${slug}`;
 
   return {
@@ -34,16 +33,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title,
       description,
       url,
-      siteName: SITENAME,
-      locale: "ja_JP",
-      type: "website",
     },
     twitter: {
-      card: "summary_large_image",
       title,
       description,
-      site: "@ittokunvim",
-      creator: "@ittokunvim",
     },
     alternates: {
       canonical: url,
@@ -56,12 +49,13 @@ export async function generateStaticParams() {
   return docSlugs.map((slug) => ({ slug: slug }));
 }
 
-export default async function Page({ params }: { params: { slug: string } }) {
-  const docData = await getDocData(params.slug);
-  const { title, createdAt, updatedAt, contentHtml } = docData;
+export default async function Page({ params }: Props) {
+  const { slug } = params;
+  const doc: DocContentData = await getDocData(slug);
+  const { title, description, createdAt, updatedAt, contentHtml } = doc;
   const jsonLd: JsonLd = {
-    name: docData.title,
-    description: docData.description,
+    name: title,
+    description,
   };
 
   if (title === "") {
@@ -71,7 +65,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
   return (
     <main className={styles.main}>
       <article className={styles.docs}>
-        <div className={styles.title}>{docData.title}</div>
+        <div className={styles.title}>{title}</div>
         <div className={styles.date}>
           <FontAwesomeIcon icon={faClock} />
           {`${createdAt}に作成 ${updatedAt}に更新`}

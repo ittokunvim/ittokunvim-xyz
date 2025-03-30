@@ -2,10 +2,10 @@
 
 import Image, { ImageLoaderProps } from "next/image";
 import Link from "next/link";
-import { faGamepad, faClock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGamepad, faClock } from "@fortawesome/free-solid-svg-icons";
 import { GameData } from "@/lib/games";
-import styles from "./index.module.css";
+import styles from "./styles.module.css";
 
 const GAMESITE_URL = process.env.NEXT_PUBLIC_GAMESITE_URL || "";
 
@@ -27,8 +27,8 @@ export default function GameList(props: { games: GameData[] }) {
         ゲーム一覧
       </h3>
       <div className={styles.list}>
-        {games.map((game) => (
-          <div className={styles.item} key={game.slug}>
+        {games.map((game, i) => (
+          <div className={styles.item} key={i}>
             <div className={styles.thumbnail}>
               <ThumbnailImage slug={game.slug} />
             </div>

@@ -1,42 +1,31 @@
 import { Metadata } from "next";
 import { PictureData, getPictureDataAll } from "@/lib/picture";
 import PictureList from "@/components/PictureList";
-import { JsonLd, JsonLdScript } from "@/components/jsonLdScript";
+import { JsonLd, JsonLdScript } from "@/components/JsonLdScript";
 import styles from "./page.module.css";
 
-const BASE_URL = process.env.BASE_URL || "";
-const SITENAME = process.env.NEXT_PUBLIC_SITENAME || "";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "";
 const title = "写真リスト";
 const description = "写真の一覧を表示するページ";
 const route = "/pictures";
+const url = BASE_URL + route;
 
-export async function generateMetadata(): Promise<Metadata> {
-  const url = new URL(route, BASE_URL);
-  const siteName = SITENAME;
-
-  return {
+export const metadata: Metadata = {
+  title,
+  description,
+  openGraph: {
     title,
     description,
-    openGraph: {
-      title,
-      description,
-      url,
-      siteName,
-      locale: "ja_JP",
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      site: "@ittokunvim",
-      creator: "@ittokunvim",
-    },
-    alternates: {
-      canonical: url,
-    },
-  };
-}
+    url,
+  },
+  twitter: {
+    title,
+    description,
+  },
+  alternates: {
+    canonical: url,
+  },
+};
 
 export default async function Page() {
   const pictures: PictureData[] = await getPictureDataAll();

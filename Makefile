@@ -30,3 +30,7 @@ games_init:
 music_init:
 	docker compose run --rm music bash
 
+# make picture_init: Access the picture container
+picture_init:
+	docker compose run --rm picture bash
+

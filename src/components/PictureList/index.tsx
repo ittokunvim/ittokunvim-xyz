@@ -3,13 +3,11 @@
 import Image, { ImageLoaderProps } from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-regular-svg-icons";
-
 import { PictureData } from "@/lib/picture";
 import SearchForm from "./SearchForm";
-import styles from "./style.module.css";
+import styles from "./styles.module.css";
 
 export type SearchData = {
   bonus: string;
@@ -17,14 +15,14 @@ export type SearchData = {
   album: string;
 };
 
-type Prop = {
+type Props = {
   pictures: PictureData[];
   route: string;
 };
 
 const PICTURESITE_URL = process.env.NEXT_PUBLIC_PICTURESITE_URL || "";
 
-const imageLoader = ({ src, width, quality, }: ImageLoaderProps): string => {
+const imageLoader = ({ src, width, quality }: ImageLoaderProps): string => {
   const url = new URL(src, PICTURESITE_URL);
   url.searchParams.set("format", "auto");
   url.searchParams.set("width", width.toString());
@@ -32,7 +30,7 @@ const imageLoader = ({ src, width, quality, }: ImageLoaderProps): string => {
   return url.href;
 };
 
-export default function PictureList({ pictures, route }: Prop) {
+export default function PictureList({ pictures, route }: Props) {
   const [pictureList, setPictureList] = useState<PictureData[]>(pictures);
   const searchPictures = ({ bonus, flag, album }: SearchData) => {
     if (bonus === "" && flag === "" && album === "") {
@@ -94,7 +92,7 @@ export default function PictureList({ pictures, route }: Prop) {
   );
 }
 
-function PictureImage(props: { path: string, }) {
+function PictureImage(props: { path: string }) {
   const path = props.path;
   const { src, alt, width, height } = {
     src: path,

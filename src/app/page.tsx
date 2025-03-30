@@ -1,29 +1,27 @@
 import Image from "next/image";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faInfoCircle,
-  faAddressCard,
-} from "@fortawesome/free-solid-svg-icons";
+import { faInfoCircle, faAddressCard } from "@fortawesome/free-solid-svg-icons";
 
-import iconPng from "./icon.png";
-import styles from "./page.module.css";
-import { NewsData, getNewsListAll } from "@/lib/news";
+import { getNewsListAll, NewsData } from "@/lib/news";
 import { DocData, getDocDataAll } from "@/lib/docs";
 import { GameData, getGameDataAll } from "@/lib/games";
 import { MusicData, getMusicDataAll } from "@/lib/music";
 import { PictureData, getPictureDataAll } from "@/lib/picture";
 import { ToolData, getToolDataAll } from "@/lib/tools";
 
-import NewsList from "@/components/newsList";
+import NewsList from "@/components/NewsList";
 import DocList from "@/components/DocList";
-import GameList from "@/components/gameList";
-import MusicList from "@/components/musicList";
+import GameList from "@/components/GameList";
+import MusicList from "@/components/MusicList";
 import PictureList from "@/components/PictureList";
-import ToolList from "@/components/toolList";
-import { JsonLd, JsonLdScript } from "@/components/jsonLdScript";
+import ToolList from "@/components/ToolList";
+import { JsonLd, JsonLdScript } from "@/components/JsonLdScript";
 
-const SITENAME    = process.env.NEXT_PUBLIC_SITENAME    || "";
+import iconPng from "./icon.png";
+import styles from "./page.module.css";
+
+const SITENAME = process.env.NEXT_PUBLIC_SITENAME || "";
 const DESCRIPTION = process.env.NEXT_PUBLIC_DESCRIPTION || "";
 
 export default async function Home() {
@@ -73,7 +71,7 @@ export default async function Home() {
           </div>
         </div>
       </article>
-      <NewsList news={news} />
+      <NewsList newsList={news} />
       <DocList docs={docs} />
       <GameList games={games} />
       <MusicList music={music.reverse().slice(0, 10)} route="/" />

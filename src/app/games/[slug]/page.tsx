@@ -2,15 +2,14 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { GameData, getGameSlugAll, getGameData } from "@/lib/games";
+import GameIframe from "@/components/GameIframe";
+import { JsonLd, JsonLdScript } from "@/components/JsonLdScript";
 import styles from "./page.module.css";
-import GameIframe from "@/components/gameIframe";
-import { JsonLd, JsonLdScript } from "@/components/jsonLdScript";
 
 export const dynamic = "auto";
 export const dynamicParams = false;
 
-const BASE_URL = process.env.BASE_URL             || "";
-const SITENAME = process.env.NEXT_PUBLIC_SITENAME || "";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "";
 
 type Props = {
   params: { slug: string };
@@ -18,9 +17,9 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const slug = params.slug;
-  const gameData = await getGameData(slug);
-  const { title, description } = gameData;
+  const { slug } = params;
+  const game: GameData = await getGameData(slug);
+  const { title, description } = game;
   const url = `${BASE_URL}/games/${slug}`;
 
   return {
@@ -30,16 +29,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title,
       description,
       url,
-      siteName: SITENAME,
-      locale: "ja_JP",
-      type: "website",
     },
     twitter: {
-      card: "summary_large_image",
       title,
       description,
-      site: "@ittokunvim",
-      creator: "@ittokunvim",
     },
     alternates: {
       canonical: url,
@@ -52,12 +45,16 @@ export async function generateStaticParams() {
   return gameSlugs.map((slug) => ({ slug: slug }));
 }
 
-export default async function Page({ params }: { params: { slug: string } }) {
-  const game: GameData = await getGameData(params.slug);
-  const { slug, title, description, size, createdAt, updatedAt } = game;
-  const jsonLd: JsonLd = { name: title, description };
+export default async function Page({ params }: Props) {
+  const { slug } = params;
+  const game: GameData = await getGameData(slug);
+  const { title, description, size, createdAt, updatedAt } = game;
+  const jsonLd: JsonLd = {
+    name: title,
+    description,
+  };
 
-  if (slug === "") {
+  if (title === "") {
     return notFound();
   }
 
@@ -71,19 +68,19 @@ export default async function Page({ params }: { params: { slug: string } }) {
         <table>
           <tbody>
             <tr>
-              <th>Title</th>
+              <th>タイトル</th>
               <td>{title}</td>
             </tr>
             <tr>
-              <th>Size</th>
+              <th>画面サイズ</th>
               <td>{size.split("x").join(" x ")}</td>
             </tr>
             <tr>
-              <th>Created at</th>
+              <th>作成日時</th>
               <td>{createdAt}</td>
             </tr>
             <tr>
-              <th>Updated at</th>
+              <th>更新日時</th>
               <td>{updatedAt}</td>
             </tr>
           </tbody>

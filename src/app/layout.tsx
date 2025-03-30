@@ -7,16 +7,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faTwitter, faItchIo } from "@fortawesome/free-brands-svg-icons";
 import { faCopyright } from "@fortawesome/free-regular-svg-icons";
 
-import "./globals.css";
 import "@/config/fontawesome";
+import { GoogleAdsCodeSnipet, GoogleAdsMetatag } from "@/components/GoogleAds";
+
+import "./globals.css";
 import styles from "./layout.module.css";
-import { GoogleAdsCodeSnipet, GoogleAdsMetatag } from "@/components/googleAds";
 
 const notoSansJP = Noto_Sans_JP({ subsets: ["latin"] });
 
-const SITENAME    = process.env.NEXT_PUBLIC_SITENAME    || "";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "";
+const SITENAME = process.env.NEXT_PUBLIC_SITENAME || "";
 const DESCRIPTION = process.env.NEXT_PUBLIC_DESCRIPTION || "";
-const BASE_URL    = process.env.NEXT_PUBLIC_BASE_URL    || "";
 
 export const metadata: Metadata = {
   title: {
@@ -48,24 +49,24 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const githubUrl  = "https://github.com/ittokunvim";
+  const githubUrl = "https://github.com/ittokunvim";
   const twitterUrl = "https://twitter.com/ittokunvim";
-  const zennUrl    = "https://zenn.dev/ittoku_ky73";
-  const itchUrl    = "https://ittokunvim.itch.io";
+  const zennUrl = "https://zenn.dev/ittoku_ky73";
+  const itchUrl = "https://ittokunvim.itch.io";
 
-  const externals  = [
-    { name: "Source Code",  url: "https://github.com/ittokunvim/ittokunvim-xyz" },
-    { name: "Next.js",      url: "https://nextjs.org/" },
-    { name: "Vercel",       url: "https://vercel.com/" },
-    { name: "Pixlr",        url: "https://pixlr.com/jp/" },
+  const externals = [
+    { name: "Source Code", url: "https://github.com/ittokunvim/ittokunvim-xyz/" },
+    { name: "Next.js", url: "https://nextjs.org/" },
+    { name: "Vercel", url: "https://vercel.com/" },
+    { name: "Pixlr", url: "https://pixlr.com/jp/" },
     { name: "Font Awesome", url: "https://fontawesome.com/" },
-    { name: "Github",       url: "https://github.com" },
+    { name: "Github", url: "https://github.com/" },
   ];
 
   return (
     <html lang="ja">
       <body className={notoSansJP.className}>
-        <header className={styles.page_header}>
+        <header className={styles.header}>
           <Link href="/">
             <Image src="/logo.svg" width={44} height={44} alt="site logo" />
           </Link>
@@ -85,10 +86,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </header>
         {children}
-        <footer className={styles.page_footer}>
+        <footer className={styles.footer}>
           <div className={styles.external}>
-            {externals.map((external, id) => (
-              <a href={external.url} key={id} target="_blank" rel="noopener noreferrer">
+            {externals.map((external, i) => (
+              <a href={external.url} key={i} target="_blank" rel="noopener noreferrer">
                 {external.name}
               </a>
             ))}
