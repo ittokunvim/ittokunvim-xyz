@@ -2,20 +2,18 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMusic, faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
-
 import { MusicData } from "@/lib/music";
 import { SearchData, SearchForm } from "./SearchForm";
 import styles from "./styles.module.css";
 
-type Prop = {
+type Props = {
   music: MusicData[];
   route: string;
 };
 
-export default function MusicList({ music, route }: Prop) {
+export default function MusicList({ music, route }: Props) {
   const [musicList, setMusicList] = useState<MusicData[]>(music);
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);

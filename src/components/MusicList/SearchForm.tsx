@@ -1,8 +1,6 @@
 import { useState } from "react";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-
 import styles from "./styles.module.css";
 
 export type SearchData = {
@@ -11,11 +9,11 @@ export type SearchData = {
   createdAt: string;
 };
 
-type Prop = {
+type Props = {
   searchMusic: (searchData: SearchData) => void;
 };
 
-export function SearchForm({ searchMusic }: Prop) {
+export function SearchForm({ searchMusic }: Props) {
   const createdAtList = [
     "",
     "2022年7月",

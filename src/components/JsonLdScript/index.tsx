@@ -1,3 +1,5 @@
+"use client";
+
 import { Product, WithContext } from "schema-dts";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
@@ -7,14 +9,18 @@ export type JsonLd = {
   description: string,
 };
 
-export function JsonLdScript({ data }: { data: JsonLd}) {
+type Props = {
+  data: JsonLd;
+};
+
+export function JsonLdScript({ data }: Props) {
   const { name, description } = data;
-  const logoUrl = `${BASE_URL}/logo.png`;
+  const image = `${BASE_URL}/logo.png`;
   const jsonLd: WithContext<Product> = {
     "@context": "https://schema.org",
     "@type": "Product",
     name,
-    image: logoUrl,
+    image,
     description,
   };
 

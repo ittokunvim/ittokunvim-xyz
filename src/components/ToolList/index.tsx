@@ -8,9 +8,11 @@ import { formatDate } from "@/lib/utils";
 import { ToolData } from "@/lib/tools";
 import styles from "./styles.module.css";
 
-export default function ToolList(props: { tools: ToolData[] }) {
-  const tools = props.tools;
+type Props = {
+  tools: ToolData[];
+};
 
+export default function ToolList({ tools }: Props) {
   return (
     <article className={styles.tools}>
       <h3>
@@ -18,8 +20,8 @@ export default function ToolList(props: { tools: ToolData[] }) {
         ツール一覧
       </h3>
       <div className={styles.list}>
-        {tools.map((tool) => (
-          <div className={styles.item} key={tool.slug}>
+        {tools.map((tool, i) => (
+          <div className={styles.item} key={i}>
             <div className={styles.name}>
               <Link href={`tools/${tool.slug}`}>{tool.name}</Link>
             </div>

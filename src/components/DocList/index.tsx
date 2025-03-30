@@ -1,13 +1,13 @@
-import Link from "next/link";
+"use client";
 
+import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
-
 import { DocData } from "@/lib/docs";
 import styles from "./styles.module.css";
 
-export default async function DocList(props: { docs: DocData[] }) {
+export default function DocList(props: { docs: DocData[] }) {
   const { docs } = props;
 
   return (
