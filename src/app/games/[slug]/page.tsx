@@ -12,12 +12,12 @@ export const dynamicParams = false;
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "";
 
 type Props = {
-  params: { slug: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = params;
+  const { slug } = await params;
   const game: GameData = await getGameData(slug);
   const { title, description } = game;
   const url = `${BASE_URL}/games/${slug}`;
@@ -46,7 +46,7 @@ export async function generateStaticParams() {
 }
 
 export default async function Page({ params }: Props) {
-  const { slug } = params;
+  const { slug } = await params;
   const game: GameData = await getGameData(slug);
   const { title, description, size, createdAt, updatedAt } = game;
   const jsonLd: JsonLd = {
