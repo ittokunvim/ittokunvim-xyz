@@ -1,14 +1,9 @@
 import Image from "next/image";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faInfoCircle,
-  faAddressCard,
-} from "@fortawesome/free-solid-svg-icons";
+import { faInfoCircle, faAddressCard } from "@fortawesome/free-solid-svg-icons";
 
-import iconPng from "./icon.png";
-import styles from "./page.module.css";
-import { NewsData, getNewsListAll } from "@/lib/news";
+import { getNewsListAll, NewsData } from "@/lib/news";
 import { DocData, getDocDataAll } from "@/lib/docs";
 import { GameData, getGameDataAll } from "@/lib/games";
 import { MusicData, getMusicDataAll } from "@/lib/music";
@@ -22,6 +17,9 @@ import MusicList from "@/components/MusicList";
 import PictureList from "@/components/PictureList";
 import ToolList from "@/components/ToolList";
 import { JsonLd, JsonLdScript } from "@/components/JsonLdScript";
+
+import iconPng from "./icon.png";
+import styles from "./page.module.css";
 
 const SITENAME = process.env.NEXT_PUBLIC_SITENAME || "";
 const DESCRIPTION = process.env.NEXT_PUBLIC_DESCRIPTION || "";
@@ -73,7 +71,7 @@ export default async function Home() {
           </div>
         </div>
       </article>
-      <NewsList news={news} />
+      <NewsList newsList={news} />
       <DocList docs={docs} />
       <GameList games={games} />
       <MusicList music={music.reverse().slice(0, 10)} route="/" />

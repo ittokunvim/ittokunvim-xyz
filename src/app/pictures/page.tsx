@@ -8,27 +8,24 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "";
 const title = "写真リスト";
 const description = "写真の一覧を表示するページ";
 const route = "/pictures";
+const url = BASE_URL + route;
 
-export async function generateMetadata(): Promise<Metadata> {
-  const url = new URL(route, BASE_URL);
-
-  return {
+export const metadata: Metadata = {
+  title,
+  description,
+  openGraph: {
     title,
     description,
-    openGraph: {
-      title,
-      description,
-      url,
-    },
-    twitter: {
-      title,
-      description,
-    },
-    alternates: {
-      canonical: url,
-    },
-  };
-}
+    url,
+  },
+  twitter: {
+    title,
+    description,
+  },
+  alternates: {
+    canonical: url,
+  },
+};
 
 export default async function Page() {
   const pictures: PictureData[] = await getPictureDataAll();

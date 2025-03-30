@@ -7,27 +7,25 @@ import styles from "./page.module.css";
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "";
 const title = "ミュージック一覧";
 const description = "音楽の一覧を表示するページ";
+const route = "/music";
+const url = BASE_URL + route;
 
-export async function generateMetadata(): Promise<Metadata> {
-  const url = `${BASE_URL}/music`;
-
-  return {
+export const metadata: Metadata = {
+  title,
+  description,
+  openGraph: {
     title,
     description,
-    openGraph: {
-      title,
-      description,
-      url,
-    },
-    twitter: {
-      title,
-      description,
-    },
-    alternates: {
-      canonical: url,
-    },
-  };
-}
+    url,
+  },
+  twitter: {
+    title,
+    description,
+  },
+  alternates: {
+    canonical: url,
+  },
+};
 
 export default async function Page() {
   const music: MusicData[] = await getMusicDataAll();
@@ -38,7 +36,7 @@ export default async function Page() {
 
   return (
     <main className={styles.main}>
-      <MusicList music={music} route="/music" />
+      <MusicList music={music} route={route} />
       <JsonLdScript data={jsonLd} />
     </main>
   );

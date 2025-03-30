@@ -50,11 +50,12 @@ export async function generateStaticParams() {
 }
 
 export default async function Page({ params }: Props) {
-  const docData = await getDocData(params.slug);
-  const { title, createdAt, updatedAt, contentHtml } = docData;
+  const { slug } = params;
+  const doc: DocContentData = await getDocData(slug);
+  const { title, description, createdAt, updatedAt, contentHtml } = doc;
   const jsonLd: JsonLd = {
-    name: docData.title,
-    description: docData.description,
+    name: title,
+    description,
   };
 
   if (title === "") {
@@ -64,7 +65,7 @@ export default async function Page({ params }: Props) {
   return (
     <main className={styles.main}>
       <article className={styles.docs}>
-        <div className={styles.title}>{docData.title}</div>
+        <div className={styles.title}>{title}</div>
         <div className={styles.date}>
           <FontAwesomeIcon icon={faClock} />
           {`${createdAt}に作成 ${updatedAt}に更新`}

@@ -5,27 +5,25 @@ import styles from "./page.module.css";
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "";
 const title = "Hello, world";
 const description = "This is a hello world page.";
+const route = "/tools/hello";
+const url = BASE_URL + route;
 
-export async function generateMetadata(): Promise<Metadata> {
-  const url = `${BASE_URL}/tools/hello`;
-
-  return {
+export const metadata: Metadata = {
+  title,
+  description,
+  openGraph: {
     title,
     description,
-    openGraph: {
-      title,
-      description,
-      url,
-    },
-    twitter: {
-      title,
-      description,
-    },
-    alternates: {
-      canonical: url,
-    },
-  };
-}
+    url,
+  },
+  twitter: {
+    title,
+    description,
+  },
+  alternates: {
+    canonical: url,
+  },
+};
 
 export default async function Page() {
   const jsonLd: JsonLd = {
