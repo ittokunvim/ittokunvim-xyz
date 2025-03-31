@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     depends_on:
-      - docs
+      - doc
       - games
       - music
     env_file:
@@ -19,11 +19,11 @@ services:
     tty: true
     stdin_open: true
 
-  docs:
+  doc:
     build:
       context: .
-      dockerfile: Dockerfile.docs
-    command: ["npx", "http-server", "-p", "4000", "docs"]
+      dockerfile: Dockerfile.doc
+    command: ["npx", "http-server", "-p", "4000", "doc"]
     ports:
       - "4000:4000"
     tty: true
