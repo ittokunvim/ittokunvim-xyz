@@ -22,9 +22,9 @@ app_init:
 doc_init:
 	docker compose run --rm doc bash
 
-# make games_init: Access the games container
-games_init:
-	docker compose run --rm games bash
+# make game_init: Access the game container
+game_init:
+	docker compose run --rm game bash
 
 # make music_init: Access the music container
 music_init:
