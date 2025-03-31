@@ -18,9 +18,9 @@ echo_ip:
 app_init:
 	docker compose run --rm app bash
 
-# make docs_init: Access the docs container
-docs_init:
-	docker compose run --rm docs bash
+# make doc_init: Access the doc container
+doc_init:
+	docker compose run --rm doc bash
 
 # make games_init: Access the games container
 games_init:
