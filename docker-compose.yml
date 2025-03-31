@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - doc
-      - games
+      - game
       - music
     env_file:
       - .env.local
@@ -28,11 +28,11 @@ services:
       - "4000:4000"
     tty: true
 
-  games:
+  game:
     build:
       context: .
-      dockerfile: Dockerfile.games
-    command: ["npx", "http-server", "-p", "4001", "games/docs"]
+      dockerfile: Dockerfile.game
+    command: ["npx", "http-server", "-p", "4001", "game/docs"]
     ports:
       - "4001:4001"
     tty: true
