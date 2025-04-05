@@ -1,4 +1,4 @@
-import { formatDate } from "@/lib/utils";
+import { formatYear } from "@/lib/utils";
 
 const MUSICSITE_URL = process.env.MUSICSITE_URL || "";
 const MUSICSITE_JSON_URL = process.env.MUSICSITE_JSON_URL || "";
@@ -49,7 +49,7 @@ export async function getMusicDataAll(): Promise<MusicData[]> {
     const artist = music.artist;
     const path = new URL(music.path, MUSICSITE_URL).toString();
     const references = music.references;
-    const createdAt = formatDate(music.createdAt);
+    const createdAt = formatYear(music.createdAt);
 
     return { title, artist, path, references, createdAt, };
   });

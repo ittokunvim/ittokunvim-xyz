@@ -5,3 +5,9 @@ export function formatDate(createdAt: string): string {
   const day = date.getDate();
   return `${year}年${month}月${day}日`;
 }
+
+export function formatYear(createdAt: string): string {
+  const date = new Date(createdAt);
+  const year = date.getFullYear();
+  return `${year}年`;
+}
