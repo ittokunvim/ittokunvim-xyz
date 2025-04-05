@@ -14,15 +14,15 @@ type Props = {
 };
 
 export function SearchForm({ searchMusic }: Props) {
-  const createdAtList = [
-    "",
-    "2022年7月",
-    "2022年8月",
-    "2022年9月",
-    "2022年10月",
-    "2022年11月",
-    "2022年12月",
-  ];
+  const createdAtList = () => {
+    const list = [];
+    const [start, end] = [2000, 2025];
+    for (let i=start; i<=end; i++) {
+      list.unshift(`${i}年`);
+    }
+    list.unshift("");
+    return list;
+  };
   const [searchValue, setSearchValue] = useState<SearchData>({
     title: "",
     artist: "",
@@ -79,7 +79,7 @@ export function SearchForm({ searchMusic }: Props) {
             onChange={(e) => handleInputCreatedAtChange(e.target.value)}
           >
             <option value="" disabled>作成日時</option>
-            {createdAtList.map((createdAt, i) => (
+            {createdAtList().map((createdAt, i) => (
               <option key={i} value={createdAt}>{createdAt}</option>
             ))}
           </select>
