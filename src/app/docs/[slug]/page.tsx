@@ -6,6 +6,7 @@ import { faClock } from "@fortawesome/free-regular-svg-icons";
 
 import "@/config/hljs.css";
 import "@/config/rlc.css";
+import { MetadataProps, setMetadata } from "@/lib/utils";
 import { DocContentData, getDocSlugAll, getDocData } from "@/lib/docs";
 import { JsonLd, JsonLdScript } from "@/components/JsonLdScript";
 import styles from "./page.module.css";
@@ -25,23 +26,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const doc: DocContentData = await getDocData(slug);
   const { title, description } = doc;
   const url = `${BASE_URL}/docs/${slug}`;
-
-  return {
+  const metadataProps: MetadataProps = {
     title,
     description,
-    openGraph: {
-      title,
-      description,
-      url,
-    },
-    twitter: {
-      title,
-      description,
-    },
-    alternates: {
-      canonical: url,
-    },
+    url,
   };
+
+  return setMetadata(metadataProps);
 }
 
 export async function generateStaticParams() {
