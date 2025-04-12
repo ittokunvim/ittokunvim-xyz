@@ -15,7 +15,7 @@ export function setMetadata(props: MetadataProps): Metadata {
   const siteName = SITENAME;
   const locale = "ja_JP";
   const type = "website";
-  const card = "summary_large_image";
+  const card = "summary";
   const [site, creator] = ["@ittokunvim", "@ittokunvim"];
 
   return {
