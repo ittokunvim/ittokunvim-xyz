@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { MetadataProps, setMetadata } from "@/lib/utils";
 import { GameData, getGameSlugAll, getGameData } from "@/lib/games";
 import GameIframe from "@/components/GameIframe";
 import { JsonLd, JsonLdScript } from "@/components/JsonLdScript";
@@ -21,23 +22,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const game: GameData = await getGameData(slug);
   const { title, description } = game;
   const url = `${BASE_URL}/games/${slug}`;
-
-  return {
+  const metadataProps: MetadataProps = {
     title,
     description,
-    openGraph: {
-      title,
-      description,
-      url,
-    },
-    twitter: {
-      title,
-      description,
-    },
-    alternates: {
-      canonical: url,
-    },
+    url,
   };
+
+  return setMetadata(metadataProps);
 }
 
 export async function generateStaticParams() {

@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { MetadataProps, setMetadata } from "@/lib/utils";
 import { JsonLd, JsonLdScript } from "@/components/JsonLdScript";
 import styles from "./page.module.css";
 
@@ -7,23 +8,13 @@ const title = "Hello, world";
 const description = "This is a hello world page.";
 const route = "/tools/hello";
 const url = BASE_URL + route;
-
-export const metadata: Metadata = {
+const metadataProps: MetadataProps = {
   title,
   description,
-  openGraph: {
-    title,
-    description,
-    url,
-  },
-  twitter: {
-    title,
-    description,
-  },
-  alternates: {
-    canonical: url,
-  },
+  url,
 };
+
+export const metadata: Metadata = setMetadata(metadataProps);
 
 export default async function Page() {
   const jsonLd: JsonLd = {
