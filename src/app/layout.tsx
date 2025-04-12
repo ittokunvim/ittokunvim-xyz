@@ -8,7 +8,11 @@ import { faGithub, faTwitter, faItchIo } from "@fortawesome/free-brands-svg-icon
 import { faCopyright } from "@fortawesome/free-regular-svg-icons";
 
 import "@/config/fontawesome";
-import { GoogleAdsCodeSnipet, GoogleAdsMetatag } from "@/components/GoogleAds";
+import {
+  GoogleAdsCodeSnipet,
+  GoogleAdsMetatag,
+  PlaceGoogleAdsHere,
+} from "@/components/GoogleAds";
 
 import "./globals.css";
 import styles from "./layout.module.css";
@@ -85,7 +89,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </a>
           </div>
         </header>
+        <PlaceGoogleAdsHere />
         {children}
+        <PlaceGoogleAdsHere />
         <footer className={styles.footer}>
           <div className={styles.external}>
             {externals.map((external, i) => (

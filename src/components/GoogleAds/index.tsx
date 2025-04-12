@@ -4,6 +4,10 @@ import Script from "next/script";
 
 const GOOGLEADS_ID = process.env.NEXT_PUBLIC_GOOGLEADS_ID;
 
+declare global {
+  let adsbygoogle: unknown[];
+}
+
 export function GoogleAdsCodeSnipet() {
   if (process.env.NODE_ENV === "production") {
     return (
@@ -24,3 +28,27 @@ export function GoogleAdsMetatag() {
     );
   }
 }
+
+export function PlaceGoogleAdsHere() {
+  if (process.env.NODE_ENV === "production") {
+    return (
+      <div>
+        <ins
+          className="adsbygoogle"
+          style={{ display: "block" }}
+          data-ad-client={GOOGLEADS_ID}
+          data-ad-slot="7851950141"
+          data-ad-format="auto"
+          data-full-width-responsive="true"
+        ></ins>
+        <Script
+          strategy="lazyOnload"
+          onReady={() => {
+            (adsbygoogle = window.adsbygoogle || []).push({});
+          }}
+        />
+      </div>
+    );
+  }
+}
+
