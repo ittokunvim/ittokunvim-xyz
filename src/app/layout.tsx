@@ -89,9 +89,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </a>
           </div>
         </header>
-        <PlaceGoogleAdsHere />
+        <PlaceGoogleAdsHere key={1} />
         {children}
-        <PlaceGoogleAdsHere />
+        <PlaceGoogleAdsHere key={2} />
         <footer className={styles.footer}>
           <div className={styles.external}>
             {externals.map((external, i) => (

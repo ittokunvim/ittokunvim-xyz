@@ -1,0 +1,11 @@
+.ads {
+  width: 100%;
+}
+
+.adsbygoogle {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 800px;
+}
+
