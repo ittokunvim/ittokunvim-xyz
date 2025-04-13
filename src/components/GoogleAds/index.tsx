@@ -2,6 +2,8 @@
 
 import Script from "next/script";
 
+import styles from "./styles.module.css";
+
 const GOOGLEADS_ID = process.env.NEXT_PUBLIC_GOOGLEADS_ID;
 
 declare global {
@@ -32,10 +34,9 @@ export function GoogleAdsMetatag() {
 export function PlaceGoogleAdsHere() {
   if (process.env.NODE_ENV === "production") {
     return (
-      <div>
+      <div className={styles.ads}>
         <ins
-          className="adsbygoogle"
-          style={{ display: "block" }}
+          className={styles.adsbygoogle}
           data-ad-client={GOOGLEADS_ID}
           data-ad-slot="7851950141"
           data-ad-format="auto"
