@@ -32,7 +32,8 @@ export function GoogleAdsMetatag() {
 }
 
 export function PlaceGoogleAdsHere() {
-  // if (process.env.NODE_ENV === "production") {
+    return (
+  if (process.env.NODE_ENV === "production") {
     return (
       <div className={styles.ads}>
         <ins
@@ -51,5 +52,4 @@ export function PlaceGoogleAdsHere() {
       </div>
     );
   }
-// }
-
+}
