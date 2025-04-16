@@ -11,7 +11,7 @@ import "@/config/fontawesome";
 import {
   GoogleAdsCodeSnipet,
   GoogleAdsMetatag,
-  PlaceGoogleAdsHere,
+  GoogleAds,
 } from "@/components/GoogleAds";
 
 import "./globals.css";
@@ -89,9 +89,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </a>
           </div>
         </header>
-        <PlaceGoogleAdsHere key={1} />
+        <GoogleAds slot="header" />
         {children}
-        <PlaceGoogleAdsHere key={2} />
+        <GoogleAds slot="footer" />
         <footer className={styles.footer}>
           <div className={styles.external}>
             {externals.map((external, i) => (

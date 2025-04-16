@@ -5,6 +5,10 @@ import Script from "next/script";
 import styles from "./styles.module.css";
 
 const GOOGLEADS_ID = process.env.NEXT_PUBLIC_GOOGLEADS_ID;
+const adsSlotList: Record<string, string> = {
+  header: "7851950141",
+  footer: "5985539983",
+};
 
 declare global {
   let adsbygoogle: unknown[];
@@ -31,14 +35,19 @@ export function GoogleAdsMetatag() {
   }
 }
 
-export function PlaceGoogleAdsHere() {
+export function GoogleAds({ slot }: { slot: string }) {
+  if (!(slot in adsSlotList)) {
+    console.error(`not found slot: ${slot} for adsSlotList.`);
+    return;
+  }
+
   if (process.env.NODE_ENV === "production") {
     return (
       <div className={styles.ads}>
         <ins
           className={styles.adsbygoogle}
           data-ad-client={GOOGLEADS_ID}
-          data-ad-slot="7851950141"
+          data-ad-slot={adsSlotList[slot]}
           data-ad-format="auto"
           data-full-width-responsive="true"
         ></ins>
