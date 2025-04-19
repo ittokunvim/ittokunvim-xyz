@@ -4,5 +4,11 @@
     "name": "やっはろー",
     "description": "ハローワールドを表示するだけのページです。",
     "createdAt": "2024-04-19"
+  },
+  {
+    "slug": "convert-colorcode",
+    "name": "カラーコード変換ツール",
+    "description": "与えられたカラーコードの値を様々な形式で出力するツールです",
+    "createdAt": "2025-04-19"
   }
 ]
