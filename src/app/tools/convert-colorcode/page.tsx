@@ -28,6 +28,9 @@ export default async function Page() {
 
   return (
     <main className={styles.main}>
+      <div className={styles.title}>
+        <h2>{title}</h2>
+      </div>
       <ConvertColorcode />
       <JsonLdScript data={jsonLd} />
     </main>
