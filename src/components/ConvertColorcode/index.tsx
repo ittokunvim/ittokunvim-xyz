@@ -8,6 +8,13 @@ export default function ConvertColorcode() {
   const [inputRedValue, setInputRedValue] = useState<string>("");
   const [inputGreenValue, setInputGreenValue] = useState<string>("");
   const [inputBlueValue, setInputBlueValue] = useState<string>("");
+  const [colorcodeValue, setColorcodeValue] = useState<string>("ffffff");
+  const [redValue, setRedValue] = useState<string>("255");
+  const [greenValue, setGreenValue] = useState<string>("255");
+  const [blueValue, setBlueValue] = useState<string>("255");
+  const [redPercentValue, setRedPercentValue] = useState<string>("1.0");
+  const [greenPercentValue, setGreenPercentValue] = useState<string>("1.0");
+  const [bluePercentValue, setBluePercentValue] = useState<string>("1.0");
   const handleInputColorcodeChange = (value: string) => {
     const regex = /^[A-Fa-f0-9]{1,6}$/;
 
@@ -82,19 +89,19 @@ export default function ConvertColorcode() {
           <tbody>
             <tr>
               <th>16進数</th>
-              <td colSpan={3}>ffffff</td>
+              <td colSpan={3}>{colorcodeValue}</td>
             </tr>
             <tr>
               <th>RGB</th>
-              <td>255</td>
-              <td>255</td>
-              <td>255</td>
+              <td>{redValue}</td>
+              <td>{greenValue}</td>
+              <td>{blueValue}</td>
             </tr>
             <tr>
               <th>RGB パーセント</th>
-              <td>1.0</td>
-              <td>1.0</td>
-              <td>1.0</td>
+              <td>{redPercentValue}</td>
+              <td>{greenPercentValue}</td>
+              <td>{bluePercentValue}</td>
             </tr>
           </tbody>
         </table>
