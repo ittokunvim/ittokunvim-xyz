@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import styles from "./styles.module.css";
 
 export default function ConvertColorcode() {
@@ -8,17 +8,17 @@ export default function ConvertColorcode() {
   const [inputRedValue, setInputRedValue] = useState<string>("");
   const [inputGreenValue, setInputGreenValue] = useState<string>("");
   const [inputBlueValue, setInputBlueValue] = useState<string>("");
-  const [colorcodeValue, setColorcodeValue] = useState<string>("ffffff");
-  const [redValue, setRedValue] = useState<string>("255");
-  const [greenValue, setGreenValue] = useState<string>("255");
-  const [blueValue, setBlueValue] = useState<string>("255");
-  const [redPercentValue, setRedPercentValue] = useState<string>("1.0");
-  const [greenPercentValue, setGreenPercentValue] = useState<string>("1.0");
-  const [bluePercentValue, setBluePercentValue] = useState<string>("1.0");
+  const [colorcodeValue, setColorcodeValue] = useState<string>("");
+  const [redValue, setRedValue] = useState<string>("");
+  const [greenValue, setGreenValue] = useState<string>("");
+  const [blueValue, setBlueValue] = useState<string>("");
+  const [redPercentValue, setRedPercentValue] = useState<string>("");
+  const [greenPercentValue, setGreenPercentValue] = useState<string>("");
+  const [bluePercentValue, setBluePercentValue] = useState<string>("");
   const handleInputColorcodeChange = (value: string) => {
     const regex = /^[A-Fa-f0-9]{1,6}$/;
 
-    value = varidateInput(regex, value);
+    value = varidateInput(regex, value.toUpperCase());
     setInputColorcodeValue(value);
   };
   const handleInputRedChange = (value: string) => {
@@ -102,65 +102,91 @@ export default function ConvertColorcode() {
 
   return (
     <div className={styles.convert_colorcode}>
-      <div className={styles.colorcode}>
-        <input
-          type="text"
-          placeholder="# ffffff"
-          value={inputColorcodeValue}
-          onChange={(e) => handleInputColorcodeChange(e.target.value)}
-        />
-        <input
-          type="submit"
-          value="変換する"
-          onClick={handleInputColorcodeSubmit}
-        />
-      </div>
-      <div className={styles.rgb}>
-        <input
-          type="text"
-          placeholder="R 255"
-          value={inputRedValue}
-          onChange={(e) => handleInputRedChange(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="G 255"
-          value={inputGreenValue}
-          onChange={(e) => handleInputGreenChange(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="B 255"
-          value={inputBlueValue}
-          onChange={(e) => handleInputBlueChange(e.target.value)}
-        />
-        <input
-          type="submit"
-          value="変換する"
-          onClick={handleInputRgbSubmit}
-        />
+      <div className={styles.input}>
+        <div>
+          <input
+            type="text"
+            placeholder="# FFFFFF"
+            value={inputColorcodeValue}
+            onChange={(e) => handleInputColorcodeChange(e.target.value)}
+          />
+          <input
+            type="submit"
+            value="変換する"
+            onClick={handleInputColorcodeSubmit}
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="R 255"
+            value={inputRedValue}
+            onChange={(e) => handleInputRedChange(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="G 255"
+            value={inputGreenValue}
+            onChange={(e) => handleInputGreenChange(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="B 255"
+            value={inputBlueValue}
+            onChange={(e) => handleInputBlueChange(e.target.value)}
+          />
+          <input
+            type="submit"
+            value="変換する"
+            onClick={handleInputRgbSubmit}
+          />
+        </div>
       </div>
       <div className={styles.output}>
-        <table>
-          <tbody>
-            <tr>
-              <th>16進数</th>
-              <td colSpan={3}>{colorcodeValue}</td>
-            </tr>
-            <tr>
-              <th>RGB</th>
-              <td>{redValue}</td>
-              <td>{greenValue}</td>
-              <td>{blueValue}</td>
-            </tr>
-            <tr>
-              <th>RGB パーセント</th>
-              <td>{redPercentValue}</td>
-              <td>{greenPercentValue}</td>
-              <td>{bluePercentValue}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div
+          className={styles.color}
+          style={{ backgroundColor: `#${colorcodeValue}`}}
+        ></div>
+        <div className={styles.table}>
+          <table>
+            <thead>
+              <tr>
+                <th>カラーコード</th>
+                <th>結果</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>16進数</th>
+                <td><SelectableInput value={colorcodeValue} /></td>
+              </tr>
+              <tr>
+                <th rowSpan={4}>RGB</th>
+              </tr>
+              <tr>
+                <td><SelectableInput value={redValue} /></td>
+              </tr>
+              <tr>
+                <td><SelectableInput value={greenValue} /></td>
+              </tr>
+              <tr>
+                <td><SelectableInput value={blueValue} /></td>
+              </tr>
+              <tr>
+                <th rowSpan={4}>RGB パーセント</th>
+              </tr>
+              <tr>
+                <td><SelectableInput value={redPercentValue} /></td>
+              </tr>
+              <tr>
+                <td><SelectableInput value={greenPercentValue} /></td>
+              </tr>
+              <tr>
+                <td><SelectableInput value={bluePercentValue} /></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
@@ -171,4 +197,23 @@ function varidateInput(regex: RegExp, value: string): string {
     return value.slice(0, -1);
   }
   return value;
+}
+
+function SelectableInput({ value }: { value: string }) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const handleClick = () => {
+    if (inputRef.current) {
+      inputRef.current.select();
+    }
+  };
+  return (
+    <input
+      type="text"
+      placeholder="カラーコード"
+      disabled={value == ""}
+      value={value}
+      ref={inputRef}
+      onClick={handleClick}
+    />
+  );
 }
