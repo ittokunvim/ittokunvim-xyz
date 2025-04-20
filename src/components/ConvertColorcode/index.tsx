@@ -40,8 +40,64 @@ export default function ConvertColorcode() {
     setInputBlueValue(value);
   };
   const handleInputColorcodeSubmit = () => {
+    let hex = inputColorcodeValue.toUpperCase();
+
+    // カラーコードの値が3,6桁でなければ何もしない
+    if (hex.length != 3 && hex.length != 6) {
+      return;
+    }
+    // 3桁のカラーコードを6桁のカラーコードに変換
+    if (hex.length == 3) {
+      hex = inputColorcodeValue.split("").map(c => c + c).join("");
+    }
+
+    // 16進数のカラーコードを10進数のRGB数値に変換
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+    // 10進数のRGB値を文字列に変換
+    const red = r.toString();
+    const green = g.toString();
+    const blue = b.toString();
+    // 10進数のRGB値をRGBパーセント値に変換
+    const redPercent = (r / 255).toFixed(2);
+    const greenPercent = (g / 255).toFixed(2);
+    const bluePercent = (b / 255).toFixed(2);
+    // 値を代入
+    setColorcodeValue(hex);
+    setRedValue(red);
+    setGreenValue(green);
+    setBlueValue(blue);
+    setRedPercentValue(redPercent);
+    setGreenPercentValue(greenPercent);
+    setBluePercentValue(bluePercent);
   };
   const handleInputRgbSubmit = () => {
+    // RGB文字列を数値に変換
+    const r = parseInt(inputRedValue);
+    const g = parseInt(inputGreenValue);
+    const b = parseInt(inputBlueValue);
+
+    // RGBの値が１つでも空なら何もしない
+    if (isNaN(r) || isNaN(g) || isNaN(b)) {
+      return;
+    }
+
+    // RGB数値を16進数の文字列に変換
+    const numToHex = (n: number): string => n.toString(16).padStart(2, "0");
+    const hex = (numToHex(r) + numToHex(g) + numToHex(b)).toUpperCase();
+    // 10進数のRGB値をRGBパーセント値に変換
+    const redPercent = (r / 255).toFixed(2);
+    const greenPercent = (g / 255).toFixed(2);
+    const bluePercent = (b / 255).toFixed(2);
+    // 値を代入
+    setColorcodeValue(hex);
+    setRedValue(inputRedValue);
+    setGreenValue(inputGreenValue);
+    setBlueValue(inputBlueValue);
+    setRedPercentValue(redPercent);
+    setGreenPercentValue(greenPercent);
+    setBluePercentValue(bluePercent);
   };
 
   return (
