@@ -15,6 +15,24 @@ export function getToolDataAll(): ToolData[] {
   });
 }
 
+export function getToolData(slug: string): ToolData {
+  const tools = getToolDataAll();
+  const tool = tools.find((tool: ToolData) => tool.slug === slug);
+  const toolData: ToolData = {
+    slug: "",
+    name: "",
+    description: "",
+    createdAt: "",
+  };
+
+
+  if (tool == undefined) {
+    return toolData;
+  }
+
+  return tool;
+}
+
 export function getToolSlugAll(): string[] {
   return toolsJson.map((tool) => tool.slug);
 }
