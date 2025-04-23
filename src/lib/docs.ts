@@ -39,11 +39,16 @@ export type DocContentData = {
 // 外部の記事サイトのJSONデータを取得して解析する
 async function fetchDocsJson(): Promise<JsonData[]> {
   try {
+    // JSONデータを取得
     const response = await fetch(DOCSSITE_JSON_URL, { cache: "force-cache" });
-    const data: JsonData[] = await response.json();
 
-    // 公開するデータのみをフィルタリングして返す
-    return data.filter(data => data.published);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data: ${response.status} ${response.statusText}`);
+    }
+
+    // データを解析し、公開データのみを返す
+    const data: JsonData[] = await response.json();
+    return data.filter(item => item.published);
   } catch (error) {
     console.error(error);
     return [];
@@ -52,150 +57,195 @@ async function fetchDocsJson(): Promise<JsonData[]> {
 
 // 全てのドキュメントデータを取得・整形する
 export async function getDocDataAll(): Promise<DocData[]> {
-  const docs = await fetchDocsJson();
-  let docDataList: DocData[] = [{
-    href: "",
-    title: "",
-    description: "",
-    createdAt: "",
-    updatedAt: "",
-  }];
+  try {
+    // JSONデータを取得
+    const docs = await fetchDocsJson();
 
-  // データが取得できない場合、デフォルト値を返す
-  if (docs === undefined) {
-    return docDataList;
-  }
-
-  // 記事を更新日時を基準にソート
-  // 同じ更新日時の場合は作成日時を基準にソート
-  docs.sort((a: JsonData, b: JsonData) => {
-    if (a.updatedAt === b.updatedAt) {
-      return a.createdAt < b.createdAt ? 1 : -1;
-    } else {
-      return a.updatedAt < b.updatedAt ? 1 : -1;
+    // データが取得できない場合、空の配列を返す
+    if (!docs || docs.length === 0) {
+      return [];
     }
-  });
 
-  // データを整形して`DocData`配列を作成
-  docDataList = docs.map((doc: JsonData) => {
-    const href = `/docs/${doc.slug}`;
-    const title = doc.title;
-    const description = doc.description;
-    const createdAt = formatDate(doc.createdAt);
-    const updatedAt = formatDate(doc.updatedAt);
+    // 記事を更新日時を基準にソート（同じ更新日時の場合は作成日時を基準にソート）
+    const sortedDocs = docs.sort(compareDocsByDate);
 
-    return { href, title, description, createdAt, updatedAt, };
-  });
-
-   return docDataList;
+    // データを整形して`DocData`配列を作成
+    return sortedDocs.map(formatDocData);
+  } catch(error) {
+    console.error("Error fetching and processing document data:", error);
+    return [];
+  }
 }
 
 // 全ての記事の`slug`の配列を取得
 export async function getDocSlugAll(): Promise<string[]> {
-  const docs = await fetchDocsJson();
-  return docs.map((doc: JsonData) => doc.slug);
+  try {
+    // Jsonデータを取得
+    const docs = await fetchDocsJson();
+
+    // `slug`の配列を返す
+    return docs.map((doc: JsonData) => doc.slug);
+  } catch(error) {
+    console.error("Error fetching document slugs:", error);
+    return [];
+  }
+}
+
+// 記事データをソートするための比較関数
+function compareDocsByDate(a: JsonData, b: JsonData): number {
+  if (a.updatedAt === b.updatedAt) {
+    return a.createdAt < b.createdAt ? 1 : -1;
+  }
+  return a.updatedAt < b.updatedAt ? 1 : -1;
+}
+
+// JsonDataをDocDataに整形する
+function formatDocData(doc: JsonData): DocData {
+  return {
+    href: `/docs/${doc.slug}`,
+    title: doc.title,
+    description: doc.description,
+    createdAt: formatDate(doc.createdAt),
+    updatedAt: formatDate(doc.updatedAt),
+  };
 }
 
 // 指定した`slug`に対応する記事を取得
 export async function getDocData(slug: string): Promise<DocContentData> {
-  const docs = await fetchDocsJson();
-  const doc = docs.find((doc: JsonData) => doc.slug === slug);
-  const docData: DocContentData = {
+  try {
+    // Jsonデータを取得
+    const docs = await fetchDocsJson();
+
+    // 指定した`slug`に対応する記事を検索
+    const doc = docs.find((doc: JsonData) => doc.slug === slug);
+
+    // 該当する記事が見つからない場合はデフォルト値を返す
+    if (!doc) {
+      return getDefaultDocContentData();
+    }
+
+    // 記事データを整形して返却
+    return await formatDocContentData(doc);
+  } catch(error) {
+    console.error(`Error fetching document data for slug: ${slug}`, error);
+    return getDefaultDocContentData();
+  }
+}
+
+// デフォルトの記事データを返す
+function getDefaultDocContentData(): DocContentData {
+  return {
     title: "",
     description: "",
     contentHtml: "",
     createdAt: "",
     updatedAt: "",
   };
+}
 
-  // データが取得できない場合、デフォルト値を返す
-  if (doc === undefined) {
-    return docData;
-  }
-
-  const title = doc.title;
-  const description = doc.description;
+// 記事データを整形する
+async function formatDocContentData(doc: JsonData): Promise<DocContentData> {
   const contentHtml = await getDocContentHtml(doc.path);
-  const createdAt = formatDate(doc.createdAt);
-  const updatedAt = formatDate(doc.updatedAt);
 
-  // HTMLコンテンツが空の場合、デフォルト値を返す
-  if (contentHtml === "") {
-    return docData;
+  // HTMLコンテンツが空の場合はデフォルト値を返す
+  if (!contentHtml) {
+    return getDefaultDocContentData();
   }
 
-  return { title, description, contentHtml, createdAt, updatedAt, };
+  return {
+    title: doc.title,
+    description: doc.description,
+    contentHtml,
+    createdAt: formatDate(doc.createdAt),
+    updatedAt: formatDate(doc.updatedAt),
+  };
 }
 
 // 指定された`path`の記事のHTMLコンテンツを取得し整形する
 async function getDocContentHtml(path: string): Promise<string> {
-  const absoluteUrl = new URL(path, DOCSSITE_URL);
-  const content = await fetch(absoluteUrl.href, { cache: "force-cache" })
-    .then((res) => res.text())
-    .then((text) => replaceRelativeUrlToAbsoluteUrl(path, text))
-    .then((text) => replaceCodeBlockTitle(text))
-    .catch((error) => {
-      console.error(error);
-      return "";
-    });
+  try {
+    // 指定されたパスを使用して絶対URLを生成
+    const absoluteUrl = new URL(path, DOCSSITE_URL);
 
-  const remarkContent = await remark()
+    // コンテンツを取得
+    const rawContent = await fetchContent(absoluteUrl.href);
+
+    // コンテンツを変換
+    const processedContent = processContent(path, rawContent);
+
+    // MarkdownをHTMLに変換
+    const remarkContent = await convertMarkdownToHtml(processedContent);
+
+    // HTMLに加工を施す
+    const contentHtml = await enhanceHtml(remarkContent);
+
+    return contentHtml;
+  } catch(error) {
+    console.error("Error processing document content:", error);
+    return "";
+  }
+}
+
+// fetchをラップした関数でコンテンツを取得
+async function fetchContent(url: string): Promise<string> {
+  const response = await fetch(url, { cache: "force-cache" });
+  if (!response.ok) {
+    throw new Error(`Failed to fetch content from ${url}: ${response.status}`);
+  }
+  return response.text();
+}
+
+// コンテンツを加工
+function processContent(path: string, content: string): string {
+  const contentWithAbsoluteUrls = replaceRelativeUrlToAbsoluteUrl(path, content);
+  return replaceCodeBlockTitle(contentWithAbsoluteUrls);
+}
+
+// MarkdownをHTMLに変換する関数
+async function convertMarkdownToHtml(content: string): Promise<string> {
+  return remark()
     .use(remarkGfm)
     .use(codeTitle)
     .use(remarkLinkCard)
     .use(remarkHtml, { sanitize: false })
-    .process(content);
-  const rehypeContent = await rehype()
-    .use(rehypeHighlight)
-    .process(remarkContent);
-  const contentHtml = rehypeContent.toString();
+    .process(content)
+    .then((file) => file.toString());
+}
 
-  return contentHtml;
+// HTMLをさらに加工
+async function enhanceHtml(content: string): Promise<string> {
+  return rehype()
+    .use(rehypeHighlight)
+    .process(content)
+    .then((file) => file.toString());
 }
 
 // 相対URLを絶対URLに変換する関数
 function replaceRelativeUrlToAbsoluteUrl(path: string, content: string): string {
-  const splitPath = path.split("/");
-  const excludeFilenamePath = splitPath.slice(0, splitPath.length - 1).join("/");
-  const absoluteUrl = new URL(excludeFilenamePath, DOCSSITE_URL);
-
-  const relativeImageRegex = /!?\[[^\]]+\]\((?!https|ftp:\/\/)[^\)]+\)/g;
-  const imageUrlRegex = /\]\(([^)]+)\)/;
+  const basePath = new URL(path, DOCSSITE_URL).href.replace(/[^/]+$/, "");
 
   // 相対画像リンクを絶対URLに変換
-  content.match(relativeImageRegex)?.forEach((relativeImage) => {
-    if (imageUrlRegex.test(relativeImage)) {
-      const url = imageUrlRegex.exec(relativeImage)![1];
-      content = content.replace(url, `${absoluteUrl.href}/${url}`);
-    }
+  const relativeImageRegex = /!?\[[^\]]+\]\((?!https|ftp:\/\/)[^\)]+\)/g;
+  content = content.replace(relativeImageRegex, (match) => {
+    const url = match.match(/\]\(([^)]+)\)/)?.[1];
+    return url ? match.replace(url, `${basePath}${url}`) : match;
   });
 
-  const relativeImageTagRegex = /<img src="(?!https|ftp:\/\/)[^"]+"/g;
-  const imageSrcRegex = /src="([^"]+)"/;
-
   // <img>タグの相対src属性を絶対URLに変換
-  content.match(relativeImageTagRegex)?.forEach((relativeImageTag) => {
-    if (imageSrcRegex.test(relativeImageTag)) {
-      const src = imageSrcRegex.exec(relativeImageTag)![1];
-      content = content.replace(src, `${absoluteUrl.href}/${src}`);
-    }
+  const relativeImageTagRegex = /<img src="(?!https|ftp:\/\/)[^"]+"/g;
+  content = content.replace(relativeImageTagRegex, (match) => {
+    const src = match.match(/src="([^"]+)"/)?.[1];
+    return src ? match.replace(src, `${basePath}${src}`) : match;
   });
 
   return content;
 }
 
 // コードブロックにタイトル属性を追加する関数
-//
-// 例：javascript:filename.jsを検出し変換する
 function replaceCodeBlockTitle(content: string): string {
   const codeBlockTitleRegex = /```[a-zA-Z]+:[\w\.]+/g;
-  const filenameRegex = /:[\w\.]+/;
-
-  // コードブロックのタイトル部分を変換して、`title`属性を追加
-  content.match(codeBlockTitleRegex)?.forEach((codeBlock) => {
-    const filename = filenameRegex.exec(codeBlock)![0];
-    content = content.replace(filename, ` title="${filename.slice(1)}"`);
+  return content.replace(codeBlockTitleRegex, (_, lang, filename) => {
+    return `\`\`\`${lang} title="${filename}"`;
   });
-
-  return content;
 }
+
