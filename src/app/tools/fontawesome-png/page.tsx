@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { getToolData } from "@/lib/tools";
 import { MetadataProps, setMetadata } from "@/lib/utils";
 import { JsonLd, JsonLdScript } from "@/components/JsonLdScript";
+import FontAwesomePng from "@/components/FontAwesomePng";
 import styles from "./page.module.css";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "";
@@ -30,6 +31,7 @@ export default async function Page() {
       <div className={styles.title}>
         <h2>{title}</h2>
       </div>
+      <FontAwesomePng />
       <JsonLdScript data={jsonLd} />
     </main>
   );
