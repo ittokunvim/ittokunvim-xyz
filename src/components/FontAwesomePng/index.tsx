@@ -19,7 +19,7 @@ library.add(iconLibrary);
 
 export default function FontAwesomePng() {
   const [iconList, setIconList] = useState<IconDefinition[]>([]);
-  const [iconData, setIconData] = useState<IconData>(defaultSvgData);
+  const [iconData, setIconData] = useState<IconData>(defaultIconData);
   const [inputIconValue, setInputIconValue] = useState<string>("");
   const svgRef = useRef<SVGSVGElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -40,6 +40,8 @@ export default function FontAwesomePng() {
     try {
       // 正規表現を作成
       const regex = new RegExp(input, "i");
+      // 選択したアイコンをリセット
+      setIconData(defaultIconData);
       // フィルタリング
       const searchIcons = iconLibrary.filter(icon => regex.test(icon.iconName));
       setIconList(searchIcons);
@@ -79,7 +81,7 @@ export default function FontAwesomePng() {
 
   return (
     <div className={styles.fontawesome_png}>
-      <div className={styles.form}>
+      <div className={styles.search}>
         <input
           type="text"
           placeholder="face-awesome"
@@ -130,7 +132,7 @@ export default function FontAwesomePng() {
   );
 }
 
-const defaultSvgData: IconData = {
+const defaultIconData: IconData = {
   prefix: "",
   iconName: "",
   width: 0,
@@ -158,7 +160,7 @@ function renderSvgToCanvas(svg: SVGSVGElement, canvas: HTMLCanvasElement) {
   const img = new Image();
   // 画像が正しく読み込まれたらCanvasに描画
   img.onload = () => {
-    ctx?.drawImage(img, 0, 0);
+    ctx.drawImage(img, 0, 0);
     URL.revokeObjectURL(svgUrl);
   };
   // 画像が正しく読み込まれなかったら時のエラーハンドリング
