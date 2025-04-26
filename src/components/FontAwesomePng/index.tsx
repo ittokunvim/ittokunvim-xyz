@@ -6,24 +6,28 @@ import { iconLibrary } from "@/lib/fontawesome";
 import SearchIcon from "./SearchIcon";
 import { IconData, defaultIconData } from "./SearchIcon";
 import styles from "./styles.module.css";
+import OptionForm, { defaultIconOption, IconOption } from "./OptionForm";
 
 // FontAwesomeアイコンをライブラリに追加
 library.add(iconLibrary);
 
 export default function FontAwesomePng() {
   const [iconData, setIconData] = useState<IconData>(defaultIconData);
-  const [iconOptionWidth, setIconOptionWidth] = useState<number>(256);
-  const [iconOptionHeight, setIconOptionHeight] = useState<number>(256);
-  const [iconOptionColor, setIconOptionColor] = useState<string>("#000000");
-  const [iconOptionBgColor, setIconOptionBgColor] = useState<string>("#ffffff");
+  const [iconOption, setIconOption] = useState<IconOption>(defaultIconOption);
   const svgRef = useRef<SVGSVGElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const searchIcon = (iconData: IconData) => {
+  const searchIconAction = (iconData: IconData) => {
     setIconData(iconData);
   };
-
-  // iconDataが更新された時の処理
+  const updateOptionAction = (iconOption: IconOption) => {
+    setIconOption(iconOption);
+    renderCanvasAction();
+  }
   useEffect(() => {
+    renderCanvasAction();
+  }, [iconData]);
+
+  const renderCanvasAction = () => {
     const svg = svgRef.current;
     const canvas = canvasRef.current;
 
@@ -44,22 +48,11 @@ export default function FontAwesomePng() {
     // CanvasにSVGを描画する
     renderSvgToCanvas(svg, canvas);
   }, [iconData]);
-  const handleInputOptionWidth = (value: string) => {
-    setIconOptionWidth(Number(value));
-  };
-  const handleInputOptionHeight = (value: string) => {
-    setIconOptionHeight(Number(value));
-  };
-  const handleInputOptionColor = (value: string) => {
-    setIconOptionColor(value);
-  };
-  const handleInputOptionBgColor = (value: string) => {
-    setIconOptionBgColor(value);
   };
 
   return (
     <div className={styles.fontawesome_png}>
-      <SearchIcon searchIconAction={searchIcon} />
+      <SearchIcon searchIconAction={searchIconAction} />
       <div className={styles.canvas}>
         <canvas ref={canvasRef}></canvas>
       </div>
@@ -81,8 +74,8 @@ export default function FontAwesomePng() {
           xmlns="http://www.w3.org/2000/svg"
           viewBox={`0 0 ${iconData.width} ${iconData.height}`}
           style={{
-            color: iconOptionColor,
-            backgroundColor: iconOptionBgColor,
+            color: iconOption.color,
+            backgroundColor: iconOption.backgroundColor,
           }}
         >
           <path
@@ -91,42 +84,7 @@ export default function FontAwesomePng() {
           ></path>
         </svg>
       </div>
-      <div className={styles.option}>
-        <div>
-          <label>幅：</label>
-          <input
-            type="number"
-            value={iconOptionWidth}
-            onChange={(e) => handleInputOptionWidth(e.target.value)}
-          />
-          <span>px</span>
-        </div>
-        <div>
-          <label>高さ：</label>
-          <input
-            type="number"
-            value={iconOptionHeight}
-            onChange={(e) => handleInputOptionHeight(e.target.value)}
-          />
-          <span>px</span>
-        </div>
-        <div>
-          <label>アイコンの色：</label>
-          <input
-            type="color"
-            value={iconOptionColor}
-            onChange={(e) => handleInputOptionColor(e.target.value)}
-          />
-        </div>
-        <div>
-          <label>背景色：</label>
-          <input
-            type="color"
-            value={iconOptionBgColor}
-            onChange={(e) => handleInputOptionBgColor(e.target.value)}
-          />
-        </div>
-      </div>
+      <OptionForm updateOptionAction={updateOptionAction} />
     </div>
   );
 }
