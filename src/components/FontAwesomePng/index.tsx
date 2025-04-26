@@ -37,17 +37,7 @@ export default function FontAwesomePng() {
       return;
     }
 
-    // Svgのスタイルを設定
-    svg.style.color = iconOptionColor;
-    svg.style.backgroundColor = iconOptionBgColor;
-
-    // Canvasのサイズを設定
-    canvas.width = iconOptionWidth;
-    canvas.height = iconOptionHeight;
-
-    // CanvasにSVGを描画する
-    renderSvgToCanvas(svg, canvas);
-  }, [iconData]);
+    renderSvgToCanvas(svg, canvas, iconOption);
   };
 
   return (
@@ -56,13 +46,7 @@ export default function FontAwesomePng() {
       <div className={styles.canvas}>
         <canvas ref={canvasRef}></canvas>
       </div>
-      <div
-        className={styles.preview}
-        style={{
-          width: `${iconOptionWidth}px`,
-          height: `${iconOptionHeight}px`,
-        }}
-      >
+      <div className={styles.preview}>
         <svg
           ref={svgRef}
           aria-hidden={true}
@@ -89,7 +73,23 @@ export default function FontAwesomePng() {
   );
 }
 
-function renderSvgToCanvas(svg: SVGSVGElement, canvas: HTMLCanvasElement) {
+function renderSvgToCanvas(
+  svg: SVGSVGElement,
+  canvas: HTMLCanvasElement,
+  option: IconOption,
+) {
+  // Svgのスタイルを設定
+  svg.style.width = `${option.width}px`;
+  svg.style.height = `${option.height}px`;
+  svg.style.color = option.color;
+  svg.style.backgroundColor = option.backgroundColor;
+
+  // Canvasのスタイルを設定
+  canvas.width = option.width;
+  canvas.height = option.height;
+  canvas.style.color = option.color;
+  canvas.style.backgroundColor = option.backgroundColor;
+
   // SVG要素のシリアライズ
   const svgData = new XMLSerializer().serializeToString(svg);
   const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
@@ -104,6 +104,7 @@ function renderSvgToCanvas(svg: SVGSVGElement, canvas: HTMLCanvasElement) {
 
   // 画像オブジェクトを作成しSVGを読み込む
   const img = new Image();
+
   // 画像が正しく読み込まれたらCanvasに描画
   img.onload = () => {
     ctx.drawImage(img, 0, 0);
