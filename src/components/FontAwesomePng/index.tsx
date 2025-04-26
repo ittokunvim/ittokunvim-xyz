@@ -1,73 +1,27 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { IconDefinition, library } from "@fortawesome/fontawesome-svg-core";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
 import { iconLibrary } from "@/lib/fontawesome";
+import SearchIcon from "./SearchIcon";
+import { IconData, defaultIconData } from "./SearchIcon";
 import styles from "./styles.module.css";
-
-type IconData = {
-  prefix: string;
-  iconName: string;
-  width: number;
-  height: number;
-  data: string;
-};
 
 // FontAwesomeアイコンをライブラリに追加
 library.add(iconLibrary);
 
 export default function FontAwesomePng() {
-  const [iconList, setIconList] = useState<IconDefinition[]>([]);
   const [iconData, setIconData] = useState<IconData>(defaultIconData);
-  const [inputIconValue, setInputIconValue] = useState<string>("");
   const [iconOptionWidth, setIconOptionWidth] = useState<number>(256);
   const [iconOptionHeight, setIconOptionHeight] = useState<number>(256);
   const [iconOptionColor, setIconOptionColor] = useState<string>("#000000");
   const [iconOptionBgColor, setIconOptionBgColor] = useState<string>("#ffffff");
   const svgRef = useRef<SVGSVGElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  // フォームの値が変更された時の処理
-  const handleInputIconChange = (value: string) => {
-    setInputIconValue(value);
+  const searchIcon = (iconData: IconData) => {
+    setIconData(iconData);
   };
-  // フォームのボタンが押された時の処理
-  const handleInputIconSubmit = () => {
-    const input = inputIconValue.trim();
 
-    // 入力が空だった場合は何もしない
-    if (!input) {
-      setIconList([]);
-      return;
-    };
-
-    try {
-      // 正規表現を作成
-      const regex = new RegExp(input, "i");
-      // 選択したアイコンをリセット
-      setIconData(defaultIconData);
-      // フィルタリング
-      const searchIcons = iconLibrary.filter(icon => regex.test(icon.iconName));
-      setIconList(searchIcons);
-    } catch(error) {
-      console.error("Invalid regular expression:", error);
-      setIconList([]); // 無効な正規表現の場合は空リストを設定
-    }
-  };
-  // アイコンをクリックした時の処理
-  const handleClickItem = (icon: IconDefinition) => {
-    // アイコンリストをクリア
-    setIconList([]);
-
-    // 選択されたアイコンのデータを保存
-    setIconData({
-      prefix: icon.prefix,
-      iconName: icon.iconName,
-      width: icon.icon[0],
-      height: icon.icon[1],
-      data: `${icon.icon[4]}`,
-    });
-  };
   // iconDataが更新された時の処理
   useEffect(() => {
     const svg = svgRef.current;
@@ -105,32 +59,7 @@ export default function FontAwesomePng() {
 
   return (
     <div className={styles.fontawesome_png}>
-      <div className={styles.search}>
-        <input
-          type="text"
-          placeholder="face-awesome"
-          value={inputIconValue}
-          onChange={(e) => handleInputIconChange(e.target.value)}
-        />
-        <input
-          type="submit"
-          value="検索する"
-          onClick={handleInputIconSubmit}
-        />
-      </div>
-      <div className={styles.result}>
-        <div className={styles.count}>{iconList.length} Icons</div>
-        <div className={styles.list}>
-          {iconList.map((icon, i) => (
-            <div className={styles.item} key={i} onClick={() => handleClickItem(icon)}>
-              <div className={styles.icon}>
-                <FontAwesomeIcon key={i} icon={[icon.prefix, icon.iconName]} size="2xl" />
-              </div>
-              <div className={styles.name}>{icon.iconName}</div>
-            </div>
-          ))}
-        </div>
-      </div>
+      <SearchIcon searchIconAction={searchIcon} />
       <div className={styles.canvas}>
         <canvas ref={canvasRef}></canvas>
       </div>
@@ -201,14 +130,6 @@ export default function FontAwesomePng() {
     </div>
   );
 }
-
-const defaultIconData: IconData = {
-  prefix: "",
-  iconName: "",
-  width: 0,
-  height: 0,
-  data: "",
-};
 
 function renderSvgToCanvas(svg: SVGSVGElement, canvas: HTMLCanvasElement) {
   // SVG要素のシリアライズ
