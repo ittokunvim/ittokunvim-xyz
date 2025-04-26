@@ -14,6 +14,7 @@ library.add(iconLibrary);
 export default function FontAwesomePng() {
   const [iconData, setIconData] = useState<IconData>(defaultIconData);
   const [iconOption, setIconOption] = useState<IconOption>(defaultIconOption);
+  const [iconHref, setIconHref] = useState<string>("");
   const svgRef = useRef<SVGSVGElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const searchIconAction = (iconData: IconData) => {
@@ -38,6 +39,18 @@ export default function FontAwesomePng() {
     }
 
     renderSvgToCanvas(svg, canvas, iconOption);
+  };
+  const handleClickDownload = () => {
+    const canvas = canvasRef.current;
+
+    // Canvasの参照が見つからない時は終了
+    if (!canvas) {
+      console.error("link or canvas is not found.");
+      return;
+    }
+
+    const imageUrl = canvas.toDataURL("image/png");
+    setIconHref(imageUrl);
   };
 
   return (
@@ -69,6 +82,13 @@ export default function FontAwesomePng() {
         </svg>
       </div>
       <OptionForm updateOptionAction={updateOptionAction} />
+      <div className={styles.download}>
+        <a
+          href={iconHref}
+          download={iconData.iconName}
+          onClick={handleClickDownload}
+        >ダウンロード（PNG）</a>
+      </div>
     </div>
   );
 }
