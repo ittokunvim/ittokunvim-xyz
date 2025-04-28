@@ -10,5 +10,11 @@
     "name": "カラーコード変換ツール",
     "description": "与えられたカラーコードの値を様々な形式で出力するツールです",
     "createdAt": "2025-04-19"
+  },
+  {
+    "slug": "fontawesome-png",
+    "name": "FontAwesome画像変換ツール",
+    "description": "FontAwesomeアイコンを画像に変換するツールです",
+    "createdAt": "2025-04-29"
   }
 ]
