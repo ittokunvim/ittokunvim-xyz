@@ -65,10 +65,9 @@ export default function FontAwesomePng() {
   return (
     <div className={styles.fontawesome_png}>
       <SearchIcon searchIconAction={searchIconAction} />
-      <div className={styles.canvas}>
-        <canvas ref={canvasRef}></canvas>
-      </div>
+      <canvas ref={canvasRef} className={styles.canvas}></canvas>
       <div className={styles.preview}>
+        <h3>プレビュー</h3>
         <svg
           ref={svgRef}
           aria-hidden={true}
@@ -96,7 +95,7 @@ export default function FontAwesomePng() {
           ref={linkRef}
           href="#"
           onClick={handleClickDownload}
-        >ダウンロード（PNG）</a>
+        >PNGファイルでダウンロード</a>
       </div>
     </div>
   );
