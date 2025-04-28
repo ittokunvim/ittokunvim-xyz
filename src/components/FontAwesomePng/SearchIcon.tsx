@@ -72,17 +72,18 @@ export default function SearchIcon({ searchIconAction}: Props) {
   };
 
   return (
-    <>
-      <div className={styles.search}>
+    <div className={styles.search}>
+      <div className={styles.form}>
+        <label>アイコンを検索</label>
         <input
           type="text"
-          placeholder="face-awesome"
+          placeholder="font-awesome"
           value={inputIconValue}
           onChange={(e) => handleInputIconChange(e.target.value)}
         />
       </div>
       <div className={styles.result}>
-        <div className={styles.count}>{iconList.length} Icons</div>
+        <div className={styles.count}>アイコン数：{iconList.length}</div>
         <div className={styles.list}>
           {iconList.map((icon, i) => (
             <div className={styles.item} key={i} onClick={() => handleClickItem(icon)}>
@@ -94,7 +95,7 @@ export default function SearchIcon({ searchIconAction}: Props) {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
