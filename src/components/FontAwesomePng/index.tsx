@@ -14,9 +14,9 @@ library.add(iconLibrary);
 export default function FontAwesomePng() {
   const [iconData, setIconData] = useState<IconData>(defaultIconData);
   const [iconOption, setIconOption] = useState<IconOption>(defaultIconOption);
-  const [iconHref, setIconHref] = useState<string>("");
   const svgRef = useRef<SVGSVGElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const linkRef = useRef<HTMLAnchorElement>(null);
   const searchIconAction = (iconData: IconData) => {
     setIconData(iconData);
   };
@@ -41,16 +41,24 @@ export default function FontAwesomePng() {
     renderSvgToCanvas(svg, canvas, iconOption);
   };
   const handleClickDownload = () => {
+    const link = linkRef.current;
     const canvas = canvasRef.current;
 
-    // Canvasの参照が見つからない時は終了
-    if (!canvas) {
+    // LinkとCanvasの参照が見つからない時は終了
+    if (!link || !canvas) {
       console.error("link or canvas is not found.");
       return;
     }
 
+    // もしまだアイコンが選択されていなければ何もしない
+    if (iconData.data === "") {
+      return;
+    }
+
+    // 画像URLを設定
     const imageUrl = canvas.toDataURL("image/png");
-    setIconHref(imageUrl);
+    link.href = imageUrl;
+    link.download = `${iconData.iconName}.png`;
   };
 
   return (
@@ -84,8 +92,8 @@ export default function FontAwesomePng() {
       <OptionForm updateOptionAction={updateOptionAction} />
       <div className={styles.download}>
         <a
-          href={iconHref}
-          download={iconData.iconName}
+          ref={linkRef}
+          href="#"
           onClick={handleClickDownload}
         >ダウンロード（PNG）</a>
       </div>
