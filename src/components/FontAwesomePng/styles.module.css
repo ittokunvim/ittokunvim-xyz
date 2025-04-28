@@ -73,3 +73,41 @@
   background-color: var(--color-background-secondary);
 }
 
+.option {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.option div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.option div label {
+  font-size: 0.8rem;
+  font-weight: normal;
+}
+
+.option div input[type="number"] {
+  font-size: 1rem;
+  width: 64px;
+  padding: 0 0.2rem;
+  border: 1px solid var(--color-border-primary);
+  border-radius: 0.25rem;
+}
+
+.option div span {
+  margin-left: 0.1rem;
+  margin-bottom: 0.25rem;
+}
+
+.option div input[type="color"] {
+  width: 32px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background-color: inherit;
+}
+

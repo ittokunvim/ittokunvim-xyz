@@ -18,10 +18,10 @@ export default function OptionForm({ updateOptionAction }: Props) {
   // 親に渡すオプション値
   const iconOption: IconOption = defaultIconOption;
   // 各フォームの値
-  const [iconOptionWidth, setIconOptionWidth] = useState<number>(256);
-  const [iconOptionHeight, setIconOptionHeight] = useState<number>(256);
-  const [iconOptionColor, setIconOptionColor] = useState<string>("#000000");
-  const [iconOptionBgColor, setIconOptionBgColor] = useState<string>("#ffffff");
+  const [iconOptionWidth, setIconOptionWidth] = useState<number>(iconOption.width);
+  const [iconOptionHeight, setIconOptionHeight] = useState<number>(iconOption.height);
+  const [iconOptionColor, setIconOptionColor] = useState<string>(iconOption.color);
+  const [iconOptionBgColor, setIconOptionBgColor] = useState<string>(iconOption.backgroundColor);
   // 幅を指定するフォームが変更された時の処理
   const handleInputOptionWidth = (value: string) => {
     const width = Number(value);
@@ -94,8 +94,8 @@ export default function OptionForm({ updateOptionAction }: Props) {
 }
 
 export const defaultIconOption: IconOption =  {
-  width: 256,
-  height: 256,
+  width: 128,
+  height: 128,
   color: "#000000",
   backgroundColor: "#ffffff",
 };
