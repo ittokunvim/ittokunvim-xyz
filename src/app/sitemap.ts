@@ -23,6 +23,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/",
     "/nextjs",
     "/music",
+    "/pictures",
   ];
   const docSlugs: string[] = await getDocSlugAll();
   const gameSlugs: string[] = await getGameSlugAll();
