@@ -2,8 +2,14 @@
   {
     "slug": "hello",
     "name": "やっはろー",
-    "description": "ハローワールドを表示するだけのページです。",
+    "description": "ハローワールドを表示するだけのページです",
     "createdAt": "2024-04-19"
+  },
+  {
+    "slug": "pachi-border",
+    "name": "パチンコボーダー計算",
+    "description": "パチンコのボーダーを計算するページです",
+    "createdAt": "2024-06-18"
   },
   {
     "slug": "convert-colorcode",
